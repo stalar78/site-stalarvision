@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Zap, Rocket, Shield } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { heroSection } from '@/data/site';
 
 export function Hero() {
   return (
@@ -17,40 +18,40 @@ export function Hero() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
-              <Zap size={14} className="fill-indigo-400" />
-              <span>Доступен для новых проектов</span>
+              <heroSection.badge.icon size={14} className="fill-indigo-400" />
+              <span>{heroSection.badge.text}</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
-              Разрабатываю <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">цифровые решения</span> для роста вашего бизнеса
+              {heroSection.title.lead}{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+                {heroSection.title.accent}
+              </span>{' '}
+              {heroSection.title.tail}
             </h1>
             
             <p className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
-              Создаю сайты, веб-приложения и системы автоматизации, которые не просто работают, а приносят реальную прибыль и экономят ваше время.
+              {heroSection.description}
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
               <a 
-                href="#contact" 
+                href={heroSection.actions.primary.href}
                 className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]"
               >
-                Обсудить проект
+                {heroSection.actions.primary.label}
                 <ArrowRight size={20} />
               </a>
               <a 
-                href="#services" 
+                href={heroSection.actions.secondary.href}
                 className="px-8 py-4 bg-slate-900 border border-slate-800 hover:border-slate-700 text-white rounded-2xl font-bold transition-all"
               >
-                Посмотреть услуги
+                {heroSection.actions.secondary.label}
               </a>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {[
-                { icon: Rocket, text: 'Быстрый запуск' },
-                { icon: Shield, text: 'Гарантия качества' },
-                { icon: CheckCircle2, text: 'Фокус на KPI' }
-              ].map((item, i) => (
+              {heroSection.highlights.map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-slate-400">
                   <item.icon size={18} className="text-indigo-500" />
                   <span className="text-sm font-medium">{item.text}</span>
@@ -72,25 +73,12 @@ export function Hero() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500" />
                 <div className="w-3 h-3 rounded-full bg-green-500" />
                 <div className="ml-2 px-3 py-1 rounded-md bg-slate-800 text-slate-500 text-[10px] font-mono">
-                  index.tsx — developer-portfolio
+                  {heroSection.codeWindowLabel}
                 </div>
               </div>
               <pre className="p-4 rounded-xl bg-slate-950 font-mono text-sm leading-relaxed overflow-hidden">
                 <code className="text-indigo-400">
-{`const developer = {
-  name: "Alex Dev",
-  focus: "Business Automation",
-  stack: ["React", "Node", "TypeScript"],
-  vision: "Code that solves tasks",
-  
-  solveProblem(task) {
-    return this.createSolution({
-      architecture: "clean",
-      ux: "intuitive",
-      speed: "optimized"
-    });
-  }
-};`}
+{heroSection.codeSnippet}
                 </code>
               </pre>
             </div>
@@ -106,8 +94,12 @@ export function Hero() {
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-500 uppercase tracking-widest">Конверсия</div>
-                  <div className="text-2xl font-bold text-white">+42%</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-widest">
+                    {heroSection.floatingCards.conversion.label}
+                  </div>
+                  <div className="text-2xl font-bold text-white">
+                    {heroSection.floatingCards.conversion.value}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -119,11 +111,15 @@ export function Hero() {
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-500">
-                  <Rocket size={24} />
+                  <heroSection.floatingCards.launch.icon size={24} />
                 </div>
                 <div>
-                  <div className="text-xs text-slate-500 uppercase tracking-widest">Запуск</div>
-                  <div className="text-2xl font-bold text-white">14 дней</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-widest">
+                    {heroSection.floatingCards.launch.label}
+                  </div>
+                  <div className="text-2xl font-bold text-white">
+                    {heroSection.floatingCards.launch.value}
+                  </div>
                 </div>
               </div>
             </motion.div>

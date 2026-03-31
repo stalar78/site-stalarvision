@@ -1,44 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageSquare, Search, PenTool, Code, ShieldCheck, Rocket } from 'lucide-react';
-
-const steps = [
-  {
-    icon: MessageSquare,
-    title: 'Обсуждение задачи',
-    description: 'Вникаю в ваш бизнес, определяем цели проекта, целевую аудиторию и KPI.',
-    color: 'bg-blue-500/10 text-blue-500'
-  },
-  {
-    icon: Search,
-    title: 'Анализ и решение',
-    description: 'Провожу аудит, предлагаю оптимальный стек технологий и архитектуру системы.',
-    color: 'bg-indigo-500/10 text-indigo-500'
-  },
-  {
-    icon: PenTool,
-    title: 'Дизайн и прототип',
-    description: 'Создаю структуру и визуальный прототип, чтобы согласовать UX до написания кода.',
-    color: 'bg-purple-500/10 text-purple-500'
-  },
-  {
-    icon: Code,
-    title: 'Разработка',
-    description: 'Написание чистого, масштабируемого кода с регулярными отчетами о прогрессе.',
-    color: 'bg-pink-500/10 text-pink-500'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'QA и Тестирование',
-    description: 'Проверка на ошибки, оптимизация скорости и тестирование на всех устройствах.',
-    color: 'bg-emerald-500/10 text-emerald-500'
-  },
-  {
-    icon: Rocket,
-    title: 'Запуск и поддержка',
-    description: 'Перенос на боевой сервер, обучение команды и сопровождение после запуска.',
-    color: 'bg-amber-500/10 text-amber-500'
-  }
-];
+import { processSection } from '@/data/site';
 
 export function Process() {
   return (
@@ -51,7 +12,8 @@ export function Process() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
-            Как мы <span className="text-indigo-500">придем к результату</span>
+            {processSection.title.lead}{' '}
+            <span className="text-indigo-500">{processSection.title.accent}</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -60,12 +22,12 @@ export function Process() {
             transition={{ delay: 0.1 }}
             className="text-slate-400 text-lg max-w-2xl mx-auto"
           >
-            Прозрачный процесс разработки — залог успешного проекта. Вы всегда знаете, на каком этапе мы находимся.
+            {processSection.description}
           </motion.p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
+          {processSection.steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

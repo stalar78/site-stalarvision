@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
+import Privacy from './pages/Privacy'
 
 /**
  * Роутер приложения
@@ -18,10 +19,10 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Home />,
   },
-  // Добавляйте новые страницы здесь:
-  // { path: '/about', element: <About /> },
-  // { path: '/privacy', element: <Privacy /> },
-  // { path: '/blog', element: <Blog /> },
+  {
+    path: '/privacy',
+    element: <Privacy />,
+  },
   {
     path: '*',
     element: <NotFound />,

@@ -1,29 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import { useState } from 'react';
-
-const faqs = [
-  {
-    question: 'Сколько стоит разработка сайта?',
-    answer: 'Стоимость зависит от сложности функционала, дизайна и объема работ. Лендинги начинаются от 50к, корпоративные сайты от 120к, веб-приложения — индивидуально после оценки ТЗ.'
-  },
-  {
-    question: 'Какие сроки реализации проекта?',
-    answer: 'Простой лендинг занимает 7–14 дней. Корпоративный сайт — от 3 до 5 недель. Сложные системы и автоматизация могут занимать от 1.5 месяцев.'
-  },
-  {
-    question: 'Работаете ли вы по техническому заданию?',
-    answer: 'Да, я могу работать как по вашему готовому ТЗ, так и помочь составить его с нуля после первичного аудита ваших бизнес-задач.'
-  },
-  {
-    question: 'Оказываете ли поддержку после запуска?',
-    answer: 'Конечно. Я предоставляю гарантию на отсутствие багов и предлагаю варианты ежемесячной технической поддержки и развития проекта.'
-  },
-  {
-    question: 'Можно ли доработать существующий проект?',
-    answer: 'Да, если проект написан на современном стеке (React, Vue, Node.js). Я провожу аудит кода и предлагаю план оптимизации или внедрения новых функций.'
-  }
-];
+import { faqSection } from '@/data/faq';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -32,12 +10,16 @@ export function FAQ() {
     <section id="faq" className="py-24 bg-slate-950">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-4">FAQ</h2>
-          <h3 className="text-4xl font-bold text-white tracking-tight">Ответы на частые вопросы</h3>
+          <h2 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-4">
+            {faqSection.eyebrow}
+          </h2>
+          <h3 className="text-4xl font-bold text-white tracking-tight">
+            {faqSection.title}
+          </h3>
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {faqSection.items.map((faq, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 10 }}
