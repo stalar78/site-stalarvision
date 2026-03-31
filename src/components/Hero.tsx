@@ -4,25 +4,25 @@ import { heroSection } from '@/data/site';
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-slate-950">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-slate-950 pt-20 pb-12 sm:pt-24 sm:pb-16">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-400 sm:mb-6 sm:text-sm">
               <heroSection.badge.icon size={14} className="fill-indigo-400" />
               <span>{heroSection.badge.text}</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6">
+            <h1 className="mb-5 break-words text-4xl font-extrabold leading-[1.05] text-white sm:mb-6 sm:text-5xl sm:leading-tight md:text-7xl">
               {heroSection.title.lead}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                 {heroSection.title.accent}
@@ -30,31 +30,31 @@ export function Hero() {
               {heroSection.title.tail}
             </h1>
             
-            <p className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
+            <p className="mb-8 max-w-2xl break-words text-base leading-relaxed text-slate-400 sm:mb-10 sm:max-w-xl sm:text-lg md:text-xl">
               {heroSection.description}
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="mb-10 flex flex-col gap-3 sm:mb-12 sm:flex-row sm:flex-wrap sm:gap-4">
               <a 
                 href={heroSection.actions.primary.href}
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-6 py-4 font-bold text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all hover:bg-indigo-700 hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] sm:w-auto sm:px-8"
               >
                 {heroSection.actions.primary.label}
                 <ArrowRight size={20} />
               </a>
               <a 
                 href={heroSection.actions.secondary.href}
-                className="px-8 py-4 bg-slate-900 border border-slate-800 hover:border-slate-700 text-white rounded-2xl font-bold transition-all"
+                className="flex w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 px-6 py-4 font-bold text-white transition-all hover:border-slate-700 sm:w-auto sm:px-8"
               >
                 {heroSection.actions.secondary.label}
               </a>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
               {heroSection.highlights.map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-slate-400">
-                  <item.icon size={18} className="text-indigo-500" />
-                  <span className="text-sm font-medium">{item.text}</span>
+                <div key={i} className="flex items-start gap-3 text-slate-400 sm:items-center">
+                  <item.icon size={18} className="mt-0.5 shrink-0 text-indigo-500 sm:mt-0" />
+                  <span className="text-sm font-medium leading-snug">{item.text}</span>
                 </div>
               ))}
             </div>

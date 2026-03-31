@@ -7,13 +7,13 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 bg-slate-950">
+    <section id="faq" className="bg-slate-950 py-20 sm:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="mb-12 text-center sm:mb-16">
           <h2 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-4">
             {faqSection.eyebrow}
           </h2>
-          <h3 className="text-4xl font-bold text-white tracking-tight">
+          <h3 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             {faqSection.title}
           </h3>
         </div>
@@ -30,9 +30,9 @@ export function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-900 transition-colors"
+                className="flex w-full items-start justify-between gap-4 p-5 text-left transition-colors hover:bg-slate-900 sm:p-6"
               >
-                <span className="font-bold text-white pr-8">{faq.question}</span>
+                <span className="pr-2 text-base font-bold leading-snug text-white sm:pr-8 sm:text-lg">{faq.question}</span>
                 <div className="flex-shrink-0 w-8 h-8 bg-indigo-500/10 rounded-lg flex items-center justify-center text-indigo-500 group">
                   {openIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                 </div>
@@ -46,7 +46,7 @@ export function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-slate-800/50 pt-4">
+                    <div className="border-t border-slate-800/50 px-5 pb-5 pt-4 text-sm leading-relaxed text-slate-400 sm:px-6 sm:pb-6">
                       {faq.answer}
                     </div>
                   </motion.div>

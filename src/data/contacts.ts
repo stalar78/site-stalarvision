@@ -73,7 +73,7 @@ export const contactSection = {
     accent: 'Начнём с короткого разбора',
   },
   description:
-    `Быстрее всего написать в Telegram или на email. Достаточно пары предложений о задаче, текущем состоянии проекта и желаемом результате, чтобы понять следующий шаг.`,
+    `Быстрее всего написать мне в Telegram или на email. Достаточно пары предложений о задаче, текущем состоянии проекта и желаемом результате, чтобы понять следующий шаг.`,
   actions: {
     primary: {
       label: profile.ctas.writeTelegram,
@@ -108,7 +108,7 @@ export const contactSection = {
   },
   form: {
     note:
-      `Форма ниже пока демонстрационная. Если задача уже актуальна, лучше сразу написать в Telegram ${profile.contacts.telegram.value} или на email ${profile.contacts.email.value}.`,
+      `Форма ниже пока демонстрационная. Если задача уже актуальна, лучше сразу написать мне в Telegram ${profile.contacts.telegram.value} или на email ${profile.contacts.email.value}.`,
     nameLabel: 'Как вас зовут?',
     namePlaceholder: 'Ваше имя',
     contactLabel: 'Контакт (Telegram/Email)',
@@ -124,7 +124,7 @@ export const contactSection = {
     projectPlaceholder: 'Что нужно сделать, что уже есть сейчас и какой результат нужен после первого этапа?',
     submitLabel: 'Отправка появится позже',
     legalNote:
-      `Для реального старта используйте ${profile.contacts.telegram.value} или ${profile.contacts.email.value}.`,
+      `Для реального старта лучше сразу написать мне в ${profile.contacts.telegram.value} или ${profile.contacts.email.value}.`,
   },
 };
 

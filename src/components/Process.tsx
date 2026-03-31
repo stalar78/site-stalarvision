@@ -3,14 +3,14 @@ import { processSection } from '@/data/site';
 
 export function Process() {
   return (
-    <section id="process" className="py-24 bg-slate-950 relative overflow-hidden">
+    <section id="process" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="mb-12 text-center sm:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
+            className="mb-5 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl"
           >
             {processSection.title.lead}{' '}
             <span className="text-indigo-500">{processSection.title.accent}</span>
@@ -20,13 +20,13 @@ export function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto"
+            className="mx-auto max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
           >
             {processSection.description}
           </motion.p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {processSection.steps.map((step, index) => (
             <motion.div
               key={index}
@@ -34,9 +34,9 @@ export function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative p-8 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-indigo-500/20 transition-all group"
+              className="group relative rounded-3xl border border-white/5 bg-slate-900/40 p-6 transition-all hover:border-indigo-500/20 sm:p-8"
             >
-              <div className="absolute top-8 right-8 text-6xl font-bold text-white/5 group-hover:text-white/10 transition-colors">
+              <div className="absolute right-6 top-6 text-5xl font-bold text-white/5 transition-colors group-hover:text-white/10 sm:right-8 sm:top-8 sm:text-6xl">
                 0{index + 1}
               </div>
               
@@ -44,7 +44,7 @@ export function Process() {
                 <step.icon size={28} />
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+              <h3 className="mb-3 text-lg font-bold text-white sm:text-xl">{step.title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed relative z-10">
                 {step.description}
               </p>

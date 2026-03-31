@@ -40,17 +40,17 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30 selection:text-indigo-200">
       <Navbar />
-      <main className="pt-32 pb-24">
+      <main className="pt-28 pb-20 sm:pt-32 sm:pb-24">
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+          <div className="mb-10 sm:mb-12">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-400 sm:mb-6 sm:text-sm">
               <ShieldCheck size={14} />
               <span>{privacyPage.hero.eyebrow}</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+            <h1 className="mb-5 text-3xl font-extrabold leading-tight text-white sm:mb-6 sm:text-4xl md:text-6xl">
               {privacyPage.hero.title}
             </h1>
-            <p className="text-lg text-slate-400 max-w-3xl leading-relaxed">
+            <p className="max-w-3xl text-base leading-relaxed text-slate-400 sm:text-lg">
               {privacyPage.hero.description}
             </p>
           </div>
@@ -60,13 +60,13 @@ export default function Privacy() {
               <section
                 key={section.id}
                 id={section.id}
-                className="rounded-3xl border border-slate-800 bg-slate-900/40 p-8"
+                className="rounded-3xl border border-slate-800 bg-slate-900/40 p-6 sm:p-8"
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
                     {index % 2 === 0 ? <FileText size={20} /> : <ShieldCheck size={20} />}
                   </div>
-                  <h2 className="text-2xl font-bold text-white">{section.title}</h2>
+                  <h2 className="text-xl font-bold text-white sm:text-2xl">{section.title}</h2>
                 </div>
 
                 {section.paragraphs && (
@@ -92,16 +92,16 @@ export default function Privacy() {
 
             <section
               id={privacyPage.requisites.id}
-              className="rounded-3xl border border-slate-800 bg-slate-900/40 p-8"
+              className="rounded-3xl border border-slate-800 bg-slate-900/40 p-6 sm:p-8"
             >
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
                   <Building2 size={20} />
                 </div>
-                <h2 className="text-2xl font-bold text-white">{privacyPage.requisites.title}</h2>
+                <h2 className="text-xl font-bold text-white sm:text-2xl">{privacyPage.requisites.title}</h2>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                 {privacyPage.requisites.items.map((item) => (
                   <div
                     key={`${item.label}-${item.value}`}
@@ -127,11 +127,11 @@ export default function Privacy() {
               </div>
             </section>
 
-            <section className="rounded-3xl border border-indigo-500/20 bg-indigo-500/10 p-8">
-              <div className="flex flex-wrap items-center gap-4 mb-4">
+            <section className="rounded-3xl border border-indigo-500/20 bg-indigo-500/10 p-6 sm:p-8">
+              <div className="mb-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <a
                   href={profile.contacts.email.href}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-slate-950 font-bold hover:opacity-90 transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 font-bold text-slate-950 transition hover:opacity-90"
                 >
                   <Mail size={18} />
                   <span>Написать на email</span>
@@ -140,7 +140,7 @@ export default function Privacy() {
                   href={profile.contacts.telegram.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-white/15 text-white font-bold hover:border-white/30 transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 px-5 py-3 font-bold text-white transition hover:border-white/30"
                 >
                   <Send size={18} />
                   <span>Написать в Telegram</span>
