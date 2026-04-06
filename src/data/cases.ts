@@ -19,8 +19,7 @@ export const casesSection = {
       title: 'CRM для агентства недвижимости',
       description:
         'Система автоматизации продаж с интеграцией телефонии, мессенджеров и автоматическим расчетом комиссий.',
-      image:
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+      image: '/uploads/cases/case-01-crm-real-estate.jpg',
       tags: ['Next.js', 'PostgreSQL', 'Prisma', 'Tailwind'],
       link: '',
       github: '',
@@ -31,8 +30,7 @@ export const casesSection = {
       title: 'EdTech Платформа обучения',
       description:
         'Личный кабинет студента, система тестирования, видеоплеер с защитой контента и аналитика прогресса.',
-      image:
-        'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&q=80',
+      image: '/uploads/cases/case-02-edtech-platform.jpg',
       tags: ['React', 'Node.js', 'Express', 'MongoDB'],
       link: '',
       github: '',
@@ -43,8 +41,7 @@ export const casesSection = {
       title: 'Landing Page для FinTech',
       description:
         'Высококонверсионный одностраничный сайт с калькулятором доходности и сложными SVG-анимациями.',
-      image:
-        'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+      image: '/uploads/cases/case-03-fintech-landing.jpg',
       tags: ['React', 'Framer Motion', 'Tailwind'],
       link: '',
       github: '',

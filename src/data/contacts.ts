@@ -108,7 +108,10 @@ export const contactSection = {
   },
   form: {
     note:
-      `Форма ниже пока демонстрационная. Если задача уже актуальна, лучше сразу написать мне в Telegram ${profile.contacts.telegram.value} или на email ${profile.contacts.email.value}.`,
+      'Можно отправить заявку прямо через форму или написать мне напрямую в Telegram и на email, если удобнее обсудить задачу без ожидания.',
+    accessKey: '7ced4029-36f8-447a-bf49-6055fd82d36e',
+    endpoint: 'https://api.web3forms.com/submit',
+    subject: `Заявка с сайта ${profile.brand.fullName}`,
     nameLabel: 'Как вас зовут?',
     namePlaceholder: 'Ваше имя',
     contactLabel: 'Контакт (Telegram/Email)',
@@ -122,9 +125,17 @@ export const contactSection = {
     ],
     projectLabel: 'О проекте',
     projectPlaceholder: 'Что нужно сделать, что уже есть сейчас и какой результат нужен после первого этапа?',
-    submitLabel: 'Отправка появится позже',
+    submitLabel: 'Отправить заявку',
+    loadingLabel: 'Отправка...',
+    successMessage: 'Заявка отправлена. Я посмотрю описание задачи и вернусь с ответом в ближайшее время.',
+    errorMessage: 'Не получилось отправить форму. Попробуйте ещё раз или напишите мне напрямую в Telegram или на email.',
+    validationErrors: {
+      name: 'Укажите имя, чтобы я понимал, как к вам обращаться.',
+      contact: 'Добавьте контакт для ответа: Telegram или email.',
+      project: 'Коротко опишите задачу, чтобы я понял следующий шаг.',
+    },
     legalNote:
-      `Для реального старта лучше сразу написать мне в ${profile.contacts.telegram.value} или ${profile.contacts.email.value}.`,
+      `Заявка отправляется через Web3Forms. Если удобнее, можно сразу написать мне в ${profile.contacts.telegram.value} или ${profile.contacts.email.value}.`,
   },
 };
 
