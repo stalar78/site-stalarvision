@@ -27,31 +27,31 @@ export function Contact() {
 
   const handleChange =
     (field: keyof FormValues) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-      const nextValue = event.target.value;
+      (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const nextValue = event.target.value;
 
-      setFormValues((current) => ({
-        ...current,
-        [field]: nextValue,
-      }));
+        setFormValues((current) => ({
+          ...current,
+          [field]: nextValue,
+        }));
 
-      if (field === 'name' || field === 'contact' || field === 'project') {
-        setFormErrors((current) => {
-          if (!current[field]) {
-            return current;
-          }
+        if (field === 'name' || field === 'contact' || field === 'project') {
+          setFormErrors((current) => {
+            if (!current[field]) {
+              return current;
+            }
 
-          const nextErrors = { ...current };
-          delete nextErrors[field];
-          return nextErrors;
-        });
-      }
+            const nextErrors = { ...current };
+            delete nextErrors[field];
+            return nextErrors;
+          });
+        }
 
-      if (submitState === 'success' || submitState === 'error') {
-        setSubmitState('idle');
-        setSubmitMessage('');
-      }
-    };
+        if (submitState === 'success' || submitState === 'error') {
+          setSubmitState('idle');
+          setSubmitMessage('');
+        }
+      };
 
   const validateForm = () => {
     const nextErrors: FormErrors = {};
@@ -138,7 +138,7 @@ export function Contact() {
               {contactSection.description}
             </p>
 
-            <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
               <a
                 href={contactSection.actions.primary.href}
                 target="_blank"
@@ -154,6 +154,10 @@ export function Contact() {
                 {contactSection.actions.secondary.label}
               </a>
             </div>
+
+            <p className="mb-10 max-w-xl text-sm leading-relaxed text-slate-500 sm:mb-12">
+              {contactSection.actions.note}
+            </p>
 
             <div className="mb-10 space-y-5 sm:mb-12 sm:space-y-6">
               {contactMethods.map((method) => (
@@ -226,11 +230,10 @@ export function Contact() {
               </p>
               {submitMessage ? (
                 <div
-                  className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${
-                    submitState === 'success'
+                  className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${submitState === 'success'
                       ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
                       : 'border-rose-500/30 bg-rose-500/10 text-rose-100'
-                  }`}
+                    }`}
                 >
                   {submitMessage}
                 </div>
@@ -240,8 +243,8 @@ export function Contact() {
                   <label className="text-sm font-medium text-slate-400 ml-1">
                     {contactSection.form.nameLabel}
                   </label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder={contactSection.form.namePlaceholder}
                     value={formValues.name}
                     onChange={handleChange('name')}
@@ -256,8 +259,8 @@ export function Contact() {
                   <label className="text-sm font-medium text-slate-400 ml-1">
                     {contactSection.form.contactLabel}
                   </label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder={contactSection.form.contactPlaceholder}
                     value={formValues.contact}
                     onChange={handleChange('contact')}
@@ -282,12 +285,15 @@ export function Contact() {
                     <option key={option}>{option}</option>
                   ))}
                 </select>
+                <p className="ml-1 text-xs leading-relaxed text-slate-500">
+                  {contactSection.form.projectTypeHelp}
+                </p>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-400 ml-1">
                   {contactSection.form.projectLabel}
                 </label>
-                <textarea 
+                <textarea
                   rows={4}
                   placeholder={contactSection.form.projectPlaceholder}
                   value={formValues.project}

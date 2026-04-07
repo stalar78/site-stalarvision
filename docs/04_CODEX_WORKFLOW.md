@@ -1,89 +1,50 @@
 # Codex Workflow
 
-## Purpose
+## Роли
 
-This document explains how future Codex tasks should be run in this repo.
+### GPT
+GPT — архитектор и руководитель проекта.
 
-## Required read order before editing
+Задачи GPT:
+- анализировать текущее состояние проекта;
+- определять следующий логичный шаг;
+- писать точный промпт для Codex/Copilot;
+- делать ревью результата;
+- следить за целостностью проекта;
+- следить за актуальностью docs;
+- при необходимости готовить полный новый текст для docs-файлов.
 
-For any non-trivial task, read:
+### Codex / Copilot
+Codex и Copilot — исполнители.
 
-1. `README.md`
-2. `docs/00_PROJECT_CONTEXT.md`
-3. `docs/01_PRODUCT_REQUIREMENTS.md`
-4. `docs/02_CONTENT_SOURCE_OF_TRUTH.md`
-5. `docs/03_TECH_GUIDELINES.md`
-6. the files directly related to the task
+Их задача:
+- вносить изменения по точному промпту;
+- не переизобретать проект;
+- не отклоняться в большие лишние переделки;
+- не придумывать бизнес-факты.
 
-## Default working pattern
+## Формат работы
 
-1. inspect the relevant files first
-2. understand current behavior before changing it
-3. make the smallest coherent change that solves the task
-4. avoid unrelated refactors
-5. summarize edits and remaining gaps at the end
+Базовый цикл:
+1. GPT анализирует проект и текущее состояние.
+2. GPT определяет следующий логичный шаг.
+3. GPT пишет готовый промпт для Codex/Copilot.
+4. Codex/Copilot выполняет задачу.
+5. Пользователь присылает полный результат.
+6. GPT делает ревью.
+7. При необходимости GPT обновляет docs и готовит следующий шаг.
 
-## What Codex should preserve
+## Важные правила
 
-- current routing unless the task explicitly changes routing
-- existing component structure unless a refactor is part of scope
-- current visual language unless UI changes are explicitly requested
-- truthfulness of content
+- Все промпты для Codex/Copilot писать на русском языке.
+- Названия файлов, путей, компонентов, переменных и технических сущностей сохранять в той форме, в которой они используются в проекте.
+- Если для корректного ревью не хватает контекста, GPT должен прямо сказать, каких файлов не хватает и зачем.
+- Пользователь обычно присылает полные обновлённые файлы, а не diff, если отдельно не был запрошен diff.
 
-## What Codex must not do
+## Что запрещено
 
-- invent business facts
-- invent testimonials or clients
-- invent metrics or case-study results
-- silently replace the site positioning
-- add libraries without clear technical need
-- spread content changes across many files when one source-of-truth file would be better
-
-## Good task size
-
-Good tasks:
-
-- create `src/data/*` files and move repeated content into them
-- replace placeholder contacts with approved values from the owner
-- add SEO metadata for the current routes
-- convert template portfolio cards into clearly labeled representative cases
-
-Bad tasks:
-
-- make the whole site production-ready in one pass
-- redesign everything
-- rewrite all components without a content plan
-
-## Review expectations
-
-Every completed task should report:
-
-- created files
-- updated files
-- what changed behaviorally
-- assumptions made
-- anything still needed for local run or production readiness
-
-## Safe implementation checklist
-
-Before editing:
-
-- inspect target files
-- confirm whether data is factual or placeholder
-- confirm whether the repo already has a pattern to follow
-
-Before finishing:
-
-- check for broken imports
-- check for routing regressions
-- check whether a new dependency was truly necessary
-- note missing follow-up work if verification is blocked
-
-## Recommended execution order for this repo
-
-1. stabilize technical baseline
-2. centralize content
-3. replace placeholder/fake trust signals
-4. improve conversion structure
-5. add production metadata and policy pages
-6. connect real contact flow
+Нельзя:
+- хаотично менять архитектуру;
+- придумывать бизнес-контент;
+- терять continuity проекта;
+- отвечать так, будто проект надо делать с нуля, если это не так.

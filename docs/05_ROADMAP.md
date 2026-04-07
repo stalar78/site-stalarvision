@@ -1,97 +1,87 @@
 # Roadmap
 
-## Phase 1: Foundation
+## Что уже сделано
 
-Goal: make the current template repo technically usable and easy to extend.
+### Этап 1. Базовая документация и проектная рамка
+Сделано:
+- базовые docs;
+- README;
+- фиксация правил проекта;
+- определение позиционирования.
 
-Tasks:
+### Этап 2. Централизация контента
+Сделано:
+- вынос контента в `src/data/*`;
+- разделение смыслов и UI.
 
-- create and maintain a valid `package.json`
-- commit a lockfile after first install
-- document project rules in `docs/`
-- keep runtime source of truth inside `src/`
-- resolve obvious configuration mismatches
+### Этап 3. Credibility cleanup
+Сделано:
+- убраны фейковые trust signals;
+- убраны ложные отзывы;
+- нейтрализованы неподтверждённые метрики;
+- placeholder-контент приведён к честному виду.
 
-Outcome:
+### Этап 4. Реальный профиль владельца
+Сделано:
+- реальные бренд и имя;
+- юридическая информация;
+- реальные контакты;
+- source of truth через `profile.ts`.
 
-A stable baseline for future Codex work.
+### Этап 5. Launch-ready инфраструктура
+Сделано:
+- публикация сайта;
+- VPS / nginx;
+- домен;
+- SSL;
+- privacy/legal page;
+- 404;
+- рабочая форма через Web3Forms.
 
-## Phase 2: Content architecture
+### Этап 6. Mobile polish
+Сделано:
+- улучшена мобильная адаптация;
+- исправлены проблемные блоки;
+- улучшена секция примеров проектов;
+- добавлен fallback для картинок;
+- подача текста частично переведена в первое лицо.
 
-Goal: stop treating content as scattered JSX.
+### Этап 7. Post-launch polish
+Сделано:
+- подключён и отполирован рабочий contact flow через Web3Forms;
+- privacy/legal тексты приведены к реальной работе формы и прямым контактам;
+- добавлен телефон в централизованные контакты и реквизиты;
+- сделан SEO/share polish:
+  - canonical,
+  - Open Graph meta,
+  - Twitter meta,
+  - `robots.txt`,
+  - `sitemap.xml`;
+- верхнеуровневое positioning, CTA и homepage copy уточнены под сценарии: новый проект / доработка / аудит / технический разбор;
+- секция услуг усилена под аудит и технический разбор текущего проекта;
+- секция representative examples переписана как честные примеры типовых сценариев, а не публичные клиентские кейсы;
+- FAQ уточнён под старт без ТЗ, аудит, доработку существующего проекта и первый этап работ.
 
-Tasks:
+## Текущий статус
 
-- extract repeated copy into `src/data/*`
-- centralize contacts and links
-- centralize services, FAQ items, and case cards
-- separate UI from editable content
+Проект находится на стадии:
+**рабочая публичная версия + точечная post-launch полировка**
 
-Outcome:
+## Что дальше
 
-Safer future edits and less copy drift.
+Следующие этапы не должны быть хаотичными.
 
-## Phase 3: Credibility cleanup
+Приоритетные варианты дальнейшего развития:
+1. реальные кейсы / анонимизированные проекты;
+2. дальнейшая точечная content-polish по подтверждённым данным владельца;
+3. при необходимости — более зрелая логика обработки заявок;
+4. дополнительный legal/privacy слой только при появлении реальной потребности;
+5. дальнейшие точечные улучшения контента и UX без редизайна.
 
-Goal: remove template content that could misrepresent the real business.
+## Что не является приоритетом прямо сейчас
 
-Tasks:
-
-- replace placeholder contact details
-- remove fake metrics from the hero
-- replace or relabel template portfolio items
-- remove placeholder testimonials or swap them for real trust signals
-
-Outcome:
-
-The site becomes honest and commercially credible.
-
-## Phase 4: Conversion improvements
-
-Goal: make the site better at starting real conversations.
-
-Tasks:
-
-- improve CTA wording
-- explain next steps after contact
-- refine FAQ around timelines, pricing logic, and support
-- add stronger trust/process framing
-
-Outcome:
-
-Visitors better understand how to work with the developer.
-
-## Phase 5: Production readiness
-
-Goal: prepare for public launch.
-
-Tasks:
-
-- add metadata and social sharing basics
-- verify responsive behavior
-- clean broken or placeholder links
-- add privacy/policy pages if needed
-- validate all approved content
-- confirm local build succeeds
-
-Outcome:
-
-A launchable first version.
-
-## Phase 6: Growth
-
-Goal: prepare the project for expansion after launch.
-
-Possible work:
-
-- service detail pages
-- real case study pages
-- blog/articles
-- analytics
-- CRM/contact form integration
-- multilingual support
-- content management options
-
-Outcome:
-
-The site can evolve beyond a single landing page without a structural rewrite.
+Пока не приоритет:
+- большая админка,
+- сложная CMS,
+- тяжёлый backend для сайта,
+- большой редизайн.

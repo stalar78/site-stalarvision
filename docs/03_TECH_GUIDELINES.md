@@ -1,126 +1,115 @@
-# Technical Guidelines
+# Tech Guidelines
 
-## Purpose
+## Текущий стек
 
-This document defines how to evolve the project safely and predictably.
-
-## Current stack snapshot
-
-- Vite
+Проект построен на:
 - React
 - TypeScript
-- Tailwind CSS v4 via `@tailwindcss/vite`
+- Vite
+- Tailwind CSS
 - React Router
 - Framer Motion
-- Lucide React
-- small shadcn-style UI primitives in `src/components/ui`
+- Lucide Icons
 
-## Runtime source of truth
+## Архитектурный принцип
 
-Use these directories as authoritative for the running app:
+Проект не должен усложняться раньше времени.
 
-- `src/`
-- `public/`
-- `docs/`
-- `vite.config.ts`
-- `tsconfig.json`
-- `tsconfig.node.json`
-- `components.json`
+Предпочтение:
+- простым data-файлам,
+- понятным компонентам,
+- предсказуемой структуре,
+- минимальному количеству абстракций.
 
-Current repo also contains template-era duplicates and leftovers:
+## Что считается нормой
 
-- root `components/`
-- root `lib/`
-- `template/`
+Нормально:
+- централизовать контент в `src/data/*`,
+- держать компоненты простыми,
+- использовать небольшие локальные состояния там, где это реально нужно,
+- делать точечные улучшения,
+- развивать проект по шагам.
 
-Do not build new runtime features on those legacy copies. Prefer `src/` only.
+## Что не приветствуется
 
-## Primary engineering goals
+Не приветствуется:
+- бессмысленный рефакторинг,
+- переусложнённая архитектура,
+- лишние слои абстракции,
+- новые библиотеки без явной пользы,
+- большие переписывания “на всякий случай”.
 
-- keep the baseline runnable
-- keep edits localized and predictable
-- reduce template drift
-- make future content refactors easier
-- avoid unnecessary dependencies
+## Текущий source of truth
 
-## Rules
+Для текущей production-версии уже важно держать данные централизованно:
+- `src/data/profile.ts` — бренд, владелец, контакты, CTA, production URL и базовые SEO/share-поля;
+- `src/data/site.ts` — тексты и структура homepage, включая верхнеуровневое positioning и CTA;
+- `src/data/services.ts` — секция услуг и формулировки по новому проекту / доработке / аудиту;
+- `src/data/contacts.ts` — contact-секция, contact CTA и настройки формы Web3Forms;
+- `src/data/cases.ts` — representative-примеры сценариев и честная рамка блока примеров;
+- `src/data/faq.ts` — FAQ-копирайт и ответы на типичные вопросы перед обращением;
+- `src/data/legal.ts` — privacy/legal copy и реквизиты;
+- `src/lib/meta.ts` — runtime-обновление meta для маршрутов.
 
-### 1. Prefer simple architecture
+Если меняются домен, OG image, контактные данные или верхнеуровневые тексты секций, правка должна идти через source of truth, а не через разрозненные значения в JSX.
 
-Do not add abstractions unless they remove clear pain.
+## Маршруты
 
-### 2. Preserve routing shape
+Сайт работает как SPA на React Router.
+При публикации на сервере необходимо учитывать корректную работу:
+- `/`
+- `/privacy`
+- `404`
 
-Current routing is intentionally small. Do not add routes casually.
+Сервер должен быть настроен так, чтобы клиентские маршруты не ломались при прямом открытии URL.
 
-### 3. Move toward data-driven content
+## Статические файлы
 
-The current site stores a lot of content directly inside JSX. That is acceptable temporarily, but future iterations should move repeated/static content into dedicated data files.
+Статические файлы и production-friendly assets должны жить в `public/`.
 
-Recommended future direction:
+Для сайта уже важно использовать локальные изображения там, где мобильная стабильность критична.
 
-- `src/data/site.ts`
-- `src/data/services.ts`
-- `src/data/cases.ts`
-- `src/data/faq.ts`
-- `src/data/contacts.ts`
+Также в `public/` уже лежат:
+- `robots.txt`;
+- `sitemap.xml`;
+- favicon;
+- локальные изображения для representative examples и sharing assets.
 
-### 4. Keep components focused
+## Форма
 
-Each section component should have one clear responsibility.
+Форма контакта подключена через Web3Forms.
+Это осознанное решение текущего этапа:
+- без собственного backend,
+- с email-доставкой,
+- с минимальной сложностью,
+- с понятной клиентской логикой.
 
-### 5. Keep styling consistent
+Privacy/legal тексты должны оставаться согласованными с этим фактом.
 
-Preserve the current visual language unless a task explicitly changes design:
+## SEO / sharing
 
-- dark background
-- rounded panels/cards
-- subtle borders
-- indigo-led accent palette
-- strong spacing rhythm
+В проекте уже есть базовый production-ready SEO/share слой:
+- runtime meta через `src/lib/meta.ts`;
+- canonical URL;
+- Open Graph meta;
+- Twitter meta;
+- `robots.txt`;
+- `sitemap.xml`.
 
-### 6. Keep animation restrained
+Не нужно откатывать это обратно к одному только статическому `index.html`.
 
-Framer Motion should support hierarchy and polish, not distract from content.
+## Mobile first sanity
 
-### 7. Use semantic HTML
+Любые изменения нужно проверять:
+- на телефоне,
+- на промежуточной ширине,
+- на desktop.
 
-Prefer proper sections, headings, links, labels, and buttons.
-
-### 8. Protect accessibility baseline
-
-Check for:
-
-- focus visibility
-- readable contrast
-- meaningful labels
-- alt text when images are informative
-
-### 9. Add dependencies only when clearly justified
-
-New libraries should be added only if:
-
-- the codebase already requires them
-- or they solve a concrete problem more cleanly than local code
-
-### 10. Do not fake functionality
-
-If a form or CTA is visual-only, it must be obvious in implementation and documentation until real behavior exists.
-
-## Repo-specific notes
-
-- `components.json` is configured for Tailwind v4 and uses `src/index.css` as the styling entrypoint.
-- Path alias `@/*` points to `src/*`.
-- `App.tsx` currently acts as an optional layout stub and is not used by the current route definition.
-- The current site imports remote demo images in some sections. Production launch should replace them with approved assets or remove them.
-
-## Recommended quality bar before launch
-
-- dependencies installed from a committed `package.json`
-- lockfile generated and committed
-- successful local build
-- real metadata added
-- placeholder contacts removed
-- placeholder testimonials removed
-- representative cases labeled honestly
-- broken external links removed
+Особенно внимательно:
+- Hero
+- About stats
+- Services cards
+- Portfolio cards
+- Tech Stack
+- Contact form
+- Footer

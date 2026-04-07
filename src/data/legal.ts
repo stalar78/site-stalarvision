@@ -31,7 +31,7 @@ export const privacyPage = {
       title: 'Оператор и контакты',
       paragraphs: [
         `Оператором персональных данных в рамках работы сайта выступает ${profile.owner.legalName}.`,
-        `По вопросам, связанным с обработкой персональных данных и обращениями через сайт, можно написать на ${profile.contacts.email.value} или в Telegram ${profile.contacts.telegram.value}.`,
+        `По вопросам, связанным с обработкой персональных данных и обращениями через сайт, можно написать на ${profile.contacts.email.value}, в Telegram ${profile.contacts.telegram.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
       ],
     },
     {
@@ -57,8 +57,9 @@ export const privacyPage = {
       id: 'processing',
       title: 'Как происходит обработка',
       paragraphs: [
-        'На текущей версии сайта форма обратной связи имеет демонстрационный характер и не отправляет данные автоматически через сайт.',
-        'Персональные данные поступают владельцу сайта, когда пользователь связывается напрямую по указанным контактам или передаёт информацию для обсуждения проекта.',
+        'На сайте доступна форма обращения, через которую пользователь может передать данные заявки для обсуждения проекта.',
+        'Отправка формы происходит через сервис Web3Forms и используется только для передачи данных обращения владельцу сайта.',
+        'Персональные данные также могут поступать владельцу сайта, когда пользователь связывается напрямую по указанным контактам.',
         'Данные используются только в объёме, необходимом для деловой коммуникации и подготовки сотрудничества, и не передаются третьим лицам без законных оснований.',
       ],
     },
@@ -78,6 +79,7 @@ export const privacyPage = {
       { label: 'Владелец сайта', value: profile.owner.name },
       { label: 'Юридическая форма', value: profile.owner.legalName },
       { label: 'ИНН', value: profile.owner.taxId },
+      { label: 'Телефон', value: profile.contacts.phone.value, href: profile.contacts.phone.href },
       { label: 'Email', value: profile.contacts.email.value, href: profile.contacts.email.href },
       { label: 'Telegram', value: profile.contacts.telegram.value, href: profile.contacts.telegram.href },
       { label: 'GitHub', value: profile.contacts.github.value, href: profile.contacts.github.href },

@@ -1,8 +1,8 @@
 # STALAR Site
 
-Personal developer service website built with React, TypeScript, and Vite.
+Published commercial website for an independent developer brand built with React, TypeScript, and Vite.
 
-The current codebase is a visual template baseline that will be iteratively turned into a real commercial website for an individual developer, not an agency.
+The project represents one specialist working directly with clients under the Stalar Vision brand. The site is already live and is now maintained in a post-launch polish mode, not in an early template phase.
 
 ## Stack
 
@@ -33,7 +33,10 @@ npm run preview
 - Runtime source of truth is `src/`.
 - Static assets live in `public/`.
 - Project operating rules and future development guidance live in `docs/`.
-- Current homepage content still contains template and placeholder material and should not be treated as approved business copy.
+- Core profile, contact, legal, and SEO/share data are centralized in `src/data/*`.
+- The site already has a working contact form via Web3Forms, a privacy/legal page, a 404 page, and production SEO/share files such as `robots.txt` and `sitemap.xml`.
+- Current homepage copy, services, contact flow, representative examples, and FAQ already support three main entry scenarios: a new project, improvement of an existing solution, or an audit/technical review.
+- Representative project examples are intentionally not presented as confirmed public client cases.
 
 ## Documentation
 
@@ -44,6 +47,7 @@ npm run preview
 - `docs/04_CODEX_WORKFLOW.md`
 - `docs/05_ROADMAP.md`
 - `docs/06_PROMPT_TEMPLATES.md`
+- `docs/07_CHAT_HANDOFF.md`
 
 ## Important Constraint
 

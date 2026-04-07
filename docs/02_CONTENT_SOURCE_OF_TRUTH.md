@@ -1,150 +1,70 @@
 # Content Source of Truth
 
-## Purpose
+## Главный принцип
 
-This document defines what counts as authoritative content for the website and what must be treated as placeholder material.
+Источник правды для проекта — не случайный текст в JSX, а централизованные данные и утверждённые проектные документы.
 
-## Core rule
+## Что считать источником правды
 
-Do not invent facts.
+Приоритет источников:
 
-If something is unknown, it must be one of the following:
+1. Подтверждённые данные владельца проекта
+2. Файлы `src/data/*`
+3. Актуальные `docs/*`
+4. Текущая рабочая реализация компонентов
+5. Временные визуальные placeholder-элементы, если они ещё не заменены
 
-- omitted
-- phrased neutrally
-- marked with a clear TODO
+## Основные data-файлы
 
-## Trust hierarchy
+Ключевые данные сайта должны жить в:
+- `src/data/profile.ts`
+- `src/data/site.ts`
+- `src/data/services.ts`
+- `src/data/contacts.ts`
+- `src/data/cases.ts`
+- `src/data/legal.ts`
+- при необходимости других специализированных data-файлах
 
-When information conflicts, use this order:
+## Что должно храниться централизованно
 
-1. direct owner instruction in chat
-2. approved project documentation in `docs/`
-3. source materials supplied by the owner
-4. current codebase content
-5. generic template text
+Централизованно должны храниться:
+- бренд,
+- имя владельца,
+- позиционирование,
+- юридическая информация,
+- CTA,
+- контакты,
+- тексты секций,
+- услуги,
+- FAQ,
+- примеры проектов,
+- privacy/legal copy,
+- SEO-данные.
 
-## Approved fact categories
+## Особое правило по контенту
 
-### Identity
+Если данные не подтверждены владельцем проекта, их нельзя маскировать под факт.
 
-Needs explicit owner confirmation:
+Это особенно касается:
+- отзывов,
+- кейсов,
+- клиентов,
+- результатов,
+- цен,
+- сроков,
+- статистики,
+- метрик.
 
-- public name or brand name
-- exact title / positioning statement
-- location if it should appear publicly
-- work format such as remote or international
+## Примеры проектов
 
-### Contacts
+Секция примеров проектов не должна выдавать иллюстративные карточки за реальные клиентские кейсы.
 
-Needs explicit owner confirmation:
+Она должна оставаться честной по рамке:
+- это примеры формата подачи,
+- а не доказанные публичные кейсы.
 
-- email
-- Telegram
-- GitHub
-- LinkedIn
-- any booking or messenger links
+## Изображения
 
-### Services
+Для production-версии предпочтительны локальные изображения из `public/`, а не внешние hotlink-ссылки.
 
-Needs confirmation before being presented as final:
-
-- exact service list
-- minimum scope
-- whether design is included
-- whether backend work is included
-- whether support/maintenance is included
-
-### Experience and credibility
-
-Needs confirmation before using exact statements:
-
-- years of experience
-- number of projects
-- performance metrics
-- niche specialization claims
-- named industries
-
-### Cases
-
-Allowed:
-
-- real public work
-- anonymized real work
-- owner-approved representative examples
-
-Not allowed:
-
-- fake clients
-- fake numbers
-- fake links
-- template cases presented as real commercial work
-
-### Testimonials
-
-Allowed only if based on real feedback approved by the owner.
-
-Not allowed:
-
-- fabricated quotes
-- invented names, roles, or companies
-
-### Pricing
-
-Safe generic phrasing:
-
-- project-based pricing
-- scope affects cost
-- timeline and requirements affect estimate
-
-Unsafe without approval:
-
-- exact rates
-- fixed package pricing
-- discounts
-- urgency offers
-
-## Current content status in this repo
-
-The current UI should be treated as unapproved template content in several places:
-
-- hero includes business-result style claims and sample metrics
-- portfolio uses representative template projects
-- testimonials are placeholder entries
-- contact details are placeholder values
-
-That content may be useful for layout and structure, but it is not the business source of truth.
-
-## Placeholder policy
-
-Placeholders are allowed only when they are easy to spot and easy to replace.
-
-Preferred format:
-
-- `TODO: insert approved email`
-- `TODO: replace with approved case summary`
-- `TODO: confirm pricing wording`
-
-Avoid placeholders that look real to end users.
-
-## Copy style rules
-
-Website copy should:
-
-- sound like one experienced person
-- emphasize outcomes, process, and clarity
-- stay grounded
-- avoid hype
-- avoid agency-style fluff
-
-## Final approval checklist
-
-These items must be owner-approved before launch:
-
-- hero messaging
-- about block
-- services wording
-- portfolio/cases
-- testimonials
-- contact links
-- any pricing mention
+Особенно это важно для мобильной стабильности.

@@ -17,6 +17,14 @@ export default function NotFound() {
       ogType: profile.seo.ogType,
       ogLocale: profile.seo.ogLocale,
       ogSiteName: profile.brand.fullName,
+      ogUrl: new URL(window.location.pathname || '/', profile.seo.siteUrl).toString(),
+      ogImage: profile.seo.ogImageUrl,
+      canonical: new URL(window.location.pathname || '/', profile.seo.siteUrl).toString(),
+      twitterCard: profile.seo.twitterCard,
+      twitterTitle: `Страница не найдена | ${profile.brand.fullName}`,
+      twitterDescription:
+        `Запрошенная страница не найдена. Вернитесь на главную ${profile.brand.fullName}.`,
+      twitterImage: profile.seo.ogImageUrl,
       themeColor: profile.seo.themeColor,
       robots: 'noindex,nofollow',
     });
@@ -31,6 +39,13 @@ export default function NotFound() {
         ogType: profile.seo.ogType,
         ogLocale: profile.seo.ogLocale,
         ogSiteName: profile.brand.fullName,
+        ogUrl: `${profile.seo.siteUrl}${profile.seo.defaultPath}`,
+        ogImage: profile.seo.ogImageUrl,
+        canonical: `${profile.seo.siteUrl}${profile.seo.defaultPath}`,
+        twitterCard: profile.seo.twitterCard,
+        twitterTitle: profile.seo.title,
+        twitterDescription: profile.seo.description,
+        twitterImage: profile.seo.ogImageUrl,
         themeColor: profile.seo.themeColor,
         robots: 'index,follow',
       });

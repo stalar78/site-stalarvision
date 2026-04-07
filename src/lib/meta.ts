@@ -7,6 +7,13 @@ type MetaConfig = {
   ogType?: string;
   ogLocale?: string;
   ogSiteName?: string;
+  ogUrl?: string;
+  ogImage?: string;
+  canonical?: string;
+  twitterCard?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
   themeColor?: string;
   robots?: string;
 };
@@ -24,6 +31,19 @@ const upsertMeta = (selector: string, attributes: Record<string, string>) => {
   });
 };
 
+const upsertLink = (selector: string, attributes: Record<string, string>) => {
+  let link = document.head.querySelector<HTMLLinkElement>(selector);
+
+  if (!link) {
+    link = document.createElement('link');
+    document.head.appendChild(link);
+  }
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    link?.setAttribute(key, value);
+  });
+};
+
 export const applyDocumentMeta = ({
   lang,
   title,
@@ -33,6 +53,13 @@ export const applyDocumentMeta = ({
   ogType,
   ogLocale,
   ogSiteName,
+  ogUrl,
+  ogImage,
+  canonical,
+  twitterCard,
+  twitterTitle,
+  twitterDescription,
+  twitterImage,
   themeColor,
   robots,
 }: MetaConfig) => {
@@ -75,6 +102,55 @@ export const applyDocumentMeta = ({
     upsertMeta('meta[property="og:site_name"]', {
       property: 'og:site_name',
       content: ogSiteName,
+    });
+  }
+
+  if (ogUrl) {
+    upsertMeta('meta[property="og:url"]', {
+      property: 'og:url',
+      content: ogUrl,
+    });
+  }
+
+  if (ogImage) {
+    upsertMeta('meta[property="og:image"]', {
+      property: 'og:image',
+      content: ogImage,
+    });
+  }
+
+  if (canonical) {
+    upsertLink('link[rel="canonical"]', {
+      rel: 'canonical',
+      href: canonical,
+    });
+  }
+
+  if (twitterCard) {
+    upsertMeta('meta[name="twitter:card"]', {
+      name: 'twitter:card',
+      content: twitterCard,
+    });
+  }
+
+  if (twitterTitle ?? title) {
+    upsertMeta('meta[name="twitter:title"]', {
+      name: 'twitter:title',
+      content: twitterTitle ?? title,
+    });
+  }
+
+  if (twitterDescription ?? description) {
+    upsertMeta('meta[name="twitter:description"]', {
+      name: 'twitter:description',
+      content: twitterDescription ?? description,
+    });
+  }
+
+  if (twitterImage ?? ogImage) {
+    upsertMeta('meta[name="twitter:image"]', {
+      name: 'twitter:image',
+      content: twitterImage ?? ogImage ?? '',
     });
   }
 

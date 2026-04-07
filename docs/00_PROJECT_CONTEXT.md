@@ -1,110 +1,89 @@
 # Project Context
 
-## Purpose
+## Что это за проект
 
-This repository is the foundation for a personal developer service website. It represents one independent developer working as an individual entrepreneur, not a studio or agency.
+Это не сайт агентства, не сайт студии и не классическое резюме.
 
-## Current product shape
+Это коммерческий сайт услуг / личный бренд независимого разработчика (ИП), который:
+- формирует доверие,
+- объясняет формат работы,
+- показывает направления услуг,
+- приводит обращения и заявки.
 
-- Format: one-page website with a 404 page
-- Current route structure:
-  - `/` renders the homepage
-  - `*` renders `NotFound`
-- Current homepage sections:
-  - navbar
-  - hero
-  - about
-  - services
-  - portfolio
-  - process
-  - tech stack
-  - testimonials
-  - FAQ
-  - contact
-  - footer
+Сайт представляет одного специалиста, работающего напрямую с заказчиком.
 
-## Business positioning
+## Кто владелец проекта
 
-The website should position the owner as:
+Бренд:
+Stalar Vision
 
-- a direct technical partner
-- an individual developer with commercial focus
-- someone who builds websites, web applications, and automation solutions
-- someone who communicates clearly and works in a business-oriented way
+Владелец:
+Ларин Станислав
 
-The website should not read like:
+Юридическая информация:
+ИП Ларин Станислав Николаевич  
+ИНН: 561701537372
 
-- a generic portfolio gallery
-- an agency website
-- a resume/CV microsite
+## Позиционирование
 
-## Primary goals
+Независимый разработчик для бизнеса: запуск сайтов и веб-приложений, доработка существующих проектов, технический разбор текущего состояния, аудит работающего сайта и развитие решений по этапам.
 
-- explain what the developer offers
-- build trust quickly
-- generate inbound leads
-- create a maintainable base for future iterative work
+Ключевая идея:
+заказчик работает напрямую с одним сильным техническим исполнителем без лишней коммуникационной цепочки.
 
-## Audience
+## Формат работы
 
-Primary audience:
+Работа идёт напрямую с заказчиком, без посредников.
+Проекты берутся как новые, так и в формате доработки существующих решений.
+При необходимости старт можно начать с аудита или технического разбора текущего сайта, чтобы спокойно определить первый этап.
+Предпочтительный подход — поэтапный:
+сначала определяется приоритетная задача, затем собирается понятный объём первого этапа.
 
-- small and medium business owners
-- founders and entrepreneurs
-- clients who want to work directly with a developer
-- teams that need a reliable contractor
+## Тип клиентов
 
-Secondary audience:
+Основной фокус:
+- малый и средний бизнес,
+- эксперты,
+- физические лица,
+- небольшие команды,
+- компании, которым нужен один сильный технический исполнитель без лишней коммуникационной цепочки.
 
-- agencies looking for subcontracting help
-- startups needing MVP support
-- existing products that need improvement or maintenance
+## Текущее состояние проекта
 
-## Tone and perception
+Проект уже находится не на стадии шаблона, а на стадии рабочей публичной версии:
+- сайт опубликован,
+- production-домен и SSL настроены,
+- есть privacy/legal page и 404,
+- есть реальные контакты: email, Telegram, GitHub и телефон,
+- форма заявки подключена и работает через Web3Forms,
+- сделан базовый post-launch SEO/share polish,
+- canonical, Open Graph, Twitter meta, `robots.txt` и `sitemap.xml` уже настроены,
+- privacy/legal тексты согласованы с реальной работой формы,
+- мобильная версия уже была заметно улучшена,
+- верхнеуровневые тексты, CTA и секция услуг уже уточнены под сценарии: новый проект / доработка / аудит / технический разбор,
+- contact flow, representative examples и FAQ уже дополнительно отполированы под эту рамку без редизайна.
 
-The site should feel:
+При этом сайт всё ещё развивается пошагово.
+Не нужно запускать хаотичные большие переделки без явной причины.
 
-- professional
-- premium but calm
-- modern
-- trustworthy
-- technically competent
-- business-oriented
+## Главный принцип
 
-The copy should be:
+Проект развивается эволюционно:
+1. анализ текущего состояния,
+2. определение следующего логичного шага,
+3. подготовка точного промпта для Codex/Copilot,
+4. внесение изменений,
+5. ревью результата,
+6. обновление docs при необходимости.
 
-- concise
-- confident
-- specific where facts are known
-- neutral where facts are not yet approved
+## Что нельзя делать
 
-## Current repo reality
-
-This repo is still in template transition. Important current facts:
-
-- the visual layer exists
-- much of the site copy is still template-oriented
-- some metrics and testimonials are placeholder content and are not approved business facts
-- contact details in the UI are placeholders
-- portfolio items are representative template content, not validated public case studies
-- the project previously had no `package.json`
-
-## Working assumptions
-
-Unless the owner explicitly approves new facts, future work must assume:
-
-- unknown metrics stay unknown
-- unknown client names stay hidden
-- testimonials must not be invented
-- pricing must not be fabricated
-- representative examples must be labeled honestly
-
-## Definition of a good v1 baseline
-
-A successful baseline for this repository means:
-
-- the project is runnable locally after dependency installation
-- the code structure is predictable
-- documentation explains how Codex should work in the repo
-- content and technical source-of-truth rules are explicit
-- future iterations can happen without rewriting the project from scratch
+Нельзя:
+- придумывать кейсы,
+- придумывать отзывы,
+- придумывать клиентов,
+- придумывать метрики,
+- придумывать цены,
+- придумывать сроки,
+- превращать сайт в агентство,
+- устраивать большой рефакторинг без проектной необходимости.

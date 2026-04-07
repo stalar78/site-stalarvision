@@ -15,6 +15,13 @@ applyDocumentMeta({
   ogType: profile.seo.ogType,
   ogLocale: profile.seo.ogLocale,
   ogSiteName: profile.brand.fullName,
+  ogUrl: `${profile.seo.siteUrl}${profile.seo.defaultPath}`,
+  ogImage: profile.seo.ogImageUrl,
+  canonical: `${profile.seo.siteUrl}${profile.seo.defaultPath}`,
+  twitterCard: profile.seo.twitterCard,
+  twitterTitle: profile.seo.title,
+  twitterDescription: profile.seo.description,
+  twitterImage: profile.seo.ogImageUrl,
   themeColor: profile.seo.themeColor,
   robots: 'index,follow',
 })
