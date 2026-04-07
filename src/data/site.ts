@@ -69,10 +69,10 @@ export const heroSection = {
   title: {
     lead: 'Независимый разработчик',
     accent: 'для бизнеса',
-    tail: 'без лишней цепочки посредников',
+    tail: 'напрямую, без лишних посредников',
   },
   description:
-    `Я работаю под брендом ${profile.brand.fullName} и напрямую помогаю бизнесу, экспертам и небольшим командам запускать новые сайты и веб-приложения, автоматизировать процессы, дорабатывать существующие проекты и разбирать их текущее состояние перед следующими изменениями. Можно прийти с новой идеей, текущим сайтом, задачей на доработку, запросом на аудит рабочего проекта или базовую проверку безопасности перед развитием.`,
+    `Под брендом ${profile.brand.fullName} я напрямую работаю с бизнесом, экспертами и небольшими командами: запускаю новые сайты и веб-приложения, дорабатываю действующие решения и подключаюсь там, где сначала нужен аудит или технический разбор текущего состояния проекта.`,
   actions: {
     primary: {
       label: profile.ctas.breakDownTask,
@@ -82,7 +82,7 @@ export const heroSection = {
       label: profile.ctas.viewServices,
       href: '/#services',
     },
-    note: 'Можно прийти с новым проектом, запросом на доработку или аудит / технический разбор текущего сайта.',
+    note: 'Новый проект, доработка или аудит / техразбор — можно начать с короткого разбора задачи и первого этапа.',
   },
   highlights: [
     { icon: Rocket, text: 'Новый проект или запуск' },
@@ -94,13 +94,27 @@ export const heroSection = {
   owner: "${profile.owner.name}",
   brand: "${profile.brand.fullName}",
   format: "direct work",
+  entryPoints: ["new project", "existing solution", "audit / tech review"],
   focus: ${JSON.stringify(profile.mainDirections)},
+  firstStage: {
+    start: "short discovery",
+    output: ["priorities", "scope", "next actions"],
+  },
   priorities: ["clarity", "scope", "practical value"],
 
   nextStep(task) {
-    return defineScope(task);
+    return defineScope(task).buildFirstStage();
   }
 };`,
+  panelSummary: {
+    items: [
+      { label: 'Старт', value: 'Короткий разбор' },
+      { label: 'Выход', value: 'Первый этап' },
+      { label: 'Сценарий', value: 'Запуск / доработка / аудит' },
+    ],
+    note:
+      'Можно прийти с новой задачей, действующим проектом или запросом на технический разбор текущего состояния.',
+  },
   floatingCards: {
     conversion: {
       label: 'Формат работы',
