@@ -5,6 +5,10 @@ import { casesSection } from '@/data/cases';
 
 export function Portfolio() {
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const externalLinkProps = {
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  } as const;
 
   return (
     <section id="portfolio" className="relative bg-slate-950 py-20 sm:py-24">
@@ -26,13 +30,13 @@ export function Portfolio() {
               {casesSection.note}
             </p>
           </motion.div>
-          
+
           {casesSection.githubCta.href ? (
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href={casesSection.githubCta.href}
-              target="_blank"
+              {...externalLinkProps}
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-6 py-3 font-medium text-white transition-colors hover:bg-slate-800 sm:w-auto"
             >
               <Github size={20} />
@@ -102,12 +106,51 @@ export function Portfolio() {
                 <h3 className="mb-2 text-lg font-bold leading-snug text-white transition-colors group-hover:text-indigo-400 sm:text-xl">
                   {project.title}
                 </h3>
-                <p className="mb-6 text-sm leading-relaxed text-slate-400">
+                <p className="mb-4 text-sm leading-relaxed text-slate-400">
                   {project.description}
                 </p>
+
+                <div className="mb-4 rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
+                  <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
+                    Сценарий
+                  </div>
+                  <p className="text-sm leading-relaxed text-slate-300">
+                    {project.scenario}
+                  </p>
+                </div>
+
+                <div className="mb-6 space-y-4">
+                  <div>
+                    <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
+                      Что обычно требуется
+                    </div>
+                    <div className="space-y-2">
+                      {project.whatUsuallyNeeded.map((item) => (
+                        <div key={item} className="flex items-start gap-2 text-sm leading-relaxed text-slate-300">
+                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-500" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-4">
+                    <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-indigo-300">
+                      Возможный первый этап
+                    </div>
+                    <p className="text-sm leading-relaxed text-slate-200">
+                      {project.firstStep}
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:gap-4">
                   {project.link ? (
-                    <a href={project.link} className="text-white hover:text-indigo-400 transition-colors flex items-center gap-2 text-sm font-semibold">
+                    <a
+                      href={project.link}
+                      {...externalLinkProps}
+                      className="flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-indigo-400"
+                    >
                       <Globe size={16} />
                       Демо
                     </a>
@@ -118,7 +161,11 @@ export function Portfolio() {
                     </span>
                   )}
                   {project.github ? (
-                    <a href={project.github} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm font-semibold">
+                    <a
+                      href={project.github}
+                      {...externalLinkProps}
+                      className="flex items-center gap-2 text-sm font-semibold text-slate-400 transition-colors hover:text-white"
+                    >
                       <Github size={16} />
                       Код
                     </a>

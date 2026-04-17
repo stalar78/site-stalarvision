@@ -25,3 +25,9 @@ dist-ssr
 
 # Vite cache
 .vite
+
+.env
+.env.*
+!.env.example
+
+SSH.docx

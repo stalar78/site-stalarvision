@@ -68,21 +68,21 @@ export const heroSection = {
   },
   title: {
     lead: 'Независимый разработчик',
-    accent: 'для бизнеса',
-    tail: 'напрямую, без лишних посредников',
+    accent: 'для запуска и доработки',
+    tail: 'сайтов и веб-проектов',
   },
   description:
-    `Под брендом ${profile.brand.fullName} я напрямую работаю с бизнесом, экспертами и небольшими командами: запускаю новые сайты и веб-приложения, дорабатываю действующие решения и подключаюсь там, где сначала нужен аудит или технический разбор текущего состояния проекта.`,
+    'Сюда можно прийти с новым проектом, доработкой действующего решения или запросом на аудит / технический разбор. Обычно начинаем с короткого обсуждения задачи, приоритетов и первого рабочего этапа.',
   actions: {
     primary: {
-      label: profile.ctas.breakDownTask,
+      label: 'Коротко обсудить задачу',
       href: '/#contact',
     },
     secondary: {
-      label: profile.ctas.viewServices,
+      label: 'Что беру в работу',
       href: '/#services',
     },
-    note: 'Новый проект, доработка или аудит / техразбор — можно начать с короткого разбора задачи и первого этапа.',
+    note: 'Можно начать с короткого разбора: что уже есть сейчас, что важно в первую очередь и с какого этапа лучше стартовать.',
   },
   highlights: [
     { icon: Rocket, text: 'Новый проект или запуск' },
@@ -113,7 +113,7 @@ export const heroSection = {
       { label: 'Сценарий', value: 'Запуск / доработка / аудит' },
     ],
     note:
-      'Можно прийти с новой задачей, действующим проектом или запросом на технический разбор текущего состояния.',
+      'Можно прийти с новой задачей, действующим проектом или запросом на спокойный технический разбор перед изменениями.',
   },
   floatingCards: {
     conversion: {
@@ -233,8 +233,8 @@ export const techStackSection = {
     accent: 'стек',
   },
   description:
-    'Использую стек под задачу, а не ради витрины технологий. В фокусе frontend, backend, базы данных и tooling, с которыми проект удобно запускать, разбирать, поддерживать и спокойно развивать дальше.',
-  categories: ['Frontend', 'Backend', 'Database', 'DevOps', 'Tools'],
+    'Использую стек под задачу, а не ради витрины технологий. В фокусе frontend, backend, базы данных, testing, devops и tooling, с которыми проект удобно запускать, разбирать, проверять и спокойно развивать дальше.',
+  categories: ['Frontend', 'Backend', 'Database', 'Testing', 'DevOps', 'Tools'],
   technologies: [
     { name: 'HTML5', category: 'Frontend', levelLabel: 'Рабочий стек', levelWidth: '90%', status: 'neutral-stack' },
     { name: 'CSS3 / Tailwind', category: 'Frontend', levelLabel: 'Рабочий стек', levelWidth: '88%', status: 'neutral-stack' },
@@ -246,6 +246,8 @@ export const techStackSection = {
     { name: 'Spring / Spring Boot', category: 'Backend', levelLabel: 'Backend и API', levelWidth: '80%', status: 'neutral-stack' },
     { name: 'PostgreSQL / Mongo', category: 'Database', levelLabel: 'По задаче', levelWidth: '76%', status: 'neutral-stack' },
     { name: 'SQL', category: 'Database', levelLabel: 'Работа с данными', levelWidth: '84%', status: 'neutral-stack' },
+    { name: 'Vitest / Jest', category: 'Testing', levelLabel: 'Проверка логики и UI', levelWidth: '72%', status: 'neutral-stack' },
+    { name: 'Playwright', category: 'Testing', levelLabel: 'Ключевые сценарии', levelWidth: '68%', status: 'neutral-stack' },
     { name: 'Docker / Nginx', category: 'DevOps', levelLabel: 'Для деплоя и окружения', levelWidth: '70%', status: 'neutral-stack' },
     { name: 'Maven', category: 'Tools', levelLabel: 'Сборка и зависимости', levelWidth: '74%', status: 'neutral-stack' },
     { name: 'Gradle', category: 'Tools', levelLabel: 'JVM tooling', levelWidth: '72%', status: 'neutral-stack' },

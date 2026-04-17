@@ -8,6 +8,7 @@ type FormValues = {
   contact: string;
   projectType: string;
   project: string;
+  honeypot: string;
 };
 
 type FormErrors = Partial<Record<'name' | 'contact' | 'project', string>>;
@@ -17,6 +18,7 @@ const initialFormValues: FormValues = {
   contact: '',
   projectType: contactSection.form.projectTypeOptions[0] ?? '',
   project: '',
+  honeypot: '',
 };
 
 export function Contact() {
@@ -24,11 +26,18 @@ export function Contact() {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
+  const [lastSubmittedAt, setLastSubmittedAt] = useState<number | null>(null);
+
+  const formSecurity = contactSection.form.security;
 
   const handleChange =
     (field: keyof FormValues) =>
       (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const nextValue = event.target.value;
+        const rawValue = event.target.value;
+        const nextValue =
+          field === 'name' || field === 'contact' || field === 'project'
+            ? rawValue.slice(0, formSecurity.maxLength[field])
+            : rawValue;
 
         setFormValues((current) => ({
           ...current,
@@ -55,17 +64,26 @@ export function Contact() {
 
   const validateForm = () => {
     const nextErrors: FormErrors = {};
+    const trimmedName = formValues.name.trim();
+    const trimmedContact = formValues.contact.trim();
+    const trimmedProject = formValues.project.trim();
 
-    if (!formValues.name.trim()) {
+    if (!trimmedName) {
       nextErrors.name = contactSection.form.validationErrors.name;
+    } else if (trimmedName.length > formSecurity.maxLength.name) {
+      nextErrors.name = contactSection.form.validationErrors.nameTooLong;
     }
 
-    if (!formValues.contact.trim()) {
+    if (!trimmedContact) {
       nextErrors.contact = contactSection.form.validationErrors.contact;
+    } else if (trimmedContact.length > formSecurity.maxLength.contact) {
+      nextErrors.contact = contactSection.form.validationErrors.contactTooLong;
     }
 
-    if (!formValues.project.trim()) {
+    if (!trimmedProject) {
       nextErrors.project = contactSection.form.validationErrors.project;
+    } else if (trimmedProject.length > formSecurity.maxLength.project) {
+      nextErrors.project = contactSection.form.validationErrors.projectTooLong;
     }
 
     setFormErrors(nextErrors);
@@ -74,6 +92,25 @@ export function Contact() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (submitState === 'loading') {
+      return;
+    }
+
+    if (formValues.honeypot.trim()) {
+      setSubmitState('success');
+      setSubmitMessage(contactSection.form.successMessage);
+      setFormValues(initialFormValues);
+      setFormErrors({});
+      return;
+    }
+
+    const now = Date.now();
+    if (lastSubmittedAt && now - lastSubmittedAt < formSecurity.cooldownMs) {
+      setSubmitState('error');
+      setSubmitMessage(contactSection.form.cooldownMessage);
+      return;
+    }
 
     if (!validateForm()) {
       setSubmitState('error');
@@ -84,6 +121,9 @@ export function Contact() {
     setSubmitState('loading');
     setSubmitMessage('');
 
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), formSecurity.timeoutMs);
+
     try {
       const response = await fetch(contactSection.form.endpoint, {
         method: 'POST',
@@ -91,6 +131,7 @@ export function Contact() {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify({
           access_key: contactSection.form.accessKey,
           subject: contactSection.form.subject,
@@ -110,20 +151,23 @@ export function Contact() {
 
       setSubmitState('success');
       setSubmitMessage(contactSection.form.successMessage);
+      setLastSubmittedAt(now);
       setFormValues(initialFormValues);
       setFormErrors({});
     } catch {
       setSubmitState('error');
       setSubmitMessage(contactSection.form.errorMessage);
+    } finally {
+      window.clearTimeout(timeoutId);
     }
   };
 
   return (
     <section id="contact" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       {/* Background glow */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -166,11 +210,16 @@ export function Contact() {
                     <method.icon size={24} />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs text-slate-500 uppercase font-bold tracking-widest">
+                    <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
                       {method.label}
                     </div>
                     {method.href ? (
-                      <a href={method.href} className="break-all text-base font-medium text-white transition-colors hover:text-indigo-400 sm:text-lg">
+                      <a
+                        href={method.href}
+                        target={method.href.startsWith('http') ? '_blank' : undefined}
+                        rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="break-all text-base font-medium text-white transition-colors hover:text-indigo-400 sm:text-lg"
+                      >
                         {method.value}
                       </a>
                     ) : (
@@ -188,7 +237,7 @@ export function Contact() {
               <p className="text-sm text-indigo-100 opacity-80 sm:text-base">
                 {contactSection.consultation.description}
               </p>
-              <div className="mt-6 pt-6 border-t border-white/15">
+              <div className="mt-6 border-t border-white/15 pt-6">
                 <div className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-indigo-100/80 sm:text-sm">
                   {contactSection.firstStep.title}
                 </div>
@@ -224,15 +273,28 @@ export function Contact() {
             viewport={{ once: true }}
             className="rounded-[2.5rem] border border-slate-800 bg-slate-900/50 p-6 shadow-2xl backdrop-blur-xl sm:p-10"
           >
-            <form className="space-y-6" onSubmit={handleSubmit} noValidate>
-              <p className="text-sm text-slate-400 leading-relaxed">
+            <form className="relative space-y-6" onSubmit={handleSubmit} noValidate>
+              <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor={formSecurity.honeypotFieldName}>Не заполняйте это поле</label>
+                <input
+                  id={formSecurity.honeypotFieldName}
+                  name={formSecurity.honeypotFieldName}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formValues.honeypot}
+                  onChange={handleChange('honeypot')}
+                />
+              </div>
+
+              <p className="text-sm leading-relaxed text-slate-400">
                 {contactSection.form.note}
               </p>
               {submitMessage ? (
                 <div
                   className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${submitState === 'success'
-                      ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
-                      : 'border-rose-500/30 bg-rose-500/10 text-rose-100'
+                    ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
+                    : 'border-rose-500/30 bg-rose-500/10 text-rose-100'
                     }`}
                 >
                   {submitMessage}
@@ -240,11 +302,13 @@ export function Contact() {
               ) : null}
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 ml-1">
+                  <label className="ml-1 text-sm font-medium text-slate-400">
                     {contactSection.form.nameLabel}
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    maxLength={formSecurity.maxLength.name}
                     placeholder={contactSection.form.namePlaceholder}
                     value={formValues.name}
                     onChange={handleChange('name')}
@@ -256,11 +320,13 @@ export function Contact() {
                   ) : null}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 ml-1">
+                  <label className="ml-1 text-sm font-medium text-slate-400">
                     {contactSection.form.contactLabel}
                   </label>
                   <input
                     type="text"
+                    name="contact"
+                    maxLength={formSecurity.maxLength.contact}
                     placeholder={contactSection.form.contactPlaceholder}
                     value={formValues.contact}
                     onChange={handleChange('contact')}
@@ -273,10 +339,11 @@ export function Contact() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400 ml-1">
+                <label className="ml-1 text-sm font-medium text-slate-400">
                   {contactSection.form.projectTypeLabel}
                 </label>
                 <select
+                  name="projectType"
                   value={formValues.projectType}
                   onChange={handleChange('projectType')}
                   className="w-full appearance-none rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-white transition-colors focus:border-indigo-500 focus:outline-none sm:px-5 sm:py-4"
@@ -290,11 +357,13 @@ export function Contact() {
                 </p>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400 ml-1">
+                <label className="ml-1 text-sm font-medium text-slate-400">
                   {contactSection.form.projectLabel}
                 </label>
                 <textarea
                   rows={4}
+                  name="project"
+                  maxLength={formSecurity.maxLength.project}
                   placeholder={contactSection.form.projectPlaceholder}
                   value={formValues.project}
                   onChange={handleChange('project')}

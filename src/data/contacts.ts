@@ -2,6 +2,7 @@ import {
   Github,
   Mail,
   MessageCircle,
+  MessageSquare,
   Phone,
   Send,
   type LucideIcon,
@@ -30,6 +31,12 @@ export const navbarSocialLinks = [
     icon: Github,
     status: 'approved-link',
   },
+  {
+    label: 'MAX',
+    href: profile.contacts.max.href,
+    icon: MessageSquare,
+    status: 'approved-link',
+  },
 ] satisfies IconLink[];
 
 export const mobileMenuSocialLinks = [
@@ -43,6 +50,12 @@ export const mobileMenuSocialLinks = [
     label: 'Telegram',
     href: profile.contacts.telegram.href,
     icon: Send,
+    status: 'approved-link',
+  },
+  {
+    label: 'MAX',
+    href: profile.contacts.max.href,
+    icon: MessageSquare,
     status: 'approved-link',
   },
 ] satisfies IconLink[];
@@ -61,6 +74,12 @@ export const footerSocialLinks = [
     status: 'approved-link',
   },
   {
+    label: 'MAX',
+    href: profile.contacts.max.href,
+    icon: MessageSquare,
+    status: 'approved-link',
+  },
+  {
     label: 'Email',
     href: profile.contacts.email.href,
     icon: Mail,
@@ -74,7 +93,7 @@ export const contactSection = {
     accent: 'Начнём с короткого разбора',
   },
   description:
-    `Быстрее всего написать мне в Telegram, на email или оставить заявку через форму. Сюда можно обратиться и за запуском нового проекта, и за доработкой существующего сайта, и за аудитом / техническим разбором перед изменениями.`,
+    `Быстрее всего написать мне в Telegram, в MAX, на email или оставить заявку через форму. Сюда можно обратиться и за запуском нового проекта, и за доработкой существующего сайта, и за аудитом / техническим разбором перед изменениями.`,
   actions: {
     primary: {
       label: profile.ctas.writeTelegram,
@@ -112,7 +131,7 @@ export const contactSection = {
   },
   form: {
     note:
-      'Можно отправить заявку прямо через форму или написать мне напрямую в Telegram, на email или позвонить, если удобнее быстрее обсудить задачу. Форма подходит и для нового проекта, и для запроса на аудит / технический разбор текущего сайта.',
+      'Можно отправить заявку прямо через форму или написать мне напрямую в Telegram, в MAX, на email или позвонить, если удобнее быстрее обсудить задачу. Форма подходит и для нового проекта, и для запроса на аудит / технический разбор текущего сайта.',
     accessKey: '7ced4029-36f8-447a-bf49-6055fd82d36e',
     endpoint: 'https://api.web3forms.com/submit',
     subject: `Заявка с сайта ${profile.brand.fullName}`,
@@ -138,13 +157,28 @@ export const contactSection = {
     successMessage:
       'Заявка отправлена. Я посмотрю описание задачи или текущего состояния проекта и вернусь с ответом в ближайшее время.',
     errorMessage: 'Не получилось отправить форму. Попробуйте ещё раз или напишите мне напрямую в Telegram или на email.',
+    cooldownMessage:
+      'Сообщение уже отправлялось совсем недавно. Подождите немного и попробуйте ещё раз или напишите мне напрямую.',
     validationErrors: {
       name: 'Укажите имя, чтобы я понимал, как к вам обращаться.',
       contact: 'Добавьте контакт для ответа: Telegram или email.',
       project: 'Коротко опишите задачу, чтобы я понял следующий шаг.',
+      nameTooLong: 'Имя лучше оставить коротким — до 80 символов.',
+      contactTooLong: 'Контакт лучше указать короче — до 120 символов.',
+      projectTooLong: 'Описание стоит сократить до 2000 символов, чтобы не потерять суть.',
+    },
+    security: {
+      honeypotFieldName: 'company_website',
+      timeoutMs: 10000,
+      cooldownMs: 15000,
+      maxLength: {
+        name: 80,
+        contact: 120,
+        project: 2000,
+      },
     },
     legalNote:
-      `Форма передаёт обращение через Web3Forms. Если удобнее, можно сразу написать мне в ${profile.contacts.telegram.value}, на ${profile.contacts.email.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
+      `Форма передаёт обращение через Web3Forms. Если удобнее, можно сразу написать мне в ${profile.contacts.telegram.value}, в ${profile.contacts.max.label}, на ${profile.contacts.email.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
   },
 };
 
@@ -170,6 +204,13 @@ export const contactMethods = [
     icon: MessageCircle,
     status: 'approved-contact',
   },
+  {
+    label: 'MAX',
+    value: profile.contacts.max.value,
+    href: profile.contacts.max.href,
+    icon: MessageSquare,
+    status: 'approved-contact',
+  },
 ] satisfies ContactMethod[];
 
 export const footerContactMethods = [
@@ -185,6 +226,13 @@ export const footerContactMethods = [
     value: profile.contacts.telegram.value,
     href: profile.contacts.telegram.href,
     icon: Send,
+    status: 'approved-contact',
+  },
+  {
+    label: 'MAX',
+    value: profile.contacts.max.value,
+    href: profile.contacts.max.href,
+    icon: MessageSquare,
     status: 'approved-contact',
   },
   {

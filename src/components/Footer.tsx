@@ -94,6 +94,8 @@ export const Footer = () => {
                   {method.href ? (
                     <a
                       href={method.href}
+                      target={method.href.startsWith('http') ? '_blank' : undefined}
+                      rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="break-all hover:text-indigo-400 transition-colors sm:break-normal"
                     >
                       {method.value}

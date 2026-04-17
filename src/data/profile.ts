@@ -72,6 +72,11 @@ export const profile = {
       value: '@stanislav_lsn',
       href: 'https://t.me/stanislav_lsn',
     },
+    max: {
+      label: 'MAX',
+      value: 'Профиль в MAX',
+      href: 'https://max.ru/u/f9LHodD0cOJItuTP3SMGVRtHcw0yRKpDg9eECrwfI-RnFlZ6MpXXSN0OrYI',
+    },
     github: {
       label: 'GitHub',
       value: 'stalar78',

@@ -4,9 +4,9 @@ import { servicesSection } from '@/data/services';
 export function Services() {
   return (
     <section id="services" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center sm:mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -15,18 +15,18 @@ export function Services() {
             {servicesSection.title.lead}{' '}
             <span className="text-indigo-500">{servicesSection.title.accent}</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mx-auto max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg"
+            className="mx-auto max-w-3xl text-base leading-relaxed text-slate-400 sm:text-lg"
           >
             {servicesSection.description}
           </motion.p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:gap-8">
+        <div className="grid gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {servicesSection.items.map((service, index) => (
             <motion.div
               key={index}
@@ -44,14 +44,28 @@ export function Services() {
                 <p className="mb-5 text-sm leading-relaxed text-slate-400 sm:mb-6">
                   {service.description}
                 </p>
-                <div className="space-y-3 pt-4 border-t border-white/5">
-                  <div className="flex flex-col items-start gap-1.5 text-xs sm:flex-row sm:gap-2">
-                    <span className="shrink-0 font-semibold uppercase tracking-wider text-slate-500">Подходит, если:</span>
-                    <span className="leading-relaxed text-slate-300">{service.forWhom}</span>
+
+                <div className="mb-5 rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-4">
+                  <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-indigo-300">
+                    С чего обычно начинается
                   </div>
-                  <div className="flex flex-col items-start gap-1.5 text-xs sm:flex-row sm:gap-2">
-                    <span className="shrink-0 font-semibold uppercase tracking-wider text-slate-500">На выходе:</span>
-                    <span className="font-medium leading-relaxed text-indigo-400">{service.result}</span>
+                  <p className="text-sm leading-relaxed text-slate-200">
+                    {service.firstStep}
+                  </p>
+                </div>
+
+                <div className="space-y-3 border-t border-white/5 pt-4">
+                  <div className="flex flex-col items-start gap-1.5 text-xs sm:gap-2">
+                    <span className="shrink-0 font-semibold uppercase tracking-wider text-slate-500">
+                      С каким запросом обычно приходят:
+                    </span>
+                    <span className="leading-relaxed text-slate-300">{service.request}</span>
+                  </div>
+                  <div className="flex flex-col items-start gap-1.5 text-xs sm:gap-2">
+                    <span className="shrink-0 font-semibold uppercase tracking-wider text-slate-500">
+                      Формат работы:
+                    </span>
+                    <span className="font-medium leading-relaxed text-indigo-400">{service.format}</span>
                   </div>
                 </div>
               </div>

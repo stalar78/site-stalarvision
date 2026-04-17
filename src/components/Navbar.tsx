@@ -18,7 +18,7 @@ export function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-3 sm:py-4 glass border-b' : 'py-4 sm:py-6 bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <motion.a 
+          <motion.a
             href={navbarData.brand.href}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -36,8 +36,8 @@ export function Navbar() {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
             {navbarData.links.map((link) => (
-              <a 
-                key={link.name} 
+              <a
+                key={link.name}
                 href={link.href}
                 className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
               >
@@ -68,7 +68,7 @@ export function Navbar() {
                   </span>
                 )
               ))}
-              <a 
+              <a
                 href={navbarData.desktopCta.href}
                 className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20"
               >
@@ -78,7 +78,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden p-2 text-slate-400 hover:text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -98,8 +98,8 @@ export function Navbar() {
           >
             <div className="space-y-4 px-4 pb-6 pt-4">
               {navbarData.links.map((link) => (
-                <a 
-                  key={link.name} 
+                <a
+                  key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className="block text-base font-semibold text-slate-300 hover:text-white"
@@ -108,7 +108,7 @@ export function Navbar() {
                 </a>
               ))}
               <div className="pt-4 flex flex-col gap-4">
-                <a 
+                <a
                   href={navbarData.mobileCta.href}
                   onClick={() => setIsOpen(false)}
                   className="w-full py-3 bg-indigo-600 text-white text-center font-bold rounded-xl"
@@ -121,6 +121,8 @@ export function Navbar() {
                       <a
                         key={link.label}
                         href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-slate-400"
                         aria-label={link.label}
                       >
