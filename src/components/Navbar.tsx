@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { mobileMenuSocialLinks, navbarSocialLinks } from '@/data/contacts';
 import { navbarData } from '@/data/site';
 
@@ -24,8 +24,12 @@ export function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             className="flex min-w-0 items-center gap-2 group"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 transition-transform duration-300 group-hover:rotate-12 sm:h-10 sm:w-10">
-              <Terminal size={24} />
+            <div className="flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <img
+                src="/brand/logo-compass.png"
+                alt="Stalar Vision Logo"
+                className="h-8 w-auto sm:h-9"
+              />
             </div>
             <span className="truncate text-lg font-bold tracking-tight text-white sm:text-xl">
               {navbarData.brand.name}

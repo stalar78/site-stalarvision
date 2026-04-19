@@ -1,4 +1,3 @@
-import { Code2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { footerContactMethods, footerSocialLinks } from '@/data/contacts';
 import { footerData } from '@/data/site';
@@ -12,8 +11,12 @@ export const Footer = () => {
         <div className="mb-10 grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <div className="mb-4 flex items-center space-x-2">
-              <Code2 className="w-8 h-8 text-indigo-500" />
+            <div className="mb-4 flex items-center space-x-3">
+              <img
+                src="/brand/logo-compass.png"
+                alt="Stalar Vision Logo"
+                className="h-9 w-auto"
+              />
               <span className="text-xl font-bold text-white tracking-tight">
                 {footerData.brandName}
               </span>

@@ -1,0 +1,6 @@
+mJU29gEwq5t& root 
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKnhmafFj7nFMrxCExVjoHRP+QIuWAT4+VOPW7c8E3g stanislav-vscode
+Почта info@stalarvision.ru
+Пароль: %js9H4HqLltM
+
+
