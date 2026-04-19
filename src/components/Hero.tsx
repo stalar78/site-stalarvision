@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { heroSection } from '@/data/site';
 
@@ -81,6 +81,7 @@ function renderColorizedSnippet(source: string) {
 export function Hero() {
   const codeSnippet = heroSection.codeSnippet.trimEnd();
   const [visibleChars, setVisibleChars] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!codeSnippet) return;
@@ -108,6 +109,22 @@ export function Hero() {
       {/* Background decoration */}
       <div className="pointer-events-none absolute top-0 right-0 h-[540px] w-[540px] -translate-y-1/4 translate-x-1/4 rounded-full bg-indigo-600/12 blur-[140px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-[340px] w-[340px] translate-y-1/4 -translate-x-1/4 rounded-full bg-purple-600/8 blur-[120px]" />
+      <motion.div
+        aria-hidden="true"
+        style={{
+          backgroundImage: 'linear-gradient(to bottom, rgba(148,163,184,0.055) 1px, transparent 1px)',
+          backgroundSize: '100% 46px',
+        }}
+        animate={shouldReduceMotion ? undefined : { backgroundPositionY: ['0px', '46px'] }}
+        transition={shouldReduceMotion ? undefined : { repeat: Infinity, duration: 18, ease: 'linear' }}
+        className="pointer-events-none absolute inset-0 opacity-25 [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]"
+      />
+      <motion.div
+        aria-hidden="true"
+        animate={shouldReduceMotion ? undefined : { x: [0, 16, 0], y: [-6, 8, -6], opacity: [0.16, 0.24, 0.16] }}
+        transition={shouldReduceMotion ? undefined : { repeat: Infinity, duration: 15, ease: 'easeInOut' }}
+        className="pointer-events-none absolute right-[6%] top-[42%] hidden h-[430px] w-[430px] -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[130px] lg:block xl:h-[500px] xl:w-[500px]"
+      />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-12 xl:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] xl:gap-16 2xl:gap-20">

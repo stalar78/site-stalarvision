@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { mobileMenuSocialLinks, navbarSocialLinks } from '@/data/contacts';
 import { navbarData } from '@/data/site';
@@ -7,6 +7,7 @@ import { navbarData } from '@/data/site';
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -27,13 +28,28 @@ export function Navbar() {
             href={navbarData.brand.href}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
             className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
           >
-            <img
-              src="/brand/logo-compass.png"
-              alt="Stalar Vision Logo"
-              className="h-9 w-9 shrink-0 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
-            />
+            <motion.span
+              whileHover={shouldReduceMotion ? undefined : { rotate: 12, y: -1, scale: 1.02 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
+            >
+              <motion.span
+                aria-hidden="true"
+                animate={shouldReduceMotion ? undefined : { opacity: [0.14, 0.28, 0.14], scale: [0.95, 1.08, 0.95] }}
+                transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+                style={shouldReduceMotion ? { opacity: 0.16 } : undefined}
+                className="pointer-events-none absolute inset-[34%] rounded-full bg-cyan-300/35 blur-[6px]"
+              />
+              <img
+                src="/brand/logo-compass.png"
+                alt="Stalar Vision Logo"
+                className="relative z-10 h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
+              />
+            </motion.span>
             <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
               {navbarData.brand.name}
               <span className="text-indigo-500">{navbarData.brand.accent}</span>
