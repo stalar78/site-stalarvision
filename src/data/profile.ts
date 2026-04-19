@@ -1,5 +1,5 @@
 const productionSiteUrl = 'https://stalarvision.ru';
-const defaultOgImagePath = '/uploads/14c05609-image.png';
+const defaultOgImagePath = '/brand/share-preview.png';
 
 export const profile = {
   brand: {
