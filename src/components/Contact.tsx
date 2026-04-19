@@ -168,17 +168,17 @@ export function Contact() {
       <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-9 lg:grid-cols-2 lg:gap-14">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="mb-5 text-3xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl">
-              {contactSection.title.lead} <br />
-              <span className="text-indigo-500">{contactSection.title.accent}</span>
+            <h2 className="mb-4 max-w-[20ch] text-3xl font-bold leading-tight text-white sm:mb-6 sm:max-w-none sm:text-4xl">
+              {contactSection.title.lead}
+              <span className="block text-indigo-500">{contactSection.title.accent}</span>
             </h2>
-            <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-400 sm:mb-10 sm:text-lg">
+            <p className="mb-7 max-w-xl text-[1.01rem] leading-relaxed text-slate-400 sm:mb-8 sm:text-[1.06rem]">
               {contactSection.description}
             </p>
 
@@ -187,23 +187,23 @@ export function Contact() {
                 href={contactSection.actions.primary.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-2xl bg-indigo-600 px-6 py-3 font-bold text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-700 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-2xl border border-indigo-400/30 bg-indigo-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 sm:w-auto"
               >
                 {contactSection.actions.primary.label}
               </a>
               <a
                 href={contactSection.actions.secondary.href}
-                className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 px-6 py-3 font-bold text-white transition-all hover:border-slate-700 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-900/80 px-6 py-3.5 font-semibold text-slate-200 transition-all duration-200 hover:border-slate-700 hover:text-white sm:w-auto"
               >
                 {contactSection.actions.secondary.label}
               </a>
             </div>
 
-            <p className="mb-10 max-w-xl text-sm leading-relaxed text-slate-500 sm:mb-12">
+            <p className="mb-8 max-w-xl text-sm leading-relaxed text-slate-500 sm:mb-9">
               {contactSection.actions.note}
             </p>
 
-            <div className="mb-10 space-y-5 sm:mb-12 sm:space-y-6">
+            <div className="mb-8 space-y-5 sm:mb-9 sm:space-y-6">
               {contactMethods.map((method) => (
                 <div key={method.label} className="group flex items-start gap-3 sm:gap-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-800 bg-slate-900 text-indigo-500 transition-all group-hover:bg-indigo-600 group-hover:text-white sm:h-12 sm:w-12">
@@ -232,35 +232,35 @@ export function Contact() {
               ))}
             </div>
 
-            <div className="rounded-3xl bg-indigo-600 p-6 text-white sm:p-8">
+            <div className="rounded-3xl bg-indigo-600 p-5 text-white sm:p-6">
               <div className="mb-2 text-xl font-bold sm:text-2xl">{contactSection.consultation.title}</div>
-              <p className="text-sm text-indigo-100 opacity-80 sm:text-base">
+              <p className="text-sm leading-relaxed text-indigo-100/90 sm:text-base">
                 {contactSection.consultation.description}
               </p>
-              <div className="mt-6 border-t border-white/15 pt-6">
+              <div className="mt-5 border-t border-white/15 pt-5 sm:mt-6 sm:pt-6">
                 <div className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-indigo-100/80 sm:text-sm">
                   {contactSection.firstStep.title}
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {contactSection.firstStep.items.map((item) => (
                     <div key={item} className="flex items-start gap-3 text-indigo-50">
                       <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-white/80" />
-                      <span className="text-sm leading-relaxed">{item}</span>
+                      <span className="text-sm leading-6">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="mt-5 rounded-3xl border border-slate-800 bg-slate-900/50 p-6 sm:mt-6 sm:p-8">
+            <div className="mt-4 rounded-3xl border border-slate-800 bg-slate-900/50 p-5 sm:mt-5 sm:p-6">
               <div className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-slate-500 sm:text-sm">
                 {contactSection.preparation.title}
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 {contactSection.preparation.items.map((item) => (
                   <div key={item} className="flex items-start gap-3 text-slate-300">
                     <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-indigo-500" />
-                    <span className="text-sm leading-relaxed">{item}</span>
+                    <span className="text-sm leading-6">{item}</span>
                   </div>
                 ))}
               </div>
@@ -271,7 +271,7 @@ export function Contact() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="rounded-[2.5rem] border border-slate-800 bg-slate-900/50 p-6 shadow-2xl backdrop-blur-xl sm:p-10"
+            className="rounded-[2.5rem] border border-slate-800 bg-slate-900/50 p-6 shadow-2xl backdrop-blur-xl sm:p-9"
           >
             <form className="relative space-y-6" onSubmit={handleSubmit} noValidate>
               <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">

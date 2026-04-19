@@ -15,41 +15,44 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-3 sm:py-4 glass border-b' : 'py-4 sm:py-6 bg-transparent'}`}>
+    <nav
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
+        ? 'py-2.5 sm:py-3.5 glass border-b border-white/10 shadow-[0_12px_30px_-24px_rgba(2,6,23,0.9)]'
+        : 'py-4 sm:py-5 bg-transparent'
+        }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex min-h-12 items-center justify-between sm:min-h-14">
           <motion.a
             href={navbarData.brand.href}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex min-w-0 items-center gap-2 group"
+            className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
           >
-            <div className="flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              <img
-                src="/brand/logo-compass.png"
-                alt="Stalar Vision Logo"
-                className="h-8 w-auto sm:h-9"
-              />
-            </div>
-            <span className="truncate text-lg font-bold tracking-tight text-white sm:text-xl">
+            <img
+              src="/brand/logo-compass.png"
+              alt="Stalar Vision Logo"
+              className="h-9 w-9 shrink-0 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
+            />
+            <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
               {navbarData.brand.name}
               <span className="text-indigo-500">{navbarData.brand.accent}</span>
             </span>
           </motion.a>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navbarData.links.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                className="rounded-lg px-2 py-1 text-sm font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
               >
                 {link.name}
               </a>
             ))}
-            <div className="h-6 w-px bg-slate-800" />
-            <div className="flex items-center gap-4">
+            <div className="h-5 w-px bg-slate-800" />
+            <div className="flex items-center gap-3">
               {navbarSocialLinks.map((link) => (
                 link.href ? (
                   <a
@@ -57,24 +60,24 @@ export function Navbar() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-400 hover:text-white transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent text-slate-400 transition-colors hover:border-slate-700 hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                     aria-label={link.label}
                   >
-                    <link.icon size={20} />
+                    <link.icon size={18} />
                   </a>
                 ) : (
                   <span
                     key={link.label}
-                    className="text-slate-500"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500"
                     aria-label={link.label}
                   >
-                    <link.icon size={20} />
+                    <link.icon size={18} />
                   </span>
                 )
               ))}
               <a
                 href={navbarData.desktopCta.href}
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20"
+                className="rounded-xl border border-indigo-400/30 bg-indigo-600/95 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
               >
                 {navbarData.desktopCta.label}
               </a>
@@ -83,10 +86,12 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-slate-400 hover:text-white"
+            className="md:hidden rounded-lg border border-slate-800 bg-slate-900/70 p-2 text-slate-300 transition-colors hover:border-slate-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -98,28 +103,28 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-b border-white/5 overflow-hidden"
+            className="md:hidden overflow-hidden border-b border-white/10 glass"
           >
-            <div className="space-y-4 px-4 pb-6 pt-4">
+            <div className="space-y-3 px-4 pb-5 pt-3">
               {navbarData.links.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block text-base font-semibold text-slate-300 hover:text-white"
+                  className="block rounded-xl px-3 py-2 text-[0.98rem] font-medium text-slate-200 transition-colors hover:bg-slate-900/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="pt-4 flex flex-col gap-4">
+              <div className="flex flex-col gap-3 border-t border-white/5 pt-4">
                 <a
                   href={navbarData.mobileCta.href}
                   onClick={() => setIsOpen(false)}
-                  className="w-full py-3 bg-indigo-600 text-white text-center font-bold rounded-xl"
+                  className="w-full rounded-xl border border-indigo-400/30 bg-indigo-600/95 py-3 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                 >
                   {navbarData.mobileCta.label}
                 </a>
-                <div className="flex justify-center gap-5 py-2">
+                <div className="flex justify-center gap-3 py-1">
                   {mobileMenuSocialLinks.map((link) => (
                     link.href ? (
                       <a
@@ -127,18 +132,18 @@ export function Navbar() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-400"
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 transition-colors hover:border-slate-700 hover:text-white"
                         aria-label={link.label}
                       >
-                        <link.icon size={24} />
+                        <link.icon size={20} />
                       </a>
                     ) : (
                       <span
                         key={link.label}
-                        className="text-slate-500"
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-800 bg-slate-900/70 text-slate-500"
                         aria-label={link.label}
                       >
-                        <link.icon size={24} />
+                        <link.icon size={20} />
                       </span>
                     )
                   ))}

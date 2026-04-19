@@ -13,22 +13,22 @@ export function Portfolio() {
   return (
     <section id="portfolio" className="relative bg-slate-950 py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="mb-10 flex flex-col gap-5 md:mb-11 md:flex-row md:items-end md:justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+            <h2 className="mb-3 text-3xl font-bold text-white sm:mb-4 sm:text-4xl md:text-5xl">
               {casesSection.title.lead}{' '}
               <span className="text-indigo-500">{casesSection.title.accent}</span>
             </h2>
-            <p className="max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+            <p className="max-w-2xl text-[1.01rem] leading-relaxed text-slate-400 sm:text-[1.06rem]">
               {casesSection.description}
             </p>
-            <p className="mt-4 max-w-2xl text-xs leading-relaxed text-slate-500 sm:text-sm">
+            <div className="mt-4 max-w-2xl rounded-2xl border border-slate-800 bg-slate-900/40 px-4 py-3 text-xs leading-relaxed text-slate-400 sm:text-sm">
               {casesSection.note}
-            </p>
+            </div>
           </motion.div>
 
           {casesSection.githubCta.href ? (
@@ -37,20 +37,20 @@ export function Portfolio() {
               whileTap={{ scale: 0.95 }}
               href={casesSection.githubCta.href}
               {...externalLinkProps}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-6 py-3 font-medium text-white transition-colors hover:bg-slate-800 sm:w-auto"
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-6 py-3 font-medium text-white transition-colors hover:border-slate-700 hover:bg-slate-800 sm:w-auto"
             >
               <Github size={20} />
               {casesSection.githubCta.label}
             </motion.a>
           ) : (
-            <div className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-6 py-3 font-medium text-slate-400 sm:w-auto">
+            <div className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 px-6 py-3 font-medium text-slate-400 sm:w-auto">
               <Github size={20} />
               {casesSection.githubCta.label}
             </div>
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {casesSection.items.map((project, index) => (
             <motion.div
               key={index}
@@ -58,7 +58,7 @@ export function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-slate-900/50 rounded-3xl border border-slate-800 overflow-hidden hover:border-indigo-500/30 transition-all"
+              className="group h-full overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/40 sm:aspect-video">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.28),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.18),transparent_42%)]" />
@@ -87,7 +87,7 @@ export function Portfolio() {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-indigo-600/90 text-white text-xs font-bold backdrop-blur-md">
+                <div className="absolute top-4 left-4 rounded-full bg-indigo-600/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
                   {project.category}
                 </div>
                 <div className="absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full border border-white/10 bg-slate-950/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-200 backdrop-blur-md sm:right-4 sm:top-4">
@@ -95,7 +95,7 @@ export function Portfolio() {
                 </div>
               </div>
 
-              <div className="p-5 sm:p-6">
+              <div className="flex h-full flex-col p-5 sm:p-6">
                 <div className="mb-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span key={tag} className="text-[10px] uppercase tracking-wider font-bold text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded-md">
@@ -112,7 +112,7 @@ export function Portfolio() {
 
                 <div className="mb-4 rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
                   <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
-                    Сценарий
+                    Формат задачи
                   </div>
                   <p className="text-sm leading-relaxed text-slate-300">
                     {project.scenario}
@@ -122,7 +122,7 @@ export function Portfolio() {
                 <div className="mb-6 space-y-4">
                   <div>
                     <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
-                      Что обычно требуется
+                      Что важно на старте
                     </div>
                     <div className="space-y-2">
                       {project.whatUsuallyNeeded.map((item) => (
@@ -144,7 +144,7 @@ export function Portfolio() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:gap-4">
+                <div className="mt-auto flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:gap-4">
                   {project.link ? (
                     <a
                       href={project.link}
@@ -180,6 +180,24 @@ export function Portfolio() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="mt-7 rounded-3xl border border-white/8 bg-slate-900/45 p-5 sm:mt-8 sm:p-6"
+        >
+          <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
+            {casesSection.cta.note}
+          </p>
+          <a
+            href={casesSection.cta.href}
+            className="mt-4 inline-flex items-center justify-center rounded-2xl border border-indigo-400/30 bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 sm:text-base"
+          >
+            {casesSection.cta.label}
+          </a>
+        </motion.div>
       </div>
     </section>
   );

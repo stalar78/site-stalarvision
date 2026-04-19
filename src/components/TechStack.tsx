@@ -5,20 +5,20 @@ export function TechStack() {
   return (
     <section id="tech-stack" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-9 lg:grid-cols-2 lg:gap-14">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-3xl font-bold text-white sm:mb-8 sm:text-4xl md:text-5xl">
+            <h2 className="mb-5 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl">
               {techStackSection.title.lead}{' '}
               <span className="text-indigo-500 font-extrabold">
                 {techStackSection.title.accent}
               </span>
             </h2>
-            <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-400 sm:mb-10 sm:text-lg">
+            <p className="mb-7 max-w-xl text-[1.01rem] leading-relaxed text-slate-400 sm:mb-8 sm:text-[1.06rem]">
               {techStackSection.description}
             </p>
             
@@ -31,7 +31,7 @@ export function TechStack() {
             </div>
           </motion.div>
 
-          <div className="space-y-5 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-5">
             {techStackSection.technologies.map((tech, index) => (
               <motion.div
                 key={index}
