@@ -112,25 +112,36 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-3.5">
               {footerContactMethods.map((method) => (
-                <li key={method.label} className="flex items-start gap-3 text-slate-400">
-                  <method.icon size={17} className="mt-1 shrink-0 text-indigo-500" />
-                  <div className="min-w-0">
-                    <div className="mb-0.5 text-[11px] uppercase tracking-[0.16em] text-slate-500">
-                      {method.label}
+                <li key={method.label}>
+                  {method.href ? (
+                    <a
+                      href={method.href}
+                      target={method.href.startsWith('http') ? '_blank' : undefined}
+                      rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="flex items-start gap-3 text-slate-400 no-underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                      aria-label={`Связаться через ${method.label}: ${method.value}`}
+                    >
+                      <method.icon size={17} className="mt-1 shrink-0 text-indigo-500" />
+                      <div className="min-w-0">
+                        <div className="mb-0.5 text-[11px] uppercase tracking-[0.16em] text-slate-500">
+                          {method.label}
+                        </div>
+                        <span className="break-all text-sm transition-colors hover:text-indigo-400 sm:break-normal">
+                          {method.value}
+                        </span>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="flex items-start gap-3 text-slate-400">
+                      <method.icon size={17} className="mt-1 shrink-0 text-indigo-500" />
+                      <div className="min-w-0">
+                        <div className="mb-0.5 text-[11px] uppercase tracking-[0.16em] text-slate-500">
+                          {method.label}
+                        </div>
+                        <span className="text-sm">{method.value}</span>
+                      </div>
                     </div>
-                    {method.href ? (
-                      <a
-                        href={method.href}
-                        target={method.href.startsWith('http') ? '_blank' : undefined}
-                        rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="break-all text-sm transition-colors hover:text-indigo-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 sm:break-normal"
-                      >
-                        {method.value}
-                      </a>
-                    ) : (
-                      <span className="text-sm">{method.value}</span>
-                    )}
-                  </div>
+                  )}
                 </li>
               ))}
             </ul>

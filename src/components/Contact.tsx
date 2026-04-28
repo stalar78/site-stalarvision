@@ -205,7 +205,14 @@ export function Contact() {
 
             <div className="mb-8 space-y-5 sm:mb-9 sm:space-y-6">
               {contactMethods.map((method) => (
-                <div key={method.label} className="group flex items-start gap-3 sm:gap-4">
+                <a
+                  key={method.label}
+                  href={method.href}
+                  target={method.href.startsWith('http') ? '_blank' : undefined}
+                  rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="group flex items-start gap-3 sm:gap-4 no-underline hover:no-underline"
+                  aria-label={`Связаться через ${method.label}: ${method.value}`}
+                >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-800 bg-slate-900 text-indigo-500 transition-all group-hover:bg-indigo-600 group-hover:text-white sm:h-12 sm:w-12">
                     <method.icon size={24} />
                   </div>
@@ -213,22 +220,11 @@ export function Contact() {
                     <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
                       {method.label}
                     </div>
-                    {method.href ? (
-                      <a
-                        href={method.href}
-                        target={method.href.startsWith('http') ? '_blank' : undefined}
-                        rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="break-all text-base font-medium text-white transition-colors hover:text-indigo-400 sm:text-lg"
-                      >
-                        {method.value}
-                      </a>
-                    ) : (
-                      <span className="break-all text-base font-medium text-slate-300 sm:text-lg">
-                        {method.value}
-                      </span>
-                    )}
+                    <span className="break-all text-base font-medium text-white transition-colors group-hover:text-indigo-400 sm:text-lg">
+                      {method.value}
+                    </span>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
 
