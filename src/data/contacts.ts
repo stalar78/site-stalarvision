@@ -1,4 +1,5 @@
 import {
+  Brain,
   Github,
   Mail,
   MessageCircle,
@@ -37,6 +38,12 @@ export const navbarSocialLinks = [
     icon: MessageSquare,
     status: 'approved-link',
   },
+  {
+    label: 'Brain Trainer',
+    href: 'http://155.212.138.22/brain_trainer/',
+    icon: Brain,
+    status: 'approved-link',
+  },
 ] satisfies IconLink[];
 
 export const mobileMenuSocialLinks = [
@@ -56,6 +63,12 @@ export const mobileMenuSocialLinks = [
     label: 'MAX',
     href: profile.contacts.max.href,
     icon: MessageSquare,
+    status: 'approved-link',
+  },
+  {
+    label: 'Brain Trainer',
+    href: 'http://155.212.138.22/brain_trainer/',
+    icon: Brain,
     status: 'approved-link',
   },
 ] satisfies IconLink[];

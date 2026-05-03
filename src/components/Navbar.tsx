@@ -77,7 +77,7 @@ export function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-9 w-9 items-center justify-center rounded-lg border border-transparent text-slate-400 transition-colors hover:border-slate-700 hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
-                    aria-label={link.label}
+                    aria-label={`Открыть ${link.label}`}
                   >
                     <link.icon size={18} />
                   </a>
@@ -149,7 +149,7 @@ export function Navbar() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-800 bg-slate-900/70 text-slate-400 transition-colors hover:border-slate-700 hover:text-white"
-                        aria-label={link.label}
+                        aria-label={`Открыть ${link.label}`}
                       >
                         <link.icon size={20} />
                       </a>
