@@ -85,3 +85,20 @@ export const casesSection = {
     },
   ],
 };
+
+export const ownedProductSpotlight = {
+  eyebrow: 'Собственный продукт',
+  title: 'LocalKit — каталог готовых сайтов для малого бизнеса',
+  description:
+    'Каталог Next.js-шаблонов на русском языке с услугой настройки под конкретную нишу. Сейчас доступны шаблоны для сайта адвоката и стоматологии; дальше каталог будет расширяться новыми направлениями.',
+  highlights: [
+    'готовые шаблоны под конкретные ниши',
+    'Next.js, TypeScript, Tailwind CSS',
+    'демо-сайты и структура для кастомизации',
+  ],
+  link: {
+    label: 'Открыть LocalKit',
+    href: 'https://localkit.ru/',
+  },
+  status: 'owned-product',
+};

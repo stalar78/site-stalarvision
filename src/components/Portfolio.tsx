@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Globe, ImageOff } from 'lucide-react';
-import { casesSection } from '@/data/cases';
+import { ExternalLink, Github, Globe, ImageOff, LayoutTemplate } from 'lucide-react';
+import { casesSection, ownedProductSpotlight } from '@/data/cases';
 
 export function Portfolio() {
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
@@ -180,6 +180,50 @@ export function Portfolio() {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.08 }}
+          className="mt-7 rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-cyan-950/20 p-5 sm:mt-8 sm:p-6"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-200">
+                <LayoutTemplate size={14} />
+                {ownedProductSpotlight.eyebrow}
+              </div>
+              <h3 className="mt-3 text-xl font-semibold leading-snug text-white sm:text-2xl">
+                {ownedProductSpotlight.title}
+              </h3>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
+                {ownedProductSpotlight.description}
+              </p>
+            </div>
+            <a
+              href={ownedProductSpotlight.link.href}
+              {...externalLinkProps}
+              aria-label={ownedProductSpotlight.link.label}
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-cyan-300/30 bg-cyan-500/10 px-4 py-2.5 text-sm font-semibold text-cyan-100 transition-colors hover:border-cyan-200/50 hover:bg-cyan-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+            >
+              {ownedProductSpotlight.link.label}
+              <ExternalLink size={16} />
+            </a>
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {ownedProductSpotlight.highlights.map((highlight) => (
+              <div
+                key={highlight}
+                className="rounded-xl border border-slate-700/70 bg-slate-950/50 px-3.5 py-2.5 text-sm text-slate-200"
+              >
+                <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-cyan-300 align-middle" />
+                {highlight}
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
