@@ -142,9 +142,11 @@ export function Hero() {
                 <span className="mt-1 block bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
                   {heroSection.title.accent}
                 </span>
-                <span className="mt-1 block text-slate-100">
-                  {heroSection.title.tail}
-                </span>
+                {heroSection.title.tail ? (
+                  <span className="mt-1 block text-slate-100">
+                    {heroSection.title.tail}
+                  </span>
+                ) : null}
               </h1>
 
               <p className="mb-7 max-w-[36rem] text-pretty text-[1.01rem] leading-7 text-slate-300/88 sm:mb-8 sm:text-[1.05rem] sm:leading-8 xl:max-w-[38rem] xl:text-[1.07rem]">
