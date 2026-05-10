@@ -123,7 +123,7 @@ export function Hero() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-12 xl:grid-cols-[minmax(0,0.84fr)_minmax(0,1.16fr)] xl:gap-16 2xl:gap-20">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:gap-16 2xl:gap-20">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -131,13 +131,13 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="min-w-0 lg:pr-4 xl:pr-6"
           >
-            <div className="max-w-[41rem] xl:max-w-[42rem]">
+            <div className="max-w-[44rem] xl:max-w-[46rem]">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-300 sm:mb-6 sm:text-sm">
                 <heroSection.badge.icon size={14} className="text-indigo-400" />
                 <span>{heroSection.badge.text}</span>
               </div>
 
-              <h1 className="mb-5 text-pretty text-4xl font-bold tracking-[-0.05em] leading-[0.97] text-slate-50 sm:mb-6 sm:text-[3.05rem] md:text-[3.28rem] md:leading-[0.99] lg:text-[3.38rem] xl:text-[3.78rem]">
+              <h1 className="mb-5 text-pretty text-4xl font-bold tracking-[-0.05em] leading-[0.99] text-slate-50 sm:mb-6 sm:text-[2.8rem] md:text-[3rem] md:leading-[1.01] lg:text-[3.05rem] xl:text-[3.35rem]">
                 <span className="block text-slate-50">{heroSection.title.lead}</span>
                 <span className="mt-1 block bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
                   {heroSection.title.accent}
