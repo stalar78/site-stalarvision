@@ -153,6 +153,39 @@ export function Hero() {
                 {heroSection.description}
               </p>
 
+              <div className="mb-7 lg:hidden">
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-3.5 shadow-[0_18px_38px_-24px_rgba(15,23,42,0.95)] backdrop-blur-md">
+                  <div className="mb-2.5 flex items-center gap-2 px-1">
+                    <motion.div
+                      animate={{ opacity: [0.45, 1, 0.45], scale: [1, 1.08, 1] }}
+                      transition={{ repeat: Infinity, duration: 2.2 }}
+                      className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.75)]"
+                    />
+                    <div className="h-2 w-2 rounded-full bg-slate-700" />
+                    <div className="h-2 w-2 rounded-full bg-slate-600" />
+                    <div className="ml-2 rounded-md border border-slate-800 bg-slate-900 px-2 py-0.5 font-mono text-[9px] text-slate-500">
+                      {heroSection.codeWindowLabel}
+                    </div>
+                    <div className="ml-auto rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-200">
+                      Live
+                    </div>
+                  </div>
+
+                  <div className="relative overflow-hidden rounded-xl border border-cyan-500/15 bg-slate-950/90">
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.15),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_44%)]" />
+                    <pre className="relative h-[190px] max-h-[190px] overflow-hidden p-3 font-mono text-[11px] leading-relaxed">
+                      <code className="block whitespace-pre-wrap break-words text-slate-100 [text-shadow:0_0_12px_rgba(56,189,248,0.16)]">
+                        {renderColorizedSnippet(animatedSnippet)}
+                        <span
+                          aria-hidden="true"
+                          className="ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300"
+                        />
+                      </code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+
               <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a
                   href={heroSection.actions.primary.href}
