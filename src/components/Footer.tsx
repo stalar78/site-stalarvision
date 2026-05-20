@@ -71,9 +71,9 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-5 text-sm font-semibold uppercase tracking-[0.22em] text-white">
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.22em] text-white">
               {footerData.navigationTitle}
-            </h4>
+            </h3>
             <ul className="space-y-2.5">
               {footerData.navigationLinks.map((link) => (
                 <li key={link.name}>
@@ -87,9 +87,9 @@ export const Footer = () => {
               ))}
             </ul>
             <div className="mt-7">
-              <h5 className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-white">
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-white">
                 {footerData.documentsTitle}
-              </h5>
+              </h4>
               <ul className="space-y-2.5">
                 {footerData.documentLinks.map((link) => (
                   <li key={link.name}>
@@ -107,9 +107,9 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="mb-5 text-sm font-semibold uppercase tracking-[0.22em] text-white">
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.22em] text-white">
               {footerData.contactTitle}
-            </h4>
+            </h3>
             <ul className="space-y-3.5">
               {footerContactMethods.map((method) => (
                 <li key={method.label}>

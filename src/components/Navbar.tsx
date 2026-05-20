@@ -30,45 +30,46 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
-        ? 'py-2.5 sm:py-3.5 glass border-b border-white/10 shadow-[0_12px_30px_-24px_rgba(2,6,23,0.9)]'
-        : 'py-4 sm:py-5 bg-transparent'
-        }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-12 items-center justify-between sm:min-h-14">
-          <motion.a
-            href={navbarData.brand.href}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
-            className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
-          >
-            <motion.span
-              whileHover={shouldReduceMotion ? undefined : { rotate: 12, y: -1, scale: 1.02 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
+    <header>
+      <nav
+        className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled
+          ? 'py-2.5 sm:py-3.5 glass border-b border-white/10 shadow-[0_12px_30px_-24px_rgba(2,6,23,0.9)]'
+          : 'py-4 sm:py-5 bg-transparent'
+          }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex min-h-12 items-center justify-between sm:min-h-14">
+            <motion.a
+              href={navbarData.brand.href}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+              className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             >
               <motion.span
-                aria-hidden="true"
-                animate={shouldReduceMotion ? undefined : { opacity: [0.14, 0.28, 0.14], scale: [0.95, 1.08, 0.95] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-                style={shouldReduceMotion ? { opacity: 0.16 } : undefined}
-                className="pointer-events-none absolute inset-[34%] rounded-full bg-cyan-300/35 blur-[6px]"
-              />
-              <img
-                src="/brand/logo-compass.png"
-                alt="Stalar Vision Logo"
-                className="relative z-10 h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
-              />
-            </motion.span>
-            <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
-              {navbarData.brand.name}
-              <span className="text-indigo-500">{navbarData.brand.accent}</span>
-            </span>
-          </motion.a>
+                whileHover={shouldReduceMotion ? undefined : { rotate: 12, y: -1, scale: 1.02 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
+              >
+                <motion.span
+                  aria-hidden="true"
+                  animate={shouldReduceMotion ? undefined : { opacity: [0.14, 0.28, 0.14], scale: [0.95, 1.08, 0.95] }}
+                  transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+                  style={shouldReduceMotion ? { opacity: 0.16 } : undefined}
+                  className="pointer-events-none absolute inset-[34%] rounded-full bg-cyan-300/35 blur-[6px]"
+                />
+                <img
+                  src="/brand/logo-compass.png"
+                  alt="Stalar Vision Logo"
+                  className="relative z-10 h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
+                />
+              </motion.span>
+              <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
+                {navbarData.brand.name}
+                <span className="text-indigo-500">{navbarData.brand.accent}</span>
+              </span>
+            </motion.a>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
@@ -183,6 +184,7 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+      </nav>
+    </header>
   );
 }
