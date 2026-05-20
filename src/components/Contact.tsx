@@ -27,6 +27,12 @@ export function Contact() {
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
   const [lastSubmittedAt, setLastSubmittedAt] = useState<number | null>(null);
+  const fieldIds = {
+    name: 'contact-name',
+    contact: 'contact-method',
+    projectType: 'contact-project-type',
+    project: 'contact-project-message',
+  } as const;
 
   const formSecurity = contactSection.form.security;
 
@@ -298,10 +304,11 @@ export function Contact() {
               ) : null}
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div className="space-y-2">
-                  <label className="ml-1 text-sm font-medium text-slate-400">
+                  <label htmlFor={fieldIds.name} className="ml-1 text-sm font-medium text-slate-400">
                     {contactSection.form.nameLabel}
                   </label>
                   <input
+                    id={fieldIds.name}
                     type="text"
                     name="name"
                     maxLength={formSecurity.maxLength.name}
@@ -316,10 +323,11 @@ export function Contact() {
                   ) : null}
                 </div>
                 <div className="space-y-2">
-                  <label className="ml-1 text-sm font-medium text-slate-400">
+                  <label htmlFor={fieldIds.contact} className="ml-1 text-sm font-medium text-slate-400">
                     {contactSection.form.contactLabel}
                   </label>
                   <input
+                    id={fieldIds.contact}
                     type="text"
                     name="contact"
                     maxLength={formSecurity.maxLength.contact}
@@ -335,10 +343,11 @@ export function Contact() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="ml-1 text-sm font-medium text-slate-400">
+                <label htmlFor={fieldIds.projectType} className="ml-1 text-sm font-medium text-slate-400">
                   {contactSection.form.projectTypeLabel}
                 </label>
                 <select
+                  id={fieldIds.projectType}
                   name="projectType"
                   value={formValues.projectType}
                   onChange={handleChange('projectType')}
@@ -353,10 +362,11 @@ export function Contact() {
                 </p>
               </div>
               <div className="space-y-2">
-                <label className="ml-1 text-sm font-medium text-slate-400">
+                <label htmlFor={fieldIds.project} className="ml-1 text-sm font-medium text-slate-400">
                   {contactSection.form.projectLabel}
                 </label>
                 <textarea
+                  id={fieldIds.project}
                   rows={4}
                   name="project"
                   maxLength={formSecurity.maxLength.project}
