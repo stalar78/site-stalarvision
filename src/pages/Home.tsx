@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { About } from '../components/About';
@@ -12,9 +13,12 @@ import { FAQ } from '../components/FAQ';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 import { profile } from '../data/profile';
+import { scrollToCurrentHashWithRetry } from '../lib/hashScroll';
 import { applyDocumentMeta } from '../lib/meta';
 
 export default function Home() {
+  const location = useLocation();
+
   useEffect(() => {
     applyDocumentMeta({
       lang: profile.seo.htmlLang,
@@ -36,6 +40,14 @@ export default function Home() {
       robots: 'index,follow',
     });
   }, []);
+
+  useEffect(() => {
+    if (!location.hash) {
+      return;
+    }
+
+    scrollToCurrentHashWithRetry({ behavior: 'auto' });
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30 selection:text-indigo-200">

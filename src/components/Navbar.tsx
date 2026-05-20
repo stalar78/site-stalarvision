@@ -3,11 +3,25 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { mobileMenuSocialLinks, navbarSocialLinks } from '@/data/contacts';
 import { navbarData } from '@/data/site';
+import { scrollToCurrentHashWithRetry } from '@/lib/hashScroll';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  const handleMobileMenuNavigation = (href: string) => {
+    setIsOpen(false);
+
+    const isHashLink = href.startsWith('/#') || href.startsWith('#');
+    if (!isHashLink) {
+      return;
+    }
+
+    window.setTimeout(() => {
+      scrollToCurrentHashWithRetry({ behavior: 'smooth' });
+    }, 220);
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -126,7 +140,7 @@ export function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => handleMobileMenuNavigation(link.href)}
                   className="block rounded-xl px-3 py-2 text-[0.98rem] font-medium text-slate-200 transition-colors hover:bg-slate-900/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                 >
                   {link.name}
@@ -135,7 +149,7 @@ export function Navbar() {
               <div className="flex flex-col gap-3 border-t border-white/5 pt-4">
                 <a
                   href={navbarData.mobileCta.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => handleMobileMenuNavigation(navbarData.mobileCta.href)}
                   className="w-full rounded-xl border border-indigo-400/30 bg-indigo-600/95 py-3 text-center text-sm font-semibold text-white transition-all duration-200 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                 >
                   {navbarData.mobileCta.label}
