@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { trackPageView, trackYandexMetrikaPageView } from '@/lib/utils';
+import { initializeAnalytics, trackPageView, trackYandexMetrikaPageView } from '@/lib/utils';
 
 /**
  * Layout компонент (опционально)
@@ -25,15 +25,19 @@ export default function App() {
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    // Track page views for Top.Mail.Ru in SPA
-    trackPageView();
+    initializeAnalytics();
+  }, []);
 
-    // Яндекс Метрика: отправляем hit только при смене маршрута, не на первом mount
-    if (!isInitialMount.current) {
-      trackYandexMetrikaPageView();
-    } else {
+  useEffect(() => {
+    // Initial page view is already queued in initializeAnalytics.
+    if (isInitialMount.current) {
       isInitialMount.current = false;
+      return;
     }
+
+    // Track page views for SPA route transitions.
+    trackPageView();
+    trackYandexMetrikaPageView();
   }, [location.pathname]);
 
   return (

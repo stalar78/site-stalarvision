@@ -12,6 +12,7 @@ export const profile = {
     siteUrl: productionSiteUrl,
     defaultPath: '/',
     privacyPath: '/privacy',
+    termsPath: '/terms',
     htmlLang: 'ru',
     title: 'Stalar Vision | Независимый разработчик для бизнеса',
     description:
