@@ -53,7 +53,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6 selection:bg-indigo-500/30 selection:text-indigo-200">
+    <main className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6 selection:bg-indigo-500/30 selection:text-indigo-200">
       <div className="max-w-xl w-full text-center rounded-[2rem] border border-slate-800 bg-slate-900/50 backdrop-blur-xl p-10 sm:p-12 shadow-2xl">
         <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
           <Compass size={30} />
@@ -74,6 +74,6 @@ export default function NotFound() {
           На главную
         </Link>
       </div>
-    </div>
+    </main>
   );
 }
