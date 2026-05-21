@@ -301,6 +301,7 @@ export const footerData = {
   documentsTitle: 'Документы',
   documentLinks: [
     { name: 'Политика данных', href: '/privacy' },
+    { name: 'Условия использования', href: '/terms' },
     { name: 'Реквизиты', href: '/privacy#requisites' },
   ] satisfies NavLink[],
   contactTitle: 'Контакты',

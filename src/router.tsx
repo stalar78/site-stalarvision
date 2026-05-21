@@ -1,7 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
+import App from './App'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 
 /**
  * Роутер приложения
@@ -17,14 +19,24 @@ import Privacy from './pages/Privacy'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/privacy',
-    element: <Privacy />,
-  },
-  {
-    path: '*',
-    element: <NotFound />,
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'privacy',
+        element: <Privacy />,
+      },
+      {
+        path: 'terms',
+        element: <Terms />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
   },
 ])
