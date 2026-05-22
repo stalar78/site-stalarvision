@@ -7,6 +7,7 @@ import {
   Database,
   FileSpreadsheet,
   Monitor,
+  Radar,
   Terminal,
 } from 'lucide-react';
 import { softwareCasesSection } from '@/data/softwareCases';
@@ -14,6 +15,7 @@ import { softwareCasesSection } from '@/data/softwareCases';
 const iconByItem = {
   'knowledge-extractor': BrainCircuit,
   'operator-detector': FileSpreadsheet,
+  'web-audit-lab': Radar,
 } as const;
 
 export function SoftwareCases() {

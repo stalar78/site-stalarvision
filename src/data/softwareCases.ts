@@ -71,5 +71,34 @@ export const softwareCasesSection = {
       focus: 'обработка данных, Excel pipeline, локальные справочники, desktop/web-интерфейсы',
       limitations: 'ориентировано на российские мобильные номера; MNP не учитывается',
     },
+    {
+      icon: 'web-audit-lab',
+      title: 'Web Audit Lab',
+      shortDescription:
+        'Инструмент для внешнего браузерного аудита сайтов: проверка страниц, мобильной версии, ссылок, SEO-основ, доступности, ошибок загрузки и технических red flags.',
+      problem:
+        'У владельца сайта часто нет понятной картины, что именно мешает сайту выглядеть профессионально, нормально работать на телефоне и быть технически аккуратным для пользователей и поисковых систем.',
+      features: [
+        'проверка публичных страниц без доступа к серверу',
+        'анализ sitemap и основных маршрутов',
+        'desktop и mobile browser checks',
+        'поиск битых внутренних ссылок',
+        'проверка SEO basics и canonical',
+        'проверка accessibility basics',
+        'поиск failed network requests',
+        'скриншоты и технический отчёт',
+      ],
+      tags: [
+        'Playwright',
+        'Browser automation',
+        'SEO basics',
+        'Accessibility',
+        'Reports',
+        'QA workflow',
+      ],
+      status: 'рабочий инструмент для production-аудитов',
+      focus: 'browser automation, внешний аудит сайтов, техническая диагностика, отчёты и ТЗ для исправлений',
+      limitations: 'не заменяет SEO-продвижение, разработку исправлений и полноценный security-аудит',
+    },
   ],
 };
