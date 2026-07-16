@@ -4,9 +4,11 @@ import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { profile } from '@/data/profile';
+import { websiteImprovementStructuredData } from '@/data/structuredData';
 import { websiteImprovementPage } from '@/data/websiteImprovement';
 import { scrollToCurrentHashWithRetry } from '@/lib/hashScroll';
 import { applyDocumentMeta } from '@/lib/meta';
+import { applyDocumentStructuredData } from '@/lib/structuredData';
 
 const numbered = (index: number) => String(index + 1).padStart(2, '0');
 
@@ -31,6 +33,8 @@ export default function WebsiteImprovement() {
       themeColor: profile.seo.themeColor,
       robots: websiteImprovementPage.seo.robots,
     });
+
+    return applyDocumentStructuredData(websiteImprovementStructuredData);
   }, []);
 
   useEffect(() => {

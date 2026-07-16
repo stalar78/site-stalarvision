@@ -13,8 +13,10 @@ import { FAQ } from '../components/FAQ';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 import { profile } from '../data/profile';
+import { homeStructuredData } from '../data/structuredData';
 import { scrollToCurrentHashWithRetry } from '../lib/hashScroll';
 import { applyDocumentMeta } from '../lib/meta';
+import { applyDocumentStructuredData } from '../lib/structuredData';
 
 export default function Home() {
   const location = useLocation();
@@ -39,6 +41,8 @@ export default function Home() {
       themeColor: profile.seo.themeColor,
       robots: 'index,follow',
     });
+
+    return applyDocumentStructuredData(homeStructuredData);
   }, []);
 
   useEffect(() => {
