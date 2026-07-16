@@ -48,6 +48,15 @@ export default defineConfig(({ mode }) => {
     },
 
     // Оптимизация зависимостей в локальную папку
+    build: {
+      rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          websiteImprovement: path.resolve(__dirname, 'dorabotka-sajta/index.html'),
+        },
+      },
+    },
+
     optimizeDeps: {
       // Временная папка для оптимизированных зависимостей
       cacheDir: '.vite',
