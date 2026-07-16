@@ -62,7 +62,7 @@ export type WebsiteImprovementPageData = {
   finalCta: FinalCta;
 };
 
-const path = '/dorabotka-sajta';
+const path = '/dorabotka-sajta/';
 
 export const websiteImprovementPage: WebsiteImprovementPageData = {
   seo: {

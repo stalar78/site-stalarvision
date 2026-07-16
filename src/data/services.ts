@@ -54,7 +54,7 @@ export const servicesSection = {
       format:
         'Итерационно: приоритет, объём, доработка, следующий шаг.',
       color: 'from-amber-500/10 to-orange-500/10',
-      detailsHref: '/dorabotka-sajta',
+      detailsHref: '/dorabotka-sajta/',
       detailsLabel: 'Подробнее о доработке сайтов',
     },
     {
