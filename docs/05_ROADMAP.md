@@ -104,13 +104,12 @@
 - создан доменный ресурс `stalarvision.ru`;
 - право собственности подтверждено через DNS TXT-запись;
 - главная страница подтверждённо находится в индексе Google;
-- для главной страницы отправлен повторный запрос на индексирование;
-- для `https://stalarvision.ru/dorabotka-sajta` отправлен запрос на индексирование;
-- Search Console начал обработку данных по ресурсу.
+- `https://stalarvision.ru/dorabotka-sajta` подтверждённо находится в индексе Google;
+- для главной и `/dorabotka-sajta` отправлялись запросы на индексирование;
+- Search Console начал обработку статистики по ресурсу.
 
 Ещё не подтверждено:
 - успешная обработка sitemap в Search Console;
-- фактическая индексация `/dorabotka-sajta` после отправленного запроса;
 - user-declared canonical и Google-selected canonical для `/dorabotka-sajta`;
 - route-specific title и description в отрендерированной версии Google.
 
@@ -118,7 +117,7 @@
 
 Проект находится на стадии:
 
-**production-ready polished landing + опубликованная первая коммерческая SEO-страница + проверенный runtime JSON-LD + подключённый Google Search Console**
+**production-ready polished landing + опубликованная и проиндексированная первая коммерческая SEO-страница + проверенный runtime JSON-LD + подключённый Google Search Console**
 
 Сайт уже прошёл:
 - запуск;
@@ -127,7 +126,8 @@
 - создание первой service page;
 - изоляцию production build;
 - внедрение, production-проверку и внешнюю валидацию structured data;
-- подтверждение домена в Google Search Console и отправку ключевых URL на индексирование.
+- подтверждение домена в Google Search Console;
+- индексацию главной и `/dorabotka-sajta` в Google.
 
 ## Подтверждённая коммерческая и рекламная рамка
 
@@ -150,25 +150,25 @@
 
 Ближайший порядок:
 1. подтвердить успешный статус `https://stalarvision.ru/sitemap.xml` в Google Search Console;
-2. дождаться обработки запроса на индексирование `/dorabotka-sajta`;
-3. проверить URL через Google Search Console URL Inspection;
-4. сравнить user-declared canonical и Google-selected canonical;
-5. проверить rendered HTML и фактический title/description/canonical;
-6. проверить URL в Яндекс Вебмастере и при необходимости отправить на переобход;
-7. только после этого принять решение о build-time пререндеринге или route-specific static HTML;
-8. пройти отдельный mobile QA `/dorabotka-sajta`;
-9. подготовить вторую страницу услуги — технического аудита сайта;
-10. провести инвентаризацию реальных проектов для будущих кейсов;
-11. настроить цели Яндекс Метрики;
-12. подготовить структуру первого теста Яндекс Директа для Санкт-Петербурга и Ленинградской области;
-13. отдельно разобрать текущий `npm audit` без `--force`.
+2. раскрыть блок «Индексирование страниц» для `/dorabotka-sajta`;
+3. сравнить user-declared canonical и Google-selected canonical;
+4. проверить rendered HTML и фактический title/description/canonical;
+5. проверить URL в Яндекс Вебмастере и при необходимости отправить на переобход;
+6. только после этого принять решение о build-time пререндеринге или route-specific static HTML;
+7. пройти отдельный mobile QA `/dorabotka-sajta`;
+8. подготовить вторую страницу услуги — технического аудита сайта;
+9. провести инвентаризацию реальных проектов для будущих кейсов;
+10. настроить цели Яндекс Метрики;
+11. подготовить структуру первого теста Яндекс Директа для Санкт-Петербурга и Ленинградской области;
+12. отдельно разобрать текущий `npm audit` без `--force`.
 
 ## Предварительное решение по пререндерингу
 
 - немедленная миграция на Next.js не нужна;
 - динамический рендеринг для ботов не рассматривается;
 - runtime JSON-LD работает и доступен внешнему рендереру;
-- возможная проблема остаётся не в JSON-LD, а в исходных route-specific metadata и canonical;
+- факт индексации `/dorabotka-sajta` подтверждает, что Google обнаруживает и обрабатывает маршрут;
+- возможная проблема остаётся не в доступности страницы, а в качестве route-specific metadata и canonical;
 - пререндеринг не внедряется вслепую: сначала проверяется фактический canonical в Search Console;
 - если Google выбирает главную как canonical для `/dorabotka-sajta` или не видит маршрутные metadata, следующим техническим этапом станет build-time route-specific HTML/prerender.
 
