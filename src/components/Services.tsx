@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { servicesSection } from '@/data/services';
 
 export function Services() {
@@ -67,6 +68,15 @@ export function Services() {
                     </span>
                     <span className="font-medium leading-relaxed text-indigo-400">{service.format}</span>
                   </div>
+                  {service.detailsHref ? (
+                    <a
+                      href={service.detailsHref}
+                      className="inline-flex w-fit items-center gap-2 rounded-xl border border-indigo-400/25 bg-indigo-500/10 px-3.5 py-2 text-xs font-semibold text-indigo-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-300/45 hover:bg-indigo-500/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                    >
+                      {service.detailsLabel}
+                      <ArrowRight size={14} />
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </motion.div>

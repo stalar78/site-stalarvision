@@ -17,6 +17,8 @@ type ServiceItem = {
   firstStep: string;
   format: string;
   color: string;
+  detailsHref?: string;
+  detailsLabel?: string;
 };
 
 export const servicesSection = {
@@ -52,6 +54,8 @@ export const servicesSection = {
       format:
         'Итерационно: приоритет, объём, доработка, следующий шаг.',
       color: 'from-amber-500/10 to-orange-500/10',
+      detailsHref: '/dorabotka-sajta',
+      detailsLabel: 'Подробнее о доработке сайтов',
     },
     {
       title: 'Аудит сайта и технический разбор',

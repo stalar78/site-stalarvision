@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import WebsiteImprovement from './pages/WebsiteImprovement'
 
 /**
  * Роутер приложения
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: 'terms',
         element: <Terms />,
+      },
+      {
+        path: 'dorabotka-sajta',
+        element: <WebsiteImprovement />,
       },
       {
         path: '*',
