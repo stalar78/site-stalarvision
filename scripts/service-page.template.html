@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{title}}</title>
+  <link rel="canonical" href="{{canonical}}">
+  <meta name="description"
+    content="{{description}}" />
+  <meta name="theme-color" content="#020617" />
+  <meta name="robots" content="{{robots}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ogTitle}}" />
+  <meta name="twitter:description"
+    content="{{ogDescription}}" />
+  <meta name="twitter:image" content="https://stalarvision.ru/brand/share-preview.png" />
+  <meta property="og:title" content="{{ogTitle}}" />
+  <meta property="og:description"
+    content="{{ogDescription}}" />
+  <meta property="og:type" content="{{ogType}}" />
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:image" content="https://stalarvision.ru/brand/share-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Stalar Vision - independent developer for business" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="Stalar Vision" />
+  <script id="stalar-structured-data" type="application/ld+json">
+{{jsonLd}}
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
+  <!-- Top.Mail.Ru counter (JS loaded at runtime in src/lib/utils.ts) -->
+  <noscript>
+    <div><img src="https://top-fwz1.mail.ru/counter?id=3759601;js=na" style="position:absolute;left:-9999px;"
+        alt="Top.Mail.Ru" /></div>
+  </noscript>
+  <!-- /Top.Mail.Ru counter -->
+
+  <!-- Yandex.Metrika counter (JS loaded at runtime in src/lib/utils.ts) -->
+  <noscript><div><img src="https://mc.yandex.ru/watch/108788776" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</body>
+
+</html>

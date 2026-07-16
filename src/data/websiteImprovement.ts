@@ -1,4 +1,4 @@
-import { profile } from './profile';
+import servicePageSeo from './servicePageSeo.json';
 
 type SeoData = {
   path: string;
@@ -62,20 +62,18 @@ export type WebsiteImprovementPageData = {
   finalCta: FinalCta;
 };
 
-const path = '/dorabotka-sajta/';
+const seo = servicePageSeo.websiteImprovement;
 
 export const websiteImprovementPage: WebsiteImprovementPageData = {
   seo: {
-    path,
-    title: 'Доработка и развитие существующих сайтов — Stalar Vision',
-    description:
-      'Дорабатываю существующие сайты и веб-проекты для бизнеса по всей России: технический разбор, исправление проблем, новые функции и поэтапное развитие.',
-    canonical: `${profile.seo.siteUrl}${path}`,
-    robots: 'index,follow',
-    ogType: 'website',
-    ogTitle: 'Доработка и развитие существующих сайтов — Stalar Vision',
-    ogDescription:
-      'Технический разбор, исправление проблем, добавление функций и поэтапное развитие существующих сайтов и веб-проектов.',
+    path: seo.path,
+    title: seo.title,
+    description: seo.description,
+    canonical: seo.canonical,
+    robots: seo.robots,
+    ogType: seo.ogType,
+    ogTitle: seo.ogTitle,
+    ogDescription: seo.ogDescription,
   },
   hero: {
     eyebrow: 'Доработка существующих сайтов',

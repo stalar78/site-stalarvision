@@ -1,4 +1,4 @@
-import { profile } from './profile';
+import servicePageSeo from './servicePageSeo.json';
 
 type SeoData = {
   path: string;
@@ -63,20 +63,18 @@ export type WebsiteAuditPageData = {
   finalCta: FinalCta;
 };
 
-const path = '/audit-sajta/';
+const seo = servicePageSeo.websiteAudit;
 
 export const websiteAuditPage: WebsiteAuditPageData = {
   seo: {
-    path,
-    title: 'Аудит сайта и технический разбор — Stalar Vision',
-    description:
-      'Провожу аудит существующих сайтов и веб-проектов: проверяю техническое состояние, мобильную версию, формы, базовую SEO-разметку и определяю приоритеты дальнейших исправлений.',
-    canonical: `${profile.seo.siteUrl}${path}`,
-    robots: 'index,follow',
-    ogType: 'website',
-    ogTitle: 'Аудит сайта и технический разбор — Stalar Vision',
-    ogDescription:
-      'Проверка технического состояния сайта, проблемных пользовательских сценариев, базовой SEO-разметки и приоритетов дальнейшей доработки.',
+    path: seo.path,
+    title: seo.title,
+    description: seo.description,
+    canonical: seo.canonical,
+    robots: seo.robots,
+    ogType: seo.ogType,
+    ogTitle: seo.ogTitle,
+    ogDescription: seo.ogDescription,
   },
   hero: {
     eyebrow: 'Аудит сайта и технический разбор',
