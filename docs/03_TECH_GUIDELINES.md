@@ -3,13 +3,13 @@
 ## Текущий стек
 
 Проект построен на:
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- React Router
-- Framer Motion
-- Lucide Icons
+- React;
+- TypeScript;
+- Vite;
+- Tailwind CSS;
+- React Router;
+- Framer Motion;
+- Lucide Icons.
 
 ## Архитектурный принцип
 
@@ -19,7 +19,8 @@
 - простым data-файлам;
 - понятным компонентам;
 - предсказуемой структуре;
-- минимальному количеству абстракций.
+- минимальному количеству абстракций;
+- точечным изменениям без большого рефакторинга.
 
 ## Что считается нормой
 
@@ -28,7 +29,8 @@
 - держать компоненты простыми;
 - использовать небольшие локальные состояния там, где это реально нужно;
 - делать точечные улучшения;
-- развивать проект по шагам.
+- развивать проект по шагам;
+- добавлять специализированные helpers только для повторяемой технической задачи.
 
 ## Что не приветствуется
 
@@ -41,18 +43,30 @@
 
 ## Текущий source of truth
 
-Для текущей production-версии уже важно держать данные централизованно:
+Для production-версии данные должны оставаться централизованными:
 - `src/data/profile.ts` — бренд, владелец, контакты, CTA, production URL и базовые SEO/share-поля;
-- `src/data/site.ts` — тексты и структура homepage, включая верхнеуровневое positioning и CTA;
-- `src/data/services.ts` — секция услуг и внутренние ссылки на самостоятельные service pages;
-- `src/data/websiteImprovement.ts` — контент и SEO-данные страницы `/dorabotka-sajta`;
-- `src/data/contacts.ts` — contact-секция, contact CTA и настройки формы Web3Forms;
-- `src/data/cases.ts` — representative-примеры сценариев и честная рамка блока примеров;
-- `src/data/faq.ts` — FAQ-копирайт и ответы на типичные вопросы перед обращением;
-- `src/data/legal.ts` — privacy/legal copy и реквизиты;
-- `src/lib/meta.ts` — runtime-обновление meta для маршрутов.
+- `src/data/site.ts` — тексты и структура homepage;
+- `src/data/services.ts` — секция услуг и внутренние ссылки на service pages;
+- `src/data/websiteImprovement.ts` — контент и SEO-данные `/dorabotka-sajta`;
+- `src/data/structuredData.ts` — JSON-LD графы главной и страницы услуги;
+- `src/data/contacts.ts` — contact-секция и Web3Forms;
+- `src/data/cases.ts` и `src/data/softwareCases.ts` — примеры проектов;
+- `src/data/faq.ts` — FAQ;
+- `src/data/legal.ts` — privacy/legal copy;
+- `src/lib/meta.ts` — runtime metadata;
+- `src/lib/structuredData.ts` — runtime lifecycle JSON-LD.
 
-Если меняются домен, OG image, контактные данные или верхнеуровневые тексты секций, правка должна идти через source of truth, а не через разрозненные значения в JSX.
+Если меняются домен, OG image, контакты, география, structured data или верхнеуровневые тексты, правка должна идти через source of truth, а не через разрозненные значения в JSX.
+
+## Подтверждённая география
+
+Фактическая модель:
+- работа выполняется удалённо;
+- услуги оказываются по всей России;
+- Санкт-Петербург и Ленинградская область — первый тестовый регион будущей рекламной кампании в Яндекс Директе, а не ограничение территории оказания услуги;
+- неподтверждённый локальный адрес или офис добавлять нельзя.
+
+Для `/dorabotka-sajta` видимый текст, metadata и JSON-LD используют федеральную географию.
 
 ## Маршруты
 
@@ -65,23 +79,22 @@
 - `/dorabotka-sajta`;
 - fallback 404.
 
-Nginx должен быть настроен на SPA fallback, чтобы прямое открытие пользовательских маршрутов возвращало актуальный `dist/index.html`, а маршрутизацию продолжал React Router.
+Nginx должен использовать SPA fallback, чтобы прямое открытие пользовательских маршрутов возвращало актуальный `dist/index.html`, а маршрутизацию продолжал React Router.
 
 ## Статические файлы
 
 Статические файлы и production-friendly assets должны жить в `public/`.
 
-Для сайта уже важно использовать локальные изображения там, где мобильная стабильность критична.
-
-Также в `public/` уже лежат:
+В `public/` находятся:
 - `robots.txt`;
 - `sitemap.xml`;
-- favicon;
-- локальные изображения для representative examples и sharing assets.
+- favicon и icons;
+- локальные изображения для примеров проектов;
+- share-preview assets.
 
 ## Tailwind и PostCSS
 
-Tailwind подключён через официальный Vite-плагин `@tailwindcss/vite` в `vite.config.ts`.
+Tailwind подключён через `@tailwindcss/vite` в `vite.config.ts`.
 
 В корне проекта должен сохраняться локальный файл:
 
@@ -97,51 +110,74 @@ export default {
 }
 ```
 
-Этот файл изолирует сборку Stalar Vision от PostCSS-конфигураций в родительских каталогах сервера. Нельзя удалять его как “пустой” или заменять зависимостью `@tailwindcss/postcss` без отдельной технической причины.
-
-Нельзя изменять или удалять PostCSS-конфигурации за пределами каталога Stalar Vision: они могут принадлежать другим проектам на том же сервере.
+Он изолирует Stalar Vision от PostCSS-конфигураций в родительских каталогах сервера. Нельзя удалять его как “пустой” или изменять `/home/stanislav/postcss.config.mjs`: внешний файл может принадлежать другому проекту.
 
 ## Форма
 
-Форма контакта подключена через Web3Forms.
-Это осознанное решение текущего этапа:
+Контактная форма подключена через Web3Forms:
 - без собственного backend;
 - с email-доставкой;
 - с минимальной сложностью;
-- с понятной клиентской логикой.
-
-Privacy/legal тексты должны оставаться согласованными с этим фактом.
+- с согласованным privacy/legal слоем.
 
 ## SEO / sharing
 
-В проекте уже есть базовый production-ready SEO/share слой:
+В проекте есть:
 - runtime meta через `src/lib/meta.ts`;
 - canonical URL;
 - Open Graph meta;
 - Twitter meta;
 - `robots.txt`;
 - `sitemap.xml`;
-- отдельные metadata для `/dorabotka-sajta`.
+- отдельные metadata для `/dorabotka-sajta`;
+- runtime JSON-LD для `/` и `/dorabotka-sajta`.
 
-Не нужно откатывать это обратно к одному только статическому `index.html`.
+Не нужно откатывать SEO к одному статическому `index.html`.
 
-JSON-LD и возможный пререндеринг коммерческих маршрутов выполняются отдельными этапами.
+## Runtime JSON-LD
+
+Structured data реализованы через:
+- `src/data/structuredData.ts` — содержимое графов;
+- `src/lib/structuredData.ts` — создание, обновление и cleanup одного `<script type="application/ld+json">`;
+- подключения в `src/pages/Home.tsx` и `src/pages/WebsiteImprovement.tsx`.
+
+Используется один script со стабильным id `stalar-structured-data`.
+
+На главной публикуются:
+- `Organization`;
+- `Person`;
+- `WebSite`;
+- `WebPage`.
+
+На `/dorabotka-sajta` дополнительно публикуется:
+- `Service`;
+- `areaServed` как `Country` со значением `Россия`.
+
+При переходе на `/privacy`, `/terms` или 404 JSON-LD предыдущей страницы должен удаляться cleanup-функцией. React StrictMode и SPA-переходы не должны создавать дубликаты.
+
+Нельзя без подтверждения добавлять:
+- `LocalBusiness`;
+- `ProfessionalService` в локальном смысле;
+- физический адрес;
+- `Offer` и цены;
+- рейтинги и отзывы;
+- сотрудников, число клиентов, сроки и гарантии.
 
 ## Production build и deploy
 
-Production-папка проекта:
+Production-папка:
 
 ```text
 /home/stanislav/project/stalarvision/dist
 ```
 
-Nginx должен отдавать именно эту папку:
+Nginx должен отдавать:
 
 ```nginx
 root /home/stanislav/project/stalarvision/dist;
 ```
 
-Безопасный порядок деплоя:
+Безопасный порядок:
 
 ```bash
 cd /home/stanislav/project/stalarvision
@@ -152,32 +188,32 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-Критическое правило: `sudo systemctl reload nginx` выполняется только после успешного `npm run build` и успешного `sudo nginx -t`.
+`reload` выполняется только после успешного build и успешного `nginx -t`.
 
-Нельзя копировать `dist/index.html` и `dist/assets` вручную частями: они должны происходить из одной production-сборки.
-
-На сервере находятся другие проекты. Любые команды должны быть ограничены каталогом Stalar Vision и его конкретным nginx server block.
+Нельзя копировать `dist/index.html` и `dist/assets` вручную частями. На сервере находятся другие проекты, поэтому команды должны быть ограничены каталогом Stalar Vision и его конкретным nginx server block.
 
 ## Dependency audit
 
-`npm install` может показывать предупреждения `npm audit`. Они не исправляются автоматически командой `npm audit fix --force` в рамках обычного SEO-деплоя.
+Предупреждения `npm audit` не исправляются автоматически через `npm audit fix --force` в рамках обычного SEO-деплоя.
 
-Разбор уязвимостей выполняется отдельной технической задачей с проверкой конкретных пакетов, реальной применимости и риска breaking changes.
+Нужна отдельная техническая задача с проверкой:
+- затронутых пакетов;
+- применимости к production;
+- возможности обновления без breaking changes.
 
 ## Mobile first sanity
 
-Любые изменения нужно проверять:
+Любые изменения проверяются:
 - на телефоне;
 - на промежуточной ширине;
 - на desktop.
 
 Особенно внимательно:
 - Hero;
-- About stats;
-- Services cards;
-- Portfolio cards;
+- Services;
+- Portfolio;
 - service pages;
-- Tech Stack;
-- Contact form;
+- Contact;
 - Footer;
-- отсутствие горизонтального overflow.
+- отсутствие горизонтального overflow;
+- корректность SPA-переходов и cleanup runtime metadata/JSON-LD.
