@@ -44,7 +44,7 @@
 
 ### Этап 9. SEO growth foundation
 - первым направлением выбрана доработка и развитие существующих сайтов;
-- создан и опубликован маршрут `/dorabotka-sajta`;
+- создан и опубликован маршрут `/dorabotka-sajta/`;
 - добавлены `src/data/websiteImprovement.ts` и `src/pages/WebsiteImprovement.tsx`;
 - добавлены отдельные metadata, canonical, OG/Twitter, sitemap entry и внутренняя ссылка с главной;
 - страница прошла production build, прямое открытие и desktop-проверку;
@@ -63,22 +63,21 @@
 - зафиксировано правило: nginx reload только после успешных build и `nginx -t`.
 
 ### Этап 11. Runtime structured data
-Реализовано и проверено в production:
+Реализовано и проверено:
 - создан `src/lib/structuredData.ts`;
 - создан `src/data/structuredData.ts`;
 - JSON-LD подключён в `src/pages/Home.tsx` и `src/pages/WebsiteImprovement.tsx`;
 - на `/` добавлены `Organization`, `Person`, `WebSite`, `WebPage`;
-- на `/dorabotka-sajta` дополнительно добавлен `Service`;
+- на `/dorabotka-sajta/` дополнительно добавлен `Service`;
 - `Service.areaServed` установлен как Россия;
 - используется один runtime JSON-LD script со стабильным id и cleanup для SPA-переходов;
-- `index.html` не содержит маршрутно-зависимую JSON-LD разметку;
 - в production DOM подтверждено наличие JSON-LD только на нужных маршрутах.
 
 ### Этап 12. Внешняя проверка structured data
 Проверено через Schema.org Validator и Google Rich Results Test:
 - главная страница распознаётся без ошибок и предупреждений Schema.org;
-- `/dorabotka-sajta` распознаётся без ошибок и предупреждений Schema.org;
-- Google Rich Results Test обнаруживает структурированные данные после выполнения JavaScript;
+- `/dorabotka-sajta/` распознаётся без ошибок и предупреждений Schema.org;
+- Google Rich Results Test обнаруживает structured data после выполнения JavaScript;
 - предупреждения об отсутствующих `address` и `image` являются необязательными;
 - `address` сознательно не добавляется, поскольку физический офис не подтверждён.
 
@@ -87,30 +86,47 @@
 - создан доменный ресурс `stalarvision.ru`;
 - право собственности подтверждено через DNS TXT-запись;
 - главная страница подтверждённо находится в индексе Google;
-- `https://stalarvision.ru/dorabotka-sajta` подтверждённо находится в индексе Google;
+- коммерческая страница подтверждённо находится в индексе Google;
 - sitemap обнаружен Google;
-- для главной и `/dorabotka-sajta` отправлялись запросы на индексирование.
+- для главной и коммерческой страницы отправлялись запросы на индексирование.
 
-Критический результат проверки `/dorabotka-sajta`:
+Критический результат первоначальной проверки:
 - Google просканировал страницу успешно;
 - индексирование разрешено;
 - URL находится в индексе;
-- canonical, указанный пользователем, распознан как `https://stalarvision.ru/`;
-- Google выбрал проверенный URL как canonical;
-- сохранённый Google HTML содержит homepage title, description и canonical;
+- canonical, указанный пользователем, был распознан как `https://stalarvision.ru/`;
+- сохранённый Google HTML содержал homepage title, description и canonical;
 - runtime metadata страницы услуги не попали в сохранённый HTML Search Console.
 
-Вывод:
-- текущая SPA-схема позволяет Google индексировать маршрут;
-- однако исходные route-specific metadata и canonical для `/dorabotka-sajta` передаются некорректно;
-- этот риск подтверждён фактически, а не теоретически;
-- следующим техническим этапом должен быть route-specific static HTML или build-time prerender для коммерческих маршрутов.
+### Этап 14. Route-specific static HTML
+Реализован минимальный Vite MPA слой без миграции на Next.js:
+- `vite.config.ts` собирает `index.html` и `dorabotka-sajta/index.html` как отдельные HTML entries;
+- build создаёт `dist/index.html` и `dist/dorabotka-sajta/index.html`;
+- route-specific HTML содержит правильные title, description, canonical, OG/Twitter и JSON-LD до выполнения JavaScript;
+- static JSON-LD использует тот же id `stalar-structured-data`, что и runtime helper;
+- React Router и визуальная реализация не изменялись.
+
+Production-проверка подтвердила:
+- `dist/dorabotka-sajta/index.html` существует;
+- `/dorabotka-sajta` отвечает `301` на `/dorabotka-sajta/`;
+- `/dorabotka-sajta/` отвечает `200`;
+- Nginx реально отдаёт route-specific HTML;
+- в исходном HTML присутствуют правильные title, canonical и JSON-LD.
+
+### Этап 15. Trailing-slash alignment
+Все SEO-сигналы приведены к фактическому конечному URL:
+- canonical: `https://stalarvision.ru/dorabotka-sajta/`;
+- `og:url`: `https://stalarvision.ru/dorabotka-sajta/`;
+- sitemap использует URL со слешем;
+- внутренняя ссылка с главной использует `/dorabotka-sajta/`;
+- static и runtime JSON-LD используют `/#webpage` и `/#service`;
+- route-specific URL без завершающего слеша удалены из SEO-слоя.
 
 ## Текущий статус
 
 Проект находится на стадии:
 
-**production-ready polished landing + опубликованная и проиндексированная первая коммерческая SEO-страница + проверенный runtime JSON-LD + подтверждённая необходимость route-specific HTML**
+**production-ready polished landing + опубликованная и проиндексированная первая коммерческая SEO-страница + route-specific static HTML + согласованный trailing-slash canonical**
 
 ## Подтверждённая коммерческая и рекламная рамка
 
@@ -130,18 +146,21 @@
 ## Что дальше
 
 Ближайший порядок:
-1. реализовать route-specific static HTML или build-time prerender для `/dorabotka-sajta` без миграции на Next.js;
-2. обеспечить правильные title, description, canonical, OG/Twitter и JSON-LD уже в исходном HTML;
-3. сохранить текущий React Router и визуальную реализацию;
-4. выполнить build, GitHub review и production deploy;
-5. повторно проверить `/dorabotka-sajta` в Google Search Console;
-6. затем проверить Яндекс Вебмастер;
-7. после подтверждения перейти к mobile QA и второй странице услуги.
+1. развернуть commit `d2af851` на production;
+2. повторно проверить `301 -> 200`, canonical, `og:url`, sitemap и JSON-LD;
+3. повторно запросить проверку `/dorabotka-sajta/` в Google Search Console;
+4. убедиться, что user-declared canonical теперь равен `https://stalarvision.ru/dorabotka-sajta/`;
+5. проверить Яндекс Вебмастер;
+6. пройти отдельный mobile QA `/dorabotka-sajta/`;
+7. подготовить вторую страницу услуги — технического аудита сайта;
+8. провести инвентаризацию реальных проектов для будущих кейсов;
+9. настроить цели Яндекс Метрики;
+10. отдельно разобрать текущий `npm audit` без `--force`.
 
 ## Открытые вопросы
 
-- какой именно механизм пререндеринга минимально и надёжно встроить в текущий Vite-проект;
-- какие маршруты включить в первый prerender pass: `/` и `/dorabotka-sajta` либо также legal pages;
+- когда Google обновит сохранённый HTML и user-declared canonical после повторного обхода;
+- нужно ли автоматизировать генерацию route-specific HTML перед созданием следующих service pages;
 - какие проекты первыми оформить как полноценные кейсы;
 - какие зависимости формируют предупреждения `npm audit`;
 - какие посадочные страницы, объявления и цели использовать в первом тесте Яндекс Директа.
