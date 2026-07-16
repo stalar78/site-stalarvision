@@ -27,6 +27,7 @@ type ContactMethod = {
 
 export const WEBSITE_IMPROVEMENT_PROJECT_TYPE = 'Доработка существующего сайта';
 export const WEBSITE_AUDIT_PROJECT_TYPE = 'Аудит / технический разбор';
+export const WEBSITE_LAUNCH_PROJECT_TYPE = 'Новый сайт / первый релиз';
 
 export const navbarSocialLinks = [
   {
@@ -157,6 +158,7 @@ export const contactSection = {
     projectTypeLabel: 'Тип проекта',
     projectTypeOptions: [
       'Landing Page',
+      WEBSITE_LAUNCH_PROJECT_TYPE,
       WEBSITE_IMPROVEMENT_PROJECT_TYPE,
       'Веб-приложение',
       WEBSITE_AUDIT_PROJECT_TYPE,

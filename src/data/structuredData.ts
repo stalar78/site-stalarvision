@@ -1,6 +1,8 @@
 import { profile } from './profile';
+import servicePageSeo from './servicePageSeo.json';
 import { websiteAuditPage } from './websiteAudit';
 import { websiteImprovementPage } from './websiteImprovement';
+import { websiteLaunchPage } from './websiteLaunch';
 import type { JsonLdObject } from '@/lib/structuredData';
 
 const siteUrl = profile.seo.siteUrl;
@@ -13,6 +15,8 @@ const websiteImprovementWebpageId = `${websiteImprovementPage.seo.canonical}#web
 const websiteImprovementServiceId = `${websiteImprovementPage.seo.canonical}#service`;
 const websiteAuditWebpageId = `${websiteAuditPage.seo.canonical}#webpage`;
 const websiteAuditServiceId = `${websiteAuditPage.seo.canonical}#service`;
+const websiteLaunchWebpageId = `${websiteLaunchPage.seo.canonical}#webpage`;
+const websiteLaunchServiceId = `${websiteLaunchPage.seo.canonical}#service`;
 
 const homeUrl = `${siteUrl}${profile.seo.defaultPath}`;
 const logoUrl = `${siteUrl}/icon-512.png`;
@@ -113,8 +117,8 @@ export const websiteImprovementStructuredData: JsonLdObject = {
     {
       '@type': 'Service',
       '@id': websiteImprovementServiceId,
-      name: 'Доработка и развитие существующих сайтов',
-      serviceType: 'Доработка и развитие существующих сайтов и веб-проектов',
+      name: servicePageSeo.websiteImprovement.serviceName,
+      serviceType: servicePageSeo.websiteImprovement.serviceType,
       description: websiteImprovementPage.seo.description,
       url: websiteImprovementPage.seo.canonical,
       provider: {
@@ -154,10 +158,51 @@ export const websiteAuditStructuredData: JsonLdObject = {
     {
       '@type': 'Service',
       '@id': websiteAuditServiceId,
-      name: 'Аудит сайта и технический разбор',
-      serviceType: 'Аудит существующих сайтов и веб-проектов',
+      name: servicePageSeo.websiteAudit.serviceName,
+      serviceType: servicePageSeo.websiteAudit.serviceType,
       description: websiteAuditPage.seo.description,
       url: websiteAuditPage.seo.canonical,
+      provider: {
+        '@id': organizationId,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const websiteLaunchStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': websiteLaunchWebpageId,
+      url: websiteLaunchPage.seo.canonical,
+      name: websiteLaunchPage.seo.title,
+      description: websiteLaunchPage.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': websiteLaunchServiceId,
+      },
+      mainEntity: {
+        '@id': websiteLaunchServiceId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'Service',
+      '@id': websiteLaunchServiceId,
+      name: servicePageSeo.websiteLaunch.serviceName,
+      serviceType: servicePageSeo.websiteLaunch.serviceType,
+      description: websiteLaunchPage.seo.description,
+      url: websiteLaunchPage.seo.canonical,
       provider: {
         '@id': organizationId,
       },

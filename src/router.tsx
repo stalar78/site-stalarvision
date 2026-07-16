@@ -6,6 +6,7 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import WebsiteAudit from './pages/WebsiteAudit'
 import WebsiteImprovement from './pages/WebsiteImprovement'
+import WebsiteLaunch from './pages/WebsiteLaunch'
 
 /**
  * Роутер приложения
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: 'audit-sajta',
         element: <WebsiteAudit />,
+      },
+      {
+        path: 'razrabotka-sajta',
+        element: <WebsiteLaunch />,
       },
       {
         path: '*',

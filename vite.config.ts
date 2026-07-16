@@ -54,6 +54,7 @@ export default defineConfig(({ mode }) => {
           main: path.resolve(__dirname, 'index.html'),
           websiteImprovement: path.resolve(__dirname, 'dorabotka-sajta/index.html'),
           websiteAudit: path.resolve(__dirname, 'audit-sajta/index.html'),
+          websiteLaunch: path.resolve(__dirname, 'razrabotka-sajta/index.html'),
         },
       },
     },

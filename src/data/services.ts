@@ -41,6 +41,8 @@ export const servicesSection = {
       format:
         'Поэтапно: структура и объём, затем рабочая реализация.',
       color: 'from-blue-500/10 to-indigo-500/10',
+      detailsHref: '/razrabotka-sajta/',
+      detailsLabel: 'Подробнее о разработке сайта',
     },
     {
       title: 'Доработка действующего проекта',
