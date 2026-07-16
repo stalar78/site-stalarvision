@@ -13,16 +13,20 @@ type FormValues = {
 
 type FormErrors = Partial<Record<'name' | 'contact' | 'project', string>>;
 
-const initialFormValues: FormValues = {
-  name: '',
-  contact: '',
-  projectType: contactSection.form.projectTypeOptions[0] ?? '',
-  project: '',
-  honeypot: '',
+type ContactProps = {
+  defaultProjectType?: string;
 };
 
-export function Contact() {
-  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+const getInitialFormValues = (defaultProjectType?: string): FormValues => ({
+  name: '',
+  contact: '',
+  projectType: defaultProjectType ?? contactSection.form.projectTypeOptions[0] ?? '',
+  project: '',
+  honeypot: '',
+});
+
+export function Contact({ defaultProjectType }: ContactProps) {
+  const [formValues, setFormValues] = useState<FormValues>(() => getInitialFormValues(defaultProjectType));
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [submitState, setSubmitState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
@@ -106,7 +110,7 @@ export function Contact() {
     if (formValues.honeypot.trim()) {
       setSubmitState('success');
       setSubmitMessage(contactSection.form.successMessage);
-      setFormValues(initialFormValues);
+      setFormValues(getInitialFormValues(defaultProjectType));
       setFormErrors({});
       return;
     }
@@ -158,7 +162,7 @@ export function Contact() {
       setSubmitState('success');
       setSubmitMessage(contactSection.form.successMessage);
       setLastSubmittedAt(now);
-      setFormValues(initialFormValues);
+      setFormValues(getInitialFormValues(defaultProjectType));
       setFormErrors({});
     } catch {
       setSubmitState('error');

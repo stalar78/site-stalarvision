@@ -3,6 +3,7 @@ import { ArrowDown, CheckCircle2, Compass, MessageCircle, Wrench } from 'lucide-
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
+import { WEBSITE_IMPROVEMENT_PROJECT_TYPE } from '@/data/contacts';
 import { profile } from '@/data/profile';
 import { websiteImprovementStructuredData } from '@/data/structuredData';
 import { websiteImprovementPage } from '@/data/websiteImprovement';
@@ -242,7 +243,7 @@ export default function WebsiteImprovement() {
           </div>
         </section>
 
-        <Contact />
+        <Contact defaultProjectType={WEBSITE_IMPROVEMENT_PROJECT_TYPE} />
       </main>
       <Footer />
     </div>

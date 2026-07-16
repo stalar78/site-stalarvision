@@ -25,6 +25,8 @@ type ContactMethod = {
   status: string;
 };
 
+export const WEBSITE_IMPROVEMENT_PROJECT_TYPE = 'Доработка существующего сайта';
+
 export const navbarSocialLinks = [
   {
     label: 'GitHub',
@@ -150,10 +152,11 @@ export const contactSection = {
     nameLabel: 'Как вас зовут?',
     namePlaceholder: 'Ваше имя',
     contactLabel: 'Контакт (Telegram/Email)',
-    contactPlaceholder: profile.contacts.telegram.value,
+    contactPlaceholder: '@username или name@example.com',
     projectTypeLabel: 'Тип проекта',
     projectTypeOptions: [
       'Landing Page',
+      WEBSITE_IMPROVEMENT_PROJECT_TYPE,
       'Веб-приложение',
       'Аудит / технический разбор',
       'Автоматизация бизнеса',
