@@ -1,4 +1,5 @@
 import { profile } from './profile';
+import { websiteAuditPage } from './websiteAudit';
 import { websiteImprovementPage } from './websiteImprovement';
 import type { JsonLdObject } from '@/lib/structuredData';
 
@@ -10,6 +11,8 @@ const websiteId = `${siteUrl}/#website`;
 const homepageId = `${siteUrl}/#homepage`;
 const websiteImprovementWebpageId = `${websiteImprovementPage.seo.canonical}#webpage`;
 const websiteImprovementServiceId = `${websiteImprovementPage.seo.canonical}#service`;
+const websiteAuditWebpageId = `${websiteAuditPage.seo.canonical}#webpage`;
+const websiteAuditServiceId = `${websiteAuditPage.seo.canonical}#service`;
 
 const homeUrl = `${siteUrl}${profile.seo.defaultPath}`;
 const logoUrl = `${siteUrl}/icon-512.png`;
@@ -114,6 +117,47 @@ export const websiteImprovementStructuredData: JsonLdObject = {
       serviceType: 'Доработка и развитие существующих сайтов и веб-проектов',
       description: websiteImprovementPage.seo.description,
       url: websiteImprovementPage.seo.canonical,
+      provider: {
+        '@id': organizationId,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const websiteAuditStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': websiteAuditWebpageId,
+      url: websiteAuditPage.seo.canonical,
+      name: websiteAuditPage.seo.title,
+      description: websiteAuditPage.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': websiteAuditServiceId,
+      },
+      mainEntity: {
+        '@id': websiteAuditServiceId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'Service',
+      '@id': websiteAuditServiceId,
+      name: 'Аудит сайта и технический разбор',
+      serviceType: 'Аудит существующих сайтов и веб-проектов',
+      description: websiteAuditPage.seo.description,
+      url: websiteAuditPage.seo.canonical,
       provider: {
         '@id': organizationId,
       },

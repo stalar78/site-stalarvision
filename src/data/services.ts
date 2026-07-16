@@ -69,6 +69,8 @@ export const servicesSection = {
       format:
         'Отчёт для владельца и техническое ТЗ для разработчика: что исправить, почему это важно и в каком порядке.',
       color: 'from-slate-500/10 to-slate-400/10',
+      detailsHref: '/audit-sajta/',
+      detailsLabel: 'Подробнее об аудите сайта',
     },
     {
       title: 'Рабочие интерфейсы и личные кабинеты',

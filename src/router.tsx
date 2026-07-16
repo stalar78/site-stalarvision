@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import WebsiteAudit from './pages/WebsiteAudit'
 import WebsiteImprovement from './pages/WebsiteImprovement'
 
 /**
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         path: 'dorabotka-sajta',
         element: <WebsiteImprovement />,
+      },
+      {
+        path: 'audit-sajta',
+        element: <WebsiteAudit />,
       },
       {
         path: '*',

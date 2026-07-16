@@ -26,6 +26,7 @@ type ContactMethod = {
 };
 
 export const WEBSITE_IMPROVEMENT_PROJECT_TYPE = 'Доработка существующего сайта';
+export const WEBSITE_AUDIT_PROJECT_TYPE = 'Аудит / технический разбор';
 
 export const navbarSocialLinks = [
   {
@@ -158,7 +159,7 @@ export const contactSection = {
       'Landing Page',
       WEBSITE_IMPROVEMENT_PROJECT_TYPE,
       'Веб-приложение',
-      'Аудит / технический разбор',
+      WEBSITE_AUDIT_PROJECT_TYPE,
       'Автоматизация бизнеса',
       'Другое',
     ],
