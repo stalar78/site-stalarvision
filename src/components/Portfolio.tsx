@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Globe, ImageOff, LayoutTemplate } from 'lucide-react';
+import {
+  BookOpenText,
+  ExternalLink,
+  Github,
+  Globe,
+  ImageOff,
+  LayoutTemplate,
+} from 'lucide-react';
 import { casesSection, ownedProductSpotlight } from '@/data/cases';
 
 export function Portfolio() {
@@ -51,9 +58,23 @@ export function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {casesSection.items.map((project, index) => (
+          {casesSection.items.map((project, index) => {
+            const isRealProject = project.status === 'real-project';
+            const badgeLabel = isRealProject ? 'Реальный проект' : casesSection.representativeLabel;
+            const badgeClassName = isRealProject
+              ? 'border-emerald-300/20 bg-emerald-500/12 text-emerald-100'
+              : 'border-white/10 bg-slate-950/80 text-slate-200';
+            const scenarioLabel = isRealProject ? 'Задача проекта' : 'Формат задачи';
+            const neededLabel = isRealProject ? 'Что реализовано' : 'Что важно на старте';
+            const resultLabel = isRealProject ? 'Технический результат' : 'Возможный первый этап';
+            const linkLabel = isRealProject ? 'Открыть сайт' : 'Демо';
+            const missingGithubLabel = isRealProject
+              ? 'Исходники проекта закрыты'
+              : 'Исходники не опубликованы';
+
+            return (
             <motion.div
-              key={index}
+              key={project.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -76,6 +97,18 @@ export function Portfolio() {
                     }
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                ) : project.cover ? (
+                  <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
+                    <div className="max-w-[18rem] rounded-3xl border border-emerald-300/15 bg-slate-950/65 px-5 py-5 shadow-2xl shadow-emerald-950/20 backdrop-blur-sm">
+                      <BookOpenText size={28} className="mx-auto mb-3 text-emerald-200" />
+                      <div className="text-2xl font-bold tracking-tight text-white">
+                        {project.cover.title}
+                      </div>
+                      <div className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-100/80">
+                        {project.cover.subtitle}
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
                     <div className="rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 backdrop-blur-sm">
@@ -90,8 +123,8 @@ export function Portfolio() {
                 <div className="absolute top-4 left-4 rounded-full bg-indigo-600/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
                   {project.category}
                 </div>
-                <div className="absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full border border-white/10 bg-slate-950/80 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-200 backdrop-blur-md sm:right-4 sm:top-4">
-                  {casesSection.representativeLabel}
+                <div className={`absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md sm:right-4 sm:top-4 ${badgeClassName}`}>
+                  {badgeLabel}
                 </div>
               </div>
 
@@ -112,7 +145,7 @@ export function Portfolio() {
 
                 <div className="mb-4 rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
                   <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
-                    Формат задачи
+                    {scenarioLabel}
                   </div>
                   <p className="text-sm leading-relaxed text-slate-300">
                     {project.scenario}
@@ -122,7 +155,7 @@ export function Portfolio() {
                 <div className="mb-6 space-y-4">
                   <div>
                     <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500">
-                      Что важно на старте
+                      {neededLabel}
                     </div>
                     <div className="space-y-2">
                       {project.whatUsuallyNeeded.map((item) => (
@@ -136,7 +169,7 @@ export function Portfolio() {
 
                   <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-4">
                     <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-indigo-300">
-                      Возможный первый этап
+                      {resultLabel}
                     </div>
                     <p className="text-sm leading-relaxed text-slate-200">
                       {project.firstStep}
@@ -152,7 +185,7 @@ export function Portfolio() {
                       className="flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-indigo-400"
                     >
                       <Globe size={16} />
-                      Демо
+                      {linkLabel}
                     </a>
                   ) : (
                     <span className="text-slate-500 flex items-center gap-2 text-sm font-semibold">
@@ -172,13 +205,14 @@ export function Portfolio() {
                   ) : (
                     <span className="text-slate-500 flex items-center gap-2 text-sm font-semibold">
                       <Github size={16} />
-                      Исходники не опубликованы
+                      {missingGithubLabel}
                     </span>
                   )}
                 </div>
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
         <motion.div
