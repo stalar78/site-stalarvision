@@ -36,7 +36,8 @@ export const casesSection = {
       ],
       firstStep:
         'Контент, проверка, публикация и эксплуатация разделены на воспроизводимые этапы, а новые тематические корпуса можно развивать внутри общей архитектуры.',
-      image: '',
+      image: '/uploads/cases/intelverbum-vignette-compass.webp',
+      mediaVariant: 'brand-mark',
       cover: {
         title: 'Intelverbum',
         subtitle: 'Content publishing system',

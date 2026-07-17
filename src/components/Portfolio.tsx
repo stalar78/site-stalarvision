@@ -71,6 +71,7 @@ export function Portfolio() {
             const missingGithubLabel = isRealProject
               ? 'Исходники проекта закрыты'
               : 'Исходники не опубликованы';
+            const isBrandMarkMedia = project.mediaVariant === 'brand-mark';
 
             return (
             <motion.div
@@ -79,24 +80,30 @@ export function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group h-full overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30"
+              className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/40 sm:aspect-video">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.28),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.18),transparent_42%)]" />
                 {project.image && !failedImages[project.title] ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    loading="lazy"
-                    decoding="async"
-                    onError={() =>
-                      setFailedImages((current) => ({
-                        ...current,
-                        [project.title]: true,
-                      }))
-                    }
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                  <div className={isBrandMarkMedia ? 'absolute inset-0 flex items-center justify-center p-8 sm:p-10' : 'absolute inset-0'}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      decoding="async"
+                      onError={() =>
+                        setFailedImages((current) => ({
+                          ...current,
+                          [project.title]: true,
+                        }))
+                      }
+                      className={
+                        isBrandMarkMedia
+                          ? 'h-full w-full object-contain transition-transform duration-500 group-hover:scale-105'
+                          : 'h-full w-full object-cover transition-transform duration-500 group-hover:scale-110'
+                      }
+                    />
+                  </div>
                 ) : project.cover ? (
                   <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
                     <div className="max-w-[18rem] rounded-3xl border border-emerald-300/15 bg-slate-950/65 px-5 py-5 shadow-2xl shadow-emerald-950/20 backdrop-blur-sm">
@@ -128,7 +135,7 @@ export function Portfolio() {
                 </div>
               </div>
 
-              <div className="flex h-full flex-col p-5 sm:p-6">
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
                 <div className="mb-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span key={tag} className="text-[10px] uppercase tracking-wider font-bold text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded-md">
