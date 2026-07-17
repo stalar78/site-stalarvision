@@ -22,6 +22,10 @@ declare global {
 const TOP_MAIL_COUNTER_ID = '3759601'
 const YANDEX_METRIKA_COUNTER_ID = 108788776
 
+export const YANDEX_METRIKA_GOALS = {
+  contactFormSuccess: 'contact_form_success',
+} as const
+
 function injectScriptOnce(src: string, id: string): void {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
     return
@@ -106,5 +110,30 @@ export function trackYandexMetrikaPageView() {
     } catch (error) {
       // Silently ignore if analytics fails
     }
+  }
+}
+
+export function trackYandexMetrikaGoal(
+  goalIdentifier: string,
+  params?: Record<string, unknown>,
+): void {
+  if (typeof window === 'undefined' || !window.ym) {
+    return
+  }
+
+  const normalizedGoalIdentifier = goalIdentifier.trim()
+  if (!normalizedGoalIdentifier) {
+    return
+  }
+
+  try {
+    window.ym(
+      YANDEX_METRIKA_COUNTER_ID,
+      'reachGoal',
+      normalizedGoalIdentifier,
+      params,
+    )
+  } catch (error) {
+    // Silently ignore if analytics fails
   }
 }

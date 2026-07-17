@@ -2,6 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 import { contactMethods, contactSection } from '@/data/contacts';
+import { YANDEX_METRIKA_GOALS, trackYandexMetrikaGoal } from '@/lib/utils';
 
 type FormValues = {
   name: string;
@@ -158,6 +159,10 @@ export function Contact({ defaultProjectType }: ContactProps) {
       if (!response.ok || !result.success) {
         throw new Error(result.message || 'submit_failed');
       }
+
+      trackYandexMetrikaGoal(
+        YANDEX_METRIKA_GOALS.contactFormSuccess,
+      );
 
       setSubmitState('success');
       setSubmitMessage(contactSection.form.successMessage);
