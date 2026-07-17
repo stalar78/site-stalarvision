@@ -99,6 +99,7 @@ export const softwareCasesSection = {
       status: 'рабочий инструмент для production-аудитов',
       focus: 'browser automation, внешний аудит сайтов, техническая диагностика, отчёты и ТЗ для исправлений',
       limitations: 'не заменяет SEO-продвижение, разработку исправлений и полноценный security-аудит',
+      github: 'https://github.com/stalar78/web-audit-lab',
     },
   ],
 };

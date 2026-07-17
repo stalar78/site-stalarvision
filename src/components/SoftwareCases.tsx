@@ -6,6 +6,7 @@ import {
   Cpu,
   Database,
   FileSpreadsheet,
+  Github,
   Monitor,
   Radar,
   Terminal,
@@ -123,6 +124,18 @@ export function SoftwareCases() {
                     </span>
                   ))}
                 </div>
+
+                {item.github ? (
+                  <a
+                    href={item.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-950/60 px-3.5 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-cyan-300/50 hover:bg-cyan-500/10 hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+                  >
+                    <Github size={16} />
+                    Открыть GitHub
+                  </a>
+                ) : null}
               </motion.article>
             );
           })}
