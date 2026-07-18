@@ -99,11 +99,14 @@ sudo systemctl reload nginx
 
 ## Последнее завершённое изменение
 
-- В `src/pages/WebsiteLaunch.tsx` внутренний Hero wrapper изменён с `<section>` на `<div>` без изменения классов, контента, `aria-labelledby`, `h1`, SEO, routing и поведения.
-- Изменение зафиксировано commit `239e5e77c2b00c9e3d755de09f15a81480291c6f` (`Fix nested Hero section semantics`).
-- Production deploy выполнен.
-- Desktop/mobile visual QA пройдены.
-- Console и Network в браузере проверены, ошибок нет.
+- В commit `f25c8353691c40597a575154d1b2283fc6c6d8b9` (`Add route-level code splitting`) добавлен lazy loading для трёх service pages, Privacy, Terms и NotFound.
+- Главная страница остаётся eager; в `App.tsx` используется единая нейтральная `Suspense` fallback-обёртка.
+- Основной JS chunk уменьшился с 556116 до 501271 bytes, gzip — с 154961 до 148734 bytes.
+- Предупреждение Vite о chunk больше 500 kB исчезло.
+- Production deploy, прямые загрузки, SPA-навигация, Console и Network QA пройдены.
+- 12 контрольных Lighthouse-прогонов подтвердили корректную загрузку только релевантных route chunks.
+- JS transfer снизился примерно на 41–55 KB, unused JS — примерно на 34–38 KB.
+- Результат классифицирован как modest improvement; дальнейшая полировка Lighthouse без конкретной пользовательской проблемы остановлена.
 
 ## Главные source of truth файлы
 
@@ -135,11 +138,11 @@ sudo systemctl reload nginx
 ## Текущие технические наблюдения
 
 - Build проходит успешно.
-- Vite предупреждает о chunk больше 500 kB; это пока не блокирует работу.
 - Остались 4 tooling vulnerabilities: 1 low, 2 moderate, 1 high.
 - Script `lint` отсутствует.
 - Есть неблокирующее дублирование общих structured-data сущностей между runtime и HTML generator.
+- Lighthouse runtime-метрики вариативны; новые performance-задачи открывать только при конкретной пользовательской проблеме или реальных полевых данных.
 
 ## Следующий шаг
 
-Сначала диагностически оценить предупреждение Vite о chunk больше 500 kB: определить состав основного bundle, найти крупнейшие модули и понять, даст ли route-level code splitting заметную пользу без преждевременной архитектурной переделки. На диагностическом этапе код не менять.
+Вернуться к основной growth-линии: спроектировать следующую коммерческую страницу про разработку веб-приложений и личных кабинетов. Сначала определить поисковое намерение, честное предложение, структуру контента, внутреннюю перелинковку и подтверждённые компетенции; затем реализовать route-specific SEO, static HTML entry, sitemap entry и контекст формы по существующему шаблону.
