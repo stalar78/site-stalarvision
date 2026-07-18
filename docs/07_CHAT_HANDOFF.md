@@ -2,202 +2,28 @@
 
 ## Что это за файл
 
-Этот файл нужен как короткая handoff-сводка для следующего чата.
+Краткая handoff-сводка фактического состояния проекта Stalar Vision для продолжения работы в новом чате без повторного анализа уже принятых решений.
 
-Его задача:
-- быстро напомнить фактическое состояние проекта;
-- сократить риск повторного анализа уже принятых решений;
-- зафиксировать, что уже считается рабочим и принятым;
-- зафиксировать открытые вопросы, которые ещё требуют отдельного решения владельца.
+## Позиционирование
 
-## Текущее фактическое состояние
+- Stalar Vision — сайт услуг и личный бренд одного независимого разработчика, а не агентства и не обычное резюме.
+- Владелец: Ларин Станислав, ИП Ларин Станислав Николаевич.
+- Формат работы — напрямую с заказчиком, удалённо по всей России.
+- Санкт-Петербург и Ленинградская область используются только как первый тестовый регион рекламы, а не как ограничение услуг или подтверждение офиса.
+- Нельзя придумывать клиентов, отзывы, кейсы, сроки, цены, гарантии, цифры и метрики.
 
-На текущий момент в проекте уже есть:
-- опубликованный production-сайт `https://stalarvision.ru`;
-- рабочий HTTPS / SSL;
-- главная страница, privacy/legal page, terms page и 404;
-- первая самостоятельная коммерческая SEO-страница:
-  - `https://stalarvision.ru/dorabotka-sajta`;
-- реальные контакты владельца: email, Telegram, GitHub, телефон, MAX;
-- рабочая форма обращения через Web3Forms;
-- базовый legal/privacy слой, согласованный с реальной работой формы;
-- post-launch SEO/share слой:
-  - canonical URL,
-  - Open Graph meta,
-  - Twitter meta,
-  - `robots.txt`,
-  - `sitemap.xml`;
-- production-ready share preview asset;
-- согласованный favicon/icon layer;
-- фирменный логотип-циркуль, подключённый в Navbar и Footer;
-- мягкий branded motion;
-- актуальная landing-структура:
-  - Hero,
-  - Services,
-  - Portfolio,
-  - Tech Stack,
-  - FAQ,
-  - Contact,
-  - Footer;
-- отдельная service-page архитектура на React Router с централизованным контентом;
-- локальная изоляция PostCSS-конфигурации через `postcss.config.mjs`;
-- подтверждённый production build и deploy первой SEO-страницы.
+## Production-состояние
 
-Проект находится на стадии:
-**production-ready polished landing + опубликованная первая коммерческая SEO-страница**
+- Сайт: `https://stalarvision.ru`.
+- VPS: Ubuntu, Nginx, HTTPS.
+- Репозиторий: `stalar78/site-stalarvision`, ветка `main`.
+- Серверный каталог: `/home/stanislav/project/stalarvision`.
+- Nginx root: `/home/stanislav/project/stalarvision/dist`.
+- Стек: React + TypeScript + Vite + Tailwind.
+- Контактная форма: Web3Forms.
+- Яндекс Метрика: счётчик `108788776`.
 
-## Текущая SEO-стратегия
-
-Подтверждено владельцем:
-- первичная география:
-  - Санкт-Петербург,
-  - Ленинградская область;
-- формат работы — удалённо;
-- приоритет услуг:
-  1. доработка и развитие существующих сайтов;
-  2. технический аудит сайта;
-  3. разработка нового сайта;
-  4. веб-приложения и личные кабинеты;
-  5. интеграции и автоматизация;
-- желательная загрузка — один крупный или два средних проекта;
-- реальные собственные и выполненные проекты можно рассматривать как кандидаты для кейсов, но каждый кейс публикуется только после отдельной фактологической проверки.
-
-## Первая коммерческая SEO-страница
-
-Реализован и опубликован маршрут:
-
-```text
-/dorabotka-sajta
-```
-
-Основные файлы:
-- `src/data/websiteImprovement.ts`
-  Централизованный контент, SEO-данные, Hero, ситуации обращения, направления работ, процесс, принципы, FAQ и финальный CTA.
-- `src/pages/WebsiteImprovement.tsx`
-  Самостоятельная семантическая страница с `Navbar`, `Footer`, существующим `Contact`, runtime metadata и CTA по странице.
-- `src/router.tsx`
-  Маршрут `dorabotka-sajta`.
-- `src/data/services.ts`
-  Внутренняя ссылка из карточки услуги «Доработка действующего проекта».
-- `src/components/Services.tsx`
-  Условный вывод ссылки `Подробнее о доработке сайтов`.
-- `public/sitemap.xml`
-  Запись о новой индексируемой странице.
-
-Страница содержит:
-- отдельный H1;
-- самостоятельные title и description;
-- canonical;
-- Open Graph / Twitter metadata;
-- региональную формулировку без ложного офиса в Санкт-Петербурге;
-- честную подачу без выдуманных клиентов, кейсов, сроков, цен и гарантий;
-- CTA на существующую контактную форму.
-
-Production-проверка подтверждает:
-- nginx отдаёт `/home/stanislav/project/stalarvision/dist`;
-- `npm run build` проходит успешно;
-- `/`, `/dorabotka-sajta` и `/sitemap.xml` возвращают HTTP 200;
-- `Last-Modified` обновился после production build;
-- прямое открытие `/dorabotka-sajta` работает;
-- desktop-подача страницы визуально корректна;
-- mobile QA ещё нужно пройти отдельно.
-
-## Что уже считается принятым решением
-
-### Позиционирование
-- это сайт одного независимого разработчика, а не агентства;
-- сайт продаёт услуги через доверие, ясность и прямой контакт;
-- tone of voice — спокойный, уверенный, деловой, без маркетингового шума.
-
-### Контентная рамка
-- нельзя придумывать кейсы, отзывы, клиентов, метрики, цены и сроки;
-- source of truth должен оставаться централизованным в `src/data/*`;
-- географические формулировки не должны создавать впечатление физического офиса там, где он не подтверждён.
-
-### SEO-развитие
-- не создавать сразу десятки страниц;
-- сначала довести и проверить одну коммерческую страницу;
-- затем по тому же паттерну развивать следующие направления;
-- JSON-LD, пререндеринг и расширенная аналитика выполняются отдельными задачами;
-- миграция на Next.js не является автоматическим следующим шагом.
-
-## Главные source of truth файлы
-
-- `src/data/profile.ts`
-  Бренд, владелец, юрданные, контакты, CTA, production URL, SEO/share fields.
-- `src/data/site.ts`
-  Hero и базовые homepage-секции.
-- `src/data/services.ts`
-  Секция услуг и внутренние ссылки на самостоятельные service pages.
-- `src/data/websiteImprovement.ts`
-  Контент и SEO-данные страницы `/dorabotka-sajta`.
-- `src/data/cases.ts`
-  Representative examples.
-- `src/data/contacts.ts`
-  Contact section, CTA и конфигурация формы.
-- `src/data/faq.ts`
-  FAQ section главной страницы.
-- `src/data/legal.ts`
-  Privacy/legal copy и реквизиты.
-- `src/lib/meta.ts`
-  Runtime meta handling.
-- `index.html`
-  Static fallback meta + favicon references.
-- `public/sitemap.xml`
-  Карта индексируемых маршрутов.
-- `public/brand/share-preview.png`
-  Production share-preview asset.
-- `postcss.config.mjs`
-  Локальная изоляция PostCSS-конфигурации проекта от родительских каталогов сервера.
-
-## Формат работы с Codex и GitHub
-
-### Codex / Copilot
-Исполнитель изменяет только код и связанные с задачей статические файлы.
-
-Обязательные ограничения для каждого prompt:
-- не изменять никакие файлы в `docs/`;
-- не создавать commit;
-- не выполнять push;
-- не изменять серверную конфигурацию;
-- выполнить `npm run build`;
-- перечислить изменённые файлы и результат проверки.
-
-### Владелец проекта
-После работы Codex:
-- проверяет `git status`;
-- добавляет явный список файлов;
-- создаёт commit;
-- выполняет push в `main`.
-
-### GPT
-После push:
-- читает фактическое состояние GitHub;
-- проводит ревью;
-- самостоятельно обновляет docs непосредственно в GitHub;
-- готовит следующий prompt для Codex.
-
-После обновления docs владельцу нужно выполнить:
-
-```bash
-git pull --ff-only origin main
-```
-
-## Production-схема и безопасность сервера
-
-Проект развёрнут по схеме:
-- git-репозиторий находится в отдельной папке проекта;
-- `npm run build` создаёт `dist`;
-- nginx отдаёт именно `dist` этой папки;
-- `index.html` и `assets` никогда не копируются вручную частями.
-
-Подтверждённый nginx root:
-
-```nginx
-root /home/stanislav/project/stalarvision/dist;
-```
-
-Безопасный production-порядок:
+Безопасный deploy:
 
 ```bash
 cd /home/stanislav/project/stalarvision
@@ -208,78 +34,106 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-Критическое правило:
-- nginx reload выполняется только после успешного `npm run build`;
-- затем обязательно должен пройти `sudo nginx -t`;
-- при ошибке сборки старый `dist` продолжает обслуживаться, а reload не должен считаться успешным деплоем новой версии.
+Не копировать `dist` вручную частями и не изменять внешний `/home/stanislav/postcss.config.mjs`.
 
-## PostCSS isolation
+## Коммерческие страницы
 
-На сервере существует внешний файл:
+Реализованы, опубликованы и проиндексированы Google:
 
-```text
-/home/stanislav/postcss.config.mjs
-```
+- `/dorabotka-sajta/`
+- `/audit-sajta/`
+- `/razrabotka-sajta/`
 
-Он может принадлежать другому проекту и не должен изменяться в рамках Stalar Vision.
+Для них подтверждены route-specific HTML, metadata, JSON-LD, sitemap entries, canonical с завершающим слешем и корректные nginx redirects.
 
-Для изоляции проекта в корне репозитория создан:
+Генератор service pages использует:
 
-```text
-postcss.config.mjs
-```
+- `src/data/servicePageSeo.json`
+- `scripts/service-page.template.html`
+- `scripts/generate-service-html.mjs`
 
-Содержимое:
+## Яндекс Вебмастер и Метрика
 
-```js
-export default {
-  plugins: {},
-}
-```
+- Права в Яндекс Вебмастере подтверждены файлом `public/yandex_04d5d400834f4551.html`.
+- Sitemap добавлен.
+- Главная и три коммерческие страницы отправлены на переобход 2026-07-17; повторно не отправлять без причины.
+- Основная цель формы: `contact_form_success` / `Успешная отправка формы`.
+- Подтверждены цели: `Переход в Telegram`, `Переход в MAX`, `Клик по email`, `Клик по телефону`.
+- Именованные цели используются как основные; автоцели Метрики — только вспомогательные.
 
-Tailwind остаётся подключён через `@tailwindcss/vite`. Локальный пустой PostCSS config нужен, чтобы Vite не подхватывал конфигурацию из родительского каталога.
+## Реальные проекты и портфолио
 
-## Dependency audit
+Канонический реестр: `docs/06_PORTFOLIO_REGISTRY.md`.
 
-Текущий `npm install` сообщает:
-- 6 vulnerabilities;
-- 1 low;
-- 4 moderate;
-- 1 high.
+### Intelverbum
 
-Это не исправляется автоматически командой `npm audit fix --force` в обычном SEO-деплое.
+- Реальный production-кейс с публичным сайтом `https://intelverbum.ru/`.
+- Приватный исходный код не раскрывается.
+- Brand-mark версия карточки зафиксирована commit `2886b69b3d54dd21e820dc9a0dc9e721e6c32b0c`.
+- Production deploy и visual QA пройдены.
 
-Нужна отдельная техническая проверка:
-- какие пакеты затронуты;
-- используются ли уязвимые участки в production;
-- можно ли обновиться без breaking changes.
+### Web Audit Lab
 
-## Что нельзя ломать следующими правками
+- Публичный репозиторий: `https://github.com/stalar78/web-audit-lab`.
+- GitHub-ссылка добавлена на сайт commit `473afef9c66ee9060ed0cff5013313ae9edd2197`.
+- Production deploy и visual QA пройдены.
 
-Не ломать без явной причины:
-- честную подачу сайта как сайта одного независимого разработчика;
-- отсутствие фейковых отзывов, кейсов, клиентов и метрик;
-- централизованный source of truth в `src/data/*`;
-- согласованность `profile.ts` -> meta -> `index.html` -> `public/` assets;
-- текущий tone of voice;
-- умеренность анимаций;
-- существующий contact flow;
-- рабочие маршруты `/`, `/privacy`, `/terms`, `/dorabotka-sajta` и 404;
-- серверную изоляцию Stalar Vision от других проектов;
-- локальный `postcss.config.mjs`.
+### Phone Operator Detector
 
-## Следующий логичный этап
+- Исходный приватный репозиторий не открыт публично: в reachable history были реальные Excel-файлы с персональными данными.
+- Создан отдельный очищенный public snapshot без private Git history, реальных Excel-файлов и скачанных operator-reference CSV snapshots.
+- Публичный репозиторий: `https://github.com/stalar78/phone-operator-detector-public`.
+- Snapshot основан на private source `origin/main` SHA `be2a684f51e5cb6ac4c138901c1788bd66636881`.
+- Полный тест: 26 tests OK; compile validation passed.
+- Текущий public commit: `9e6a533` (`Record public repository publication`).
+- GitHub-ссылка добавлена в `src/data/softwareCases.ts` commit `b5a8b93` (`Add Phone Operator Detector GitHub link`).
+- `SoftwareCases.tsx` уже условно показывает кнопку `Открыть GitHub`, поэтому компонент не менялся.
+- Следующий обязательный шаг: production deploy commit `b5a8b93` и responsive visual QA карточки.
 
-Основной следующий SEO-этап:
-1. добавить JSON-LD для главной и `/dorabotka-sajta`;
-2. не добавлять новую страницу услуги в этой же задаче;
-3. после реализации провести build, GitHub review и production deploy;
-4. проверить наличие structured data в итоговом DOM;
-5. затем решить вопрос статического пререндеринга.
+## Главные source of truth файлы
 
-Параллельные, но отдельные задачи:
-- mobile QA `/dorabotka-sajta`;
-- проверка появления страницы в Яндекс Вебмастере и Google Search Console;
-- инвентаризация реальных кейсов;
-- цели Яндекс Метрики;
-- dependency audit без `--force`.
+- `src/data/profile.ts` — бренд, владелец, контакты и юрданные.
+- `src/data/site.ts` — Hero и главные секции.
+- `src/data/services.ts` — услуги и внутренние ссылки.
+- `src/data/servicePageSeo.json` — SEO service pages.
+- `src/data/cases.ts` — основные project cards.
+- `src/data/softwareCases.ts` — карточки прикладного ПО и GitHub-ссылки.
+- `src/components/SoftwareCases.tsx` — общий renderer software cards.
+- `src/data/contacts.ts` — контактная секция и форма.
+- `src/data/faq.ts` — FAQ.
+- `src/data/legal.ts` — legal/privacy copy.
+- `src/lib/meta.ts` — runtime metadata.
+- `src/lib/utils.ts` — helper Яндекс Метрики и цели.
+- `public/sitemap.xml` — индексируемые маршруты.
+- `postcss.config.mjs` — локальная изоляция PostCSS.
+
+## Рабочий процесс
+
+1. GPT анализирует фактическое состояние и предлагает один следующий логичный шаг.
+2. GPT пишет точный prompt для Codex на русском языке.
+3. Codex меняет только код и связанные статические файлы, не `docs/*`, не commit и не push.
+4. Владелец проверяет diff, делает commit и push.
+5. GPT читает GitHub, проводит review и обновляет `docs/*` непосредственно в GitHub.
+6. Владелец выполняет `git pull --ff-only origin main`; если изменение влияет на production, выполняет безопасный deploy.
+7. После deploy выполняется ручной visual/functional QA.
+
+## Текущие технические наблюдения
+
+- Build проходит успешно.
+- Vite предупреждает о chunk больше 500 kB; это пока не блокирует работу.
+- `npm install` сообщает 6 vulnerabilities: 1 low, 4 moderate, 1 high.
+- Не запускать `npm audit fix --force` без отдельного анализа.
+- Script `lint` отсутствует.
+- Есть неблокирующее дублирование общих structured-data сущностей между runtime и HTML generator.
+- На `/razrabotka-sajta/` остаётся неблокирующий вложенный `<section>` в Hero.
+
+## Следующий шаг
+
+Выполнить production deploy commit `b5a8b93`, затем проверить на desktop и mobile:
+
+- наличие кнопки `Открыть GitHub` в карточке Phone Operator Detector;
+- переход на `https://github.com/stalar78/phone-operator-detector-public` в новой вкладке;
+- отсутствие изменений в карточках GPT Course Knowledge Extractor и Web Audit Lab;
+- сохранение нормальной высоты, сетки и отступов карточек.
+
+После QA зафиксировать результат в docs. Следующий публичный репозиторий выбирать только после отдельного security и fact audit; приватные репозитории не переводить в public напрямую без проверки истории.
