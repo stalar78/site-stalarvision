@@ -70,6 +70,7 @@ export const softwareCasesSection = {
       status: 'рабочая версия v1.2.0',
       focus: 'обработка данных, Excel pipeline, локальные справочники, desktop/web-интерфейсы',
       limitations: 'ориентировано на российские мобильные номера; MNP не учитывается',
+      github: 'https://github.com/stalar78/phone-operator-detector-public',
     },
     {
       icon: 'web-audit-lab',
