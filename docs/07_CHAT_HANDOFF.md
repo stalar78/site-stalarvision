@@ -45,7 +45,7 @@ sudo systemctl reload nginx
 
 - `/razrabotka-veb-prilozhenij/`
 
-Она добавлена в `main`, но production deploy, production QA и отправка нового URL на переобход ещё не выполнены.
+Она опубликована на production. Direct load, SPA navigation, desktop/mobile visual QA, Console и Network проверены без ошибок. Новый URL ещё не отправлен на переобход и пока не считается проиндексированным.
 
 Генератор service pages использует:
 
@@ -114,7 +114,11 @@ sudo systemctl reload nginx
 - Подтверждённые примеры: Intelverbum, обезличенная закрытая информационная система и Phone Operator Detector с сохранением публичных ограничений.
 - Generator детерминирован, build прошёл, large-chunk warning не появился; основной chunk в контрольной сборке — 487.77 kB raw / 155.29 kB gzip.
 - GitHub review пройден без блокирующих замечаний.
-- Production deploy и ручной production QA ожидаются.
+- Production deploy выполнен из текущего `main`; generator остался детерминированным, build и `nginx -t` прошли.
+- `https://stalarvision.ru/razrabotka-veb-prilozhenij/` отвечает `200 OK`.
+- URL без завершающего слеша перенаправляется `301` на канонический адрес со слешем.
+- Production metadata, JSON-LD и sitemap entry подтверждены через `curl`.
+- Desktop/mobile visual QA, форма, внутренние ссылки, Console и Network проверены без ошибок.
 
 ## Главные source of truth файлы
 
@@ -154,4 +158,4 @@ sudo systemctl reload nginx
 
 ## Следующий шаг
 
-Выполнить безопасный production deploy текущего `main`, затем проверить новый маршрут `/razrabotka-veb-prilozhenij/` на desktop и mobile: direct load, SPA navigation, URL со слешем и без слеша, metadata, JSON-LD, sitemap, внутренние ссылки, форму, Console и Network. После успешного QA отправить только новый URL на переобход в Яндекс Вебмастере.
+Отправить только новый URL `https://stalarvision.ru/razrabotka-veb-prilozhenij/` на переобход в Яндекс Вебмастере, не дублируя без причины ранее отправленные URL. Затем дождаться обработки и позже проверить индексирование в Яндексе и Google.
