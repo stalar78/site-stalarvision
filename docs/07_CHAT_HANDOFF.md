@@ -87,8 +87,8 @@ sudo systemctl reload nginx
 - Полный тест: 26 tests OK; compile validation passed.
 - Текущий public commit: `9e6a533` (`Record public repository publication`).
 - GitHub-ссылка добавлена в `src/data/softwareCases.ts` commit `b5a8b93` (`Add Phone Operator Detector GitHub link`).
-- `SoftwareCases.tsx` уже условно показывает кнопку `Открыть GitHub`, поэтому компонент не менялся.
-- Следующий обязательный шаг: production deploy commit `b5a8b93` и responsive visual QA карточки.
+- Production deploy выполнен; desktop/mobile visual QA и проверка перехода по ссылке пройдены.
+- `SoftwareCases.tsx` использует единый условный вывод кнопки `Открыть GitHub`.
 
 ## Главные source of truth файлы
 
@@ -129,11 +129,4 @@ sudo systemctl reload nginx
 
 ## Следующий шаг
 
-Выполнить production deploy commit `b5a8b93`, затем проверить на desktop и mobile:
-
-- наличие кнопки `Открыть GitHub` в карточке Phone Operator Detector;
-- переход на `https://github.com/stalar78/phone-operator-detector-public` в новой вкладке;
-- отсутствие изменений в карточках GPT Course Knowledge Extractor и Web Audit Lab;
-- сохранение нормальной высоты, сетки и отступов карточек.
-
-После QA зафиксировать результат в docs. Следующий публичный репозиторий выбирать только после отдельного security и fact audit; приватные репозитории не переводить в public напрямую без проверки истории.
+Следующий шаг — отдельный dependency audit без `npm audit fix --force`: определить затронутые пакеты, реальную применимость уязвимостей к production-сборке и безопасный план обновления без breaking changes. Публикацию следующего приватного проекта отложить до завершения этого технического прохода.
