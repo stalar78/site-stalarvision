@@ -41,9 +41,16 @@ sudo systemctl reload nginx
 
 Для них подтверждены route-specific HTML, metadata, JSON-LD, sitemap entries, canonical с завершающим слешем и корректные nginx redirects.
 
+В commit `6fe648fb3d037390773458e2e8f581fa7dcc4b51` реализована четвёртая коммерческая страница:
+
+- `/razrabotka-veb-prilozhenij/`
+
+Она добавлена в `main`, но production deploy, production QA и отправка нового URL на переобход ещё не выполнены.
+
 Генератор service pages использует:
 
 - `src/data/servicePageSeo.json`
+- `src/data/webApplicationDevelopment.ts`
 - `scripts/service-page.template.html`
 - `scripts/generate-service-html.mjs`
 
@@ -99,14 +106,16 @@ sudo systemctl reload nginx
 
 ## Последнее завершённое изменение
 
-- В commit `f25c8353691c40597a575154d1b2283fc6c6d8b9` (`Add route-level code splitting`) добавлен lazy loading для трёх service pages, Privacy, Terms и NotFound.
-- Главная страница остаётся eager; в `App.tsx` используется единая нейтральная `Suspense` fallback-обёртка.
-- Основной JS chunk уменьшился с 556116 до 501271 bytes, gzip — с 154961 до 148734 bytes.
-- Предупреждение Vite о chunk больше 500 kB исчезло.
-- Production deploy, прямые загрузки, SPA-навигация, Console и Network QA пройдены.
-- 12 контрольных Lighthouse-прогонов подтвердили корректную загрузку только релевантных route chunks.
-- JS transfer снизился примерно на 41–55 KB, unused JS — примерно на 34–38 KB.
-- Результат классифицирован как modest improvement; дальнейшая полировка Lighthouse без конкретной пользовательской проблемы остановлена.
+- В commit `6fe648fb3d037390773458e2e8f581fa7dcc4b51` (`Add web application development service page`) добавлена страница `/razrabotka-veb-prilozhenij/`.
+- Поисковый фокус: разработка веб-приложений на заказ, личные кабинеты и внутренние рабочие интерфейсы.
+- Подтверждённый scope: решение целиком или отдельный frontend, backend, база данных, интеграция либо интерфейсный слой.
+- Страница охватывает клиентские, партнёрские и кабинеты сотрудников, авторизацию, роли и разграничение доступа.
+- Добавлены `src/data/webApplicationDevelopment.ts`, lazy-loaded `src/pages/WebApplicationDevelopment.tsx`, route-specific runtime metadata и JSON-LD.
+- Добавлены MPA HTML entry, `servicePageSeo.json`, Vite input, sitemap entry, ссылка с главной и контекст формы `Веб-приложение / личный кабинет`.
+- Подтверждённые примеры: Intelverbum, обезличенная закрытая информационная система и Phone Operator Detector с сохранением публичных ограничений.
+- Generator детерминирован, build прошёл, large-chunk warning не появился; основной chunk в контрольной сборке — 487.77 kB raw / 155.29 kB gzip.
+- GitHub review пройден без блокирующих замечаний.
+- Production deploy и ручной production QA ожидаются.
 
 ## Главные source of truth файлы
 
@@ -145,4 +154,4 @@ sudo systemctl reload nginx
 
 ## Следующий шаг
 
-Вернуться к основной growth-линии: спроектировать следующую коммерческую страницу про разработку веб-приложений и личных кабинетов. Сначала определить поисковое намерение, честное предложение, структуру контента, внутреннюю перелинковку и подтверждённые компетенции; затем реализовать route-specific SEO, static HTML entry, sitemap entry и контекст формы по существующему шаблону.
+Выполнить безопасный production deploy текущего `main`, затем проверить новый маршрут `/razrabotka-veb-prilozhenij/` на desktop и mobile: direct load, SPA navigation, URL со слешем и без слеша, metadata, JSON-LD, sitemap, внутренние ссылки, форму, Console и Network. После успешного QA отправить только новый URL на переобход в Яндекс Вебмастере.
