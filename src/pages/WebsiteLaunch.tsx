@@ -55,7 +55,7 @@ export default function WebsiteLaunch() {
           <div className="absolute right-[-8rem] top-40 h-80 w-80 rounded-full bg-blue-500/10 blur-[100px]" />
 
           <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
-            <section aria-labelledby="website-launch-title">
+            <div aria-labelledby="website-launch-title">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-500/25 bg-indigo-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-indigo-300 sm:mb-6">
                 <Rocket size={14} />
                 <span>{websiteLaunchPage.hero.eyebrow}</span>
@@ -91,7 +91,7 @@ export default function WebsiteLaunch() {
               <p className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-500">
                 {websiteLaunchPage.hero.ctaNote}
               </p>
-            </section>
+            </div>
 
             <aside className="rounded-[2rem] border border-slate-800 bg-slate-900/55 p-5 shadow-2xl shadow-slate-950/40 backdrop-blur-xl sm:p-7 lg:rounded-[2.5rem]">
               <div className="mb-6 flex items-center gap-3">
