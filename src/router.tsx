@@ -1,12 +1,14 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 import Home from './pages/Home'
-import NotFound from './pages/NotFound'
-import Privacy from './pages/Privacy'
-import Terms from './pages/Terms'
-import WebsiteAudit from './pages/WebsiteAudit'
-import WebsiteImprovement from './pages/WebsiteImprovement'
-import WebsiteLaunch from './pages/WebsiteLaunch'
+
+const WebsiteImprovement = lazy(() => import('./pages/WebsiteImprovement'))
+const WebsiteAudit = lazy(() => import('./pages/WebsiteAudit'))
+const WebsiteLaunch = lazy(() => import('./pages/WebsiteLaunch'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Terms = lazy(() => import('./pages/Terms'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 /**
  * Роутер приложения

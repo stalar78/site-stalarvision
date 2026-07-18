@@ -1,4 +1,5 @@
 ﻿import { useEffect, useRef } from 'react';
+import { Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { initializeAnalytics, trackPageView, trackYandexMetrikaPageView } from '@/lib/utils';
 
@@ -43,7 +44,9 @@ export default function App() {
   return (
     <>
       {/* <Header /> */}
-      <Outlet />
+      <Suspense fallback={<div className="min-h-screen bg-slate-950" aria-hidden="true" />}>
+        <Outlet />
+      </Suspense>
       {/* <Footer /> */}
     </>
   );
