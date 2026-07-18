@@ -50,7 +50,6 @@ sudo systemctl reload nginx
 Генератор service pages использует:
 
 - `src/data/servicePageSeo.json`
-- `src/data/webApplicationDevelopment.ts`
 - `scripts/service-page.template.html`
 - `scripts/generate-service-html.mjs`
 
@@ -123,6 +122,7 @@ sudo systemctl reload nginx
 - `src/data/site.ts`
 - `src/data/services.ts`
 - `src/data/servicePageSeo.json`
+- `src/data/webApplicationDevelopment.ts`
 - `src/data/cases.ts`
 - `src/data/softwareCases.ts`
 - `src/components/SoftwareCases.tsx`
