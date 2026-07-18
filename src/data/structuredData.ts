@@ -1,5 +1,6 @@
 import { profile } from './profile';
 import servicePageSeo from './servicePageSeo.json';
+import { webApplicationDevelopmentPage } from './webApplicationDevelopment';
 import { websiteAuditPage } from './websiteAudit';
 import { websiteImprovementPage } from './websiteImprovement';
 import { websiteLaunchPage } from './websiteLaunch';
@@ -17,6 +18,8 @@ const websiteAuditWebpageId = `${websiteAuditPage.seo.canonical}#webpage`;
 const websiteAuditServiceId = `${websiteAuditPage.seo.canonical}#service`;
 const websiteLaunchWebpageId = `${websiteLaunchPage.seo.canonical}#webpage`;
 const websiteLaunchServiceId = `${websiteLaunchPage.seo.canonical}#service`;
+const webApplicationDevelopmentWebpageId = `${webApplicationDevelopmentPage.seo.canonical}#webpage`;
+const webApplicationDevelopmentServiceId = `${webApplicationDevelopmentPage.seo.canonical}#service`;
 
 const homeUrl = `${siteUrl}${profile.seo.defaultPath}`;
 const logoUrl = `${siteUrl}/icon-512.png`;
@@ -203,6 +206,47 @@ export const websiteLaunchStructuredData: JsonLdObject = {
       serviceType: servicePageSeo.websiteLaunch.serviceType,
       description: websiteLaunchPage.seo.description,
       url: websiteLaunchPage.seo.canonical,
+      provider: {
+        '@id': organizationId,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const webApplicationDevelopmentStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': webApplicationDevelopmentWebpageId,
+      url: webApplicationDevelopmentPage.seo.canonical,
+      name: webApplicationDevelopmentPage.seo.title,
+      description: webApplicationDevelopmentPage.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': webApplicationDevelopmentServiceId,
+      },
+      mainEntity: {
+        '@id': webApplicationDevelopmentServiceId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'Service',
+      '@id': webApplicationDevelopmentServiceId,
+      name: servicePageSeo.webApplicationDevelopment.serviceName,
+      serviceType: servicePageSeo.webApplicationDevelopment.serviceType,
+      description: webApplicationDevelopmentPage.seo.description,
+      url: webApplicationDevelopmentPage.seo.canonical,
       provider: {
         '@id': organizationId,
       },

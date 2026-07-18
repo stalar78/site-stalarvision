@@ -86,6 +86,8 @@ export const servicesSection = {
       format:
         'От сценариев и структуры к реализации интерфейса по этапам.',
       color: 'from-violet-500/10 to-fuchsia-500/10',
+      detailsHref: '/razrabotka-veb-prilozhenij/',
+      detailsLabel: 'Подробнее о веб-приложениях',
     },
     {
       title: 'Интеграции и небольшая автоматизация',
