@@ -16,6 +16,38 @@ export const softwareCasesSection = {
   },
   items: [
     {
+      icon: 'quoteflow',
+      title: 'QuoteFlow',
+      shortDescription:
+        'Веб-приложение для подготовки коммерческих предложений: позиции, расчёты, скидки, налоги, черновики, обмен данными и формирование PDF.',
+      problem:
+        'Публичное демонстрационное веб-приложение для подготовки коммерческих предложений. Пользователь может добавлять позиции, задавать количество и стоимость, применять скидки и налоги, сохранять черновики, импортировать и экспортировать данные и формировать PDF-документ.',
+      features: [
+        'позиции и автоматические расчёты',
+        'скидки и налоги',
+        'локальные черновики',
+        'JSON/CSV import и export',
+        'browser print и server-side PDF',
+        'API preview',
+        'адаптивный интерфейс',
+        'production deployment в Docker',
+      ],
+      tags: [
+        'React',
+        'TypeScript',
+        'Vite',
+        'FastAPI',
+        'Python',
+        'Docker',
+        'Nginx',
+      ],
+      status: 'Публичный demo-проект',
+      focus: 'frontend, backend, расчётная логика, PDF generation, API, Docker и production deployment',
+      image: '/uploads/cases/quoteflow-dashboard.webp',
+      demoUrl: 'https://quoteflow.stalarvision.ru/',
+      repositoryUrl: 'https://github.com/stalar78/quoteflow-demo',
+    },
+    {
       icon: 'knowledge-extractor',
       title: 'GPT Course Knowledge Extractor',
       shortDescription:

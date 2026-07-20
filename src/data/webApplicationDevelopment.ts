@@ -1,4 +1,5 @@
 import servicePageSeo from './servicePageSeo.json';
+import { softwareCasesSection } from './softwareCases';
 
 type SeoData = {
   path: string;
@@ -45,6 +46,10 @@ type ProjectItem = TextCard & {
     label: string;
     href: string;
   };
+  links?: {
+    label: string;
+    href: string;
+  }[];
   points: string[];
 };
 
@@ -93,6 +98,24 @@ export type WebApplicationDevelopmentPageData = {
 };
 
 const seo = servicePageSeo.webApplicationDevelopment;
+
+const confirmedQuoteFlowProjectItems: ProjectItem[] = softwareCasesSection.items
+  .filter((item) => item.title === 'QuoteFlow')
+  .map((item) => {
+    const links = [
+      item.demoUrl ? { label: 'Открыть демо', href: item.demoUrl } : null,
+      item.repositoryUrl || item.github
+        ? { label: 'GitHub', href: item.repositoryUrl ?? item.github }
+        : null,
+    ].filter((link): link is { label: string; href: string } => Boolean(link));
+
+    return {
+      title: item.title,
+      description: item.shortDescription,
+      points: item.features.slice(0, 3),
+      links,
+    };
+  });
 
 export const webApplicationDevelopmentPage: WebApplicationDevelopmentPageData = {
   seo: {
@@ -375,6 +398,7 @@ export const webApplicationDevelopmentPage: WebApplicationDevelopmentPageData = 
           'публичный production-сайт без выдуманных метрик и клиентских результатов.',
         ],
       },
+      ...confirmedQuoteFlowProjectItems,
       {
         title: 'Закрытая информационная система',
         description:

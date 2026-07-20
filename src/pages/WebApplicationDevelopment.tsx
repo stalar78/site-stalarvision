@@ -275,7 +275,23 @@ export default function WebApplicationDevelopment() {
                       </li>
                     ))}
                   </ul>
-                  {item.link ? (
+                  {item.links?.length ? (
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {item.links.map((link) => (
+                        <a
+                          key={`${item.title}-${link.href}`}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${link.label}: ${item.title}`}
+                          className="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-700 bg-slate-950/70 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-indigo-400/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                        >
+                          {link.label}
+                          <LinkIcon size={16} />
+                        </a>
+                      ))}
+                    </div>
+                  ) : item.link ? (
                     <a
                       href={item.link.href}
                       target="_blank"
