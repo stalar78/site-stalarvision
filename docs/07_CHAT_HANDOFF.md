@@ -61,6 +61,9 @@ sudo systemctl reload nginx
 - Новый URL `https://stalarvision.ru/razrabotka-veb-prilozhenij/` отправлен на переобход 2026-07-18 и находится в очереди.
 - На момент последней проверки главная, `/audit-sajta/` и `/dorabotka-sajta/` обработаны; `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/` находятся в очереди.
 - Повторно отправлять эти URL без новой причины не нужно.
+- Яндекс сообщил о некорректном отображении несуществующих страниц; диагностика подтвердила soft 404 из-за SPA fallback со статусом `200`.
+- Nginx исправлен 2026-07-22: известные SPA routes `/privacy` и `/terms` сохраняют `200`, commercial MPA routes и assets работают как прежде, неизвестные страницы и файлы возвращают реальный HTTP `404` с визуальной React-страницей NotFound.
+- После изменения `nginx -t` прошёл; главная, privacy/terms, commercial routes и QuoteFlow screenshot отвечают ожидаемыми `200/301`, тестовые неизвестные URL — `404`.
 - Основная цель формы: `contact_form_success` / `Успешная отправка формы`.
 - Подтверждены цели: `Переход в Telegram`, `Переход в MAX`, `Клик по email`, `Клик по телефону`.
 - Именованные цели используются как основные; автоцели Метрики — вспомогательные.
@@ -121,18 +124,16 @@ sudo systemctl reload nginx
 
 ## Последнее завершённое изменение
 
-- QuoteFlow опубликован на Stalar Vision как честный публичный demo-кейс веб-приложения.
-- Кодовый commit: `6069bf84943e87c862adc6b6549e98d6436db025` (`Add QuoteFlow public demo case`).
-- Канонический объект хранится в `src/data/softwareCases.ts`.
-- Главная отображает карточку через `src/components/SoftwareCases.tsx`.
-- Страница `/razrabotka-veb-prilozhenij/` получает QuoteFlow из того же source of truth через mapper в `src/data/webApplicationDevelopment.ts`.
-- Поддержаны две внешние ссылки: production demo и публичный GitHub.
-- Screenshot: `public/uploads/cases/quoteflow-dashboard.webp`, WebP, 800×556, 22228 bytes.
-- Production HEAD после deploy: `6069bf84943e87c862adc6b6549e98d6436db025`.
-- `npm run build` прошёл; generator сообщил `unchanged` для всех service-page HTML.
-- `nginx -t` прошёл, Nginx перезагружен.
-- Главная, `/razrabotka-veb-prilozhenij/` и screenshot отвечают `200 OK`; screenshot отдаётся как `image/webp`.
-- Desktop/mobile визуальная проверка подтверждена владельцем: карточка, screenshot и обе ссылки работают корректно.
+- Исправлена обработка несуществующих URL на production Stalar Vision.
+- Исходная конфигурация `try_files $uri $uri/ /index.html;` возвращала `200 OK` для неизвестных страниц и файлов, что Яндекс распознавал как soft 404.
+- Перед изменением создана резервная копия `/etc/nginx/sites-available/stalarvision.backup-2026-07-22`.
+- Для `/privacy` и `/terms` сохранена выдача React `index.html` со статусом `200`; варианты со слешем перенаправляются `301` на канонический URL без слеша.
+- Commercial MPA routes продолжают возвращать `200` со слешем и `301` без слеша.
+- Основной `location /` теперь использует `try_files $uri $uri/ =404`.
+- `error_page 404 =404 /index.html` показывает существующий React NotFound, сохраняя настоящий HTTP `404`.
+- `nginx -t` прошёл и конфигурация перезагружена.
+- Проверено: `/`, `/privacy`, `/terms`, `/razrabotka-sajta/`, `/razrabotka-veb-prilozhenij/` и QuoteFlow screenshot — `200`; canonical redirects — `301`; неизвестные HTML и `.pdf` URL — `404`.
+- Изменение выполнялось только в server Nginx config, code repository и production build не менялись.
 
 ## Главные source of truth файлы
 
@@ -173,4 +174,4 @@ sudo systemctl reload nginx
 
 ## Следующий шаг
 
-Дождаться обработки `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/` в Яндекс Вебмастере без повторной отправки. Параллельно можно выбрать следующий growth-этап, который усиливает доверие или конверсию, опираясь на уже опубликованный QuoteFlow, а не открывать новый цикл технической оптимизации без пользовательской проблемы.
+В Яндекс Вебмастере дождаться повторной диагностики после исправления real 404 и обработки оставшихся URL без повторной отправки. Позже проверить индексирование четырёх коммерческих страниц в Яндексе и Google; следующий growth-этап выбирать на основе показов, запросов и обращений, а не открывать новый цикл технической оптимизации без пользовательской проблемы.
