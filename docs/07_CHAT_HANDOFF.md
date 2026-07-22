@@ -45,7 +45,7 @@ sudo systemctl reload nginx
 
 - `/razrabotka-veb-prilozhenij/`
 
-Она опубликована на production. Direct load, SPA navigation, desktop/mobile visual QA, Console и Network проверены без ошибок. Новый URL ещё не отправлен на переобход и пока не считается проиндексированным.
+Она опубликована на production. Direct load, SPA navigation, desktop/mobile visual QA, Console и Network проверены без ошибок. URL отправлен на переобход в Яндекс Вебмастере 2026-07-18 и находится в очереди.
 
 Генератор service pages использует:
 
@@ -68,6 +68,19 @@ sudo systemctl reload nginx
 ## Реальные проекты и портфолио
 
 Канонический реестр: `docs/06_PORTFOLIO_REGISTRY.md`.
+
+### QuoteFlow
+
+- Собственный публичный demo-проект Stalar Vision, а не клиентский заказ.
+- Production demo: `https://quoteflow.stalarvision.ru/`.
+- Публичный репозиторий: `https://github.com/stalar78/quoteflow-demo`.
+- Подтверждённые возможности: позиции и автоматические расчёты, скидки и налоги, локальные черновики, JSON/CSV import/export, browser print, server-side PDF, API preview и адаптивный интерфейс.
+- Подтверждённый стек: React, TypeScript, Vite, FastAPI, Python, Docker и Nginx.
+- Перед публикацией QuoteFlow прошёл отдельные CI, dependency, secret/history, container и production checks; публичный demo работает через HTTPS.
+- В commit `6069bf84943e87c862adc6b6549e98d6436db025` (`Add QuoteFlow public demo case`) карточка добавлена на главную и на `/razrabotka-veb-prilozhenij/` из единого source of truth `src/data/softwareCases.ts`.
+- Добавлен локальный production screenshot `public/uploads/cases/quoteflow-dashboard.webp` и отдельные ссылки `Открыть демо` / `GitHub`.
+- Production deploy выполнен; build, generator determinism, `nginx -t`, HTTP checks и desktop/mobile visual QA пройдены.
+- Нельзя заявлять реальных клиентов, пользователей, коммерческие результаты, экономию времени, конверсию или другие неподтверждённые метрики.
 
 ### Intelverbum
 
@@ -108,21 +121,18 @@ sudo systemctl reload nginx
 
 ## Последнее завершённое изменение
 
-- В commit `6fe648fb3d037390773458e2e8f581fa7dcc4b51` (`Add web application development service page`) добавлена страница `/razrabotka-veb-prilozhenij/`.
-- Поисковый фокус: разработка веб-приложений на заказ, личные кабинеты и внутренние рабочие интерфейсы.
-- Подтверждённый scope: решение целиком или отдельный frontend, backend, база данных, интеграция либо интерфейсный слой.
-- Страница охватывает клиентские, партнёрские и кабинеты сотрудников, авторизацию, роли и разграничение доступа.
-- Добавлены `src/data/webApplicationDevelopment.ts`, lazy-loaded `src/pages/WebApplicationDevelopment.tsx`, route-specific runtime metadata и JSON-LD.
-- Добавлены MPA HTML entry, `servicePageSeo.json`, Vite input, sitemap entry, ссылка с главной и контекст формы `Веб-приложение / личный кабинет`.
-- Подтверждённые примеры: Intelverbum, обезличенная закрытая информационная система и Phone Operator Detector с сохранением публичных ограничений.
-- Generator детерминирован, build прошёл, large-chunk warning не появился; основной chunk в контрольной сборке — 487.77 kB raw / 155.29 kB gzip.
-- GitHub review пройден без блокирующих замечаний.
-- Production deploy выполнен из текущего `main`; generator остался детерминированным, build и `nginx -t` прошли.
-- `https://stalarvision.ru/razrabotka-veb-prilozhenij/` отвечает `200 OK`.
-- URL без завершающего слеша перенаправляется `301` на канонический адрес со слешем.
-- Production metadata, JSON-LD и sitemap entry подтверждены через `curl`.
-- Desktop/mobile visual QA, форма, внутренние ссылки, Console и Network проверены без ошибок.
-- Новый URL отправлен на переобход в Яндекс Вебмастере 2026-07-18 и находится в очереди.
+- QuoteFlow опубликован на Stalar Vision как честный публичный demo-кейс веб-приложения.
+- Кодовый commit: `6069bf84943e87c862adc6b6549e98d6436db025` (`Add QuoteFlow public demo case`).
+- Канонический объект хранится в `src/data/softwareCases.ts`.
+- Главная отображает карточку через `src/components/SoftwareCases.tsx`.
+- Страница `/razrabotka-veb-prilozhenij/` получает QuoteFlow из того же source of truth через mapper в `src/data/webApplicationDevelopment.ts`.
+- Поддержаны две внешние ссылки: production demo и публичный GitHub.
+- Screenshot: `public/uploads/cases/quoteflow-dashboard.webp`, WebP, 800×556, 22228 bytes.
+- Production HEAD после deploy: `6069bf84943e87c862adc6b6549e98d6436db025`.
+- `npm run build` прошёл; generator сообщил `unchanged` для всех service-page HTML.
+- `nginx -t` прошёл, Nginx перезагружен.
+- Главная, `/razrabotka-veb-prilozhenij/` и screenshot отвечают `200 OK`; screenshot отдаётся как `image/webp`.
+- Desktop/mobile визуальная проверка подтверждена владельцем: карточка, screenshot и обе ссылки работают корректно.
 
 ## Главные source of truth файлы
 
@@ -159,7 +169,8 @@ sudo systemctl reload nginx
 - Script `lint` отсутствует.
 - Есть неблокирующее дублирование общих structured-data сущностей между runtime и HTML generator.
 - Lighthouse runtime-метрики вариативны; новые performance-задачи открывать только при конкретной пользовательской проблеме или реальных полевых данных.
+- Сервер сообщает `System restart required`; плановое обновление и перезагрузка должны выполняться отдельным инфраструктурным этапом с проверкой всех размещённых сервисов.
 
 ## Следующий шаг
 
-Дождаться обработки `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/` в Яндекс Вебмастере без повторной отправки. Позже проверить индексирование четырёх коммерческих страниц в Яндексе и Google и только затем выбирать следующий growth-этап.
+Дождаться обработки `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/` в Яндекс Вебмастере без повторной отправки. Параллельно можно выбрать следующий growth-этап, который усиливает доверие или конверсию, опираясь на уже опубликованный QuoteFlow, а не открывать новый цикл технической оптимизации без пользовательской проблемы.
