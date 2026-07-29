@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   BookOpenText,
+  ChevronDown,
   ExternalLink,
   Github,
   Globe,
@@ -57,7 +58,7 @@ export function Portfolio() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 items-start gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {casesSection.items.map((project, index) => {
             const isRealProject = project.status === 'real-project';
             const badgeLabel = isRealProject ? 'Реальный проект' : casesSection.representativeLabel;
@@ -72,6 +73,7 @@ export function Portfolio() {
               ? 'Исходники проекта закрыты'
               : 'Исходники не опубликованы';
             const isBrandMarkMedia = project.mediaVariant === 'brand-mark';
+            const perspective = 'perspective' in project ? project.perspective : undefined;
 
             return (
             <motion.div
@@ -80,7 +82,7 @@ export function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30"
+              className="group flex self-start flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-500/30"
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/40 sm:aspect-video">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.28),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.18),transparent_42%)]" />
@@ -183,6 +185,33 @@ export function Portfolio() {
                     </p>
                   </div>
                 </div>
+
+                {perspective ? (
+                  <details className="group/perspective mb-6 rounded-2xl border border-emerald-400/20 bg-emerald-500/5 p-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[10px] font-bold uppercase tracking-[0.24em] text-emerald-200 marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/60">
+                      <span>Перспектива развития</span>
+                      <ChevronDown
+                        size={16}
+                        className="shrink-0 transition-transform duration-200 group-open/perspective:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <div className="mt-3 space-y-3 text-sm leading-relaxed text-slate-300">
+                      <p>{perspective.introduction}</p>
+                      <div className="space-y-2">
+                        {perspective.items.map((item) => (
+                          <div key={item} className="flex items-start gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-300" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-xs leading-relaxed text-slate-400">
+                        {perspective.disclaimer}
+                      </p>
+                    </div>
+                  </details>
+                ) : null}
 
                 <div className="mt-auto flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:gap-4">
                   {project.link ? (

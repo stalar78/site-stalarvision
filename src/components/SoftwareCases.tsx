@@ -16,8 +16,14 @@ import {
 } from 'lucide-react';
 import { softwareCasesSection } from '@/data/softwareCases';
 
+type SoftwareCase = (typeof softwareCasesSection.items)[number] & {
+  image?: string;
+  demoUrl?: string;
+  repositoryUrl?: string;
+  github?: string;
+};
+
 const iconByItem = {
-  quoteflow: Database,
   'knowledge-extractor': BrainCircuit,
   'operator-detector': FileSpreadsheet,
   'web-audit-lab': Radar,
@@ -47,7 +53,8 @@ export function SoftwareCases() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2">
-          {softwareCasesSection.items.map((item, index) => {
+          {softwareCasesSection.items.map((caseItem, index) => {
+            const item = caseItem as SoftwareCase;
             const MainIcon = iconByItem[item.icon as keyof typeof iconByItem] ?? Cpu;
             return (
               <motion.article
