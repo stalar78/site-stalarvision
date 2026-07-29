@@ -38,6 +38,18 @@ type ProcessStep = {
   color: string;
 };
 
+export type TechStackCategory = 'Frontend' | 'Backend' | 'Database' | 'Testing' | 'DevOps' | 'Tools';
+
+type TechnologyItem = {
+  name: string;
+  category: TechStackCategory;
+  levelLabel: string;
+  levelWidth: string;
+  status: string;
+  practicalUse: string;
+  projects?: string[];
+};
+
 export const navbarData = {
   brand: {
     href: profile.brand.href,
@@ -234,25 +246,226 @@ export const techStackSection = {
   },
   description:
     'Использую стек под задачу, а не ради витрины технологий. В фокусе frontend, backend, базы данных, testing, devops и tooling, с которыми проект удобно запускать, разбирать, проверять и спокойно развивать дальше.',
-  categories: ['Frontend', 'Backend', 'Database', 'Testing', 'DevOps', 'Tools'],
+  categories: ['Frontend', 'Backend', 'Database', 'Testing', 'DevOps', 'Tools'] satisfies TechStackCategory[],
   technologies: [
-    { name: 'HTML5', category: 'Frontend', levelLabel: 'Рабочий стек', levelWidth: '90%', status: 'neutral-stack' },
-    { name: 'CSS3 / Tailwind', category: 'Frontend', levelLabel: 'Рабочий стек', levelWidth: '88%', status: 'neutral-stack' },
-    { name: 'JavaScript / TS', category: 'Frontend/Backend', levelLabel: 'Основа проектов', levelWidth: '92%', status: 'neutral-stack' },
-    { name: 'React / Next.js', category: 'Frontend', levelLabel: 'Основной фокус', levelWidth: '94%', status: 'neutral-stack' },
-    { name: 'Node.js / Express', category: 'Backend', levelLabel: 'Под рабочие задачи', levelWidth: '82%', status: 'neutral-stack' },
-    { name: 'Java', category: 'Backend', levelLabel: 'Рабочий стек', levelWidth: '82%', status: 'neutral-stack' },
-    { name: 'REST API / GraphQL', category: 'Backend', levelLabel: 'Интеграции и API', levelWidth: '84%', status: 'neutral-stack' },
-    { name: 'Spring / Spring Boot', category: 'Backend', levelLabel: 'Backend и API', levelWidth: '80%', status: 'neutral-stack' },
-    { name: 'PostgreSQL / Mongo', category: 'Database', levelLabel: 'По задаче', levelWidth: '76%', status: 'neutral-stack' },
-    { name: 'SQL', category: 'Database', levelLabel: 'Работа с данными', levelWidth: '84%', status: 'neutral-stack' },
-    { name: 'Vitest / Jest', category: 'Testing', levelLabel: 'Проверка логики и UI', levelWidth: '72%', status: 'neutral-stack' },
-    { name: 'Playwright', category: 'Testing', levelLabel: 'Ключевые сценарии', levelWidth: '68%', status: 'neutral-stack' },
-    { name: 'Docker / Nginx', category: 'DevOps', levelLabel: 'Для деплоя и окружения', levelWidth: '70%', status: 'neutral-stack' },
-    { name: 'Maven', category: 'Tools', levelLabel: 'Сборка и зависимости', levelWidth: '74%', status: 'neutral-stack' },
-    { name: 'Gradle', category: 'Tools', levelLabel: 'JVM tooling', levelWidth: '72%', status: 'neutral-stack' },
-    { name: 'Git / GitHub', category: 'Tools', levelLabel: 'Рабочий процесс', levelWidth: '86%', status: 'neutral-stack' },
-  ],
+    {
+      name: 'HTML5',
+      category: 'Frontend',
+      levelLabel: 'Рабочий стек',
+      levelWidth: '90%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Собираю семантическую структуру страниц, форм, навигации и контентных разделов, учитывая доступность, SEO и корректную организацию базовой разметки.',
+      projects: ['Stalarvision', 'Intelverbum', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'CSS3 / Tailwind',
+      category: 'Frontend',
+      levelLabel: 'Рабочий стек',
+      levelWidth: '88%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Создаю адаптивные интерфейсы, дизайн-системные компоненты, состояния элементов, сетки и мобильные раскладки. Поддерживаю единый визуальный язык без дублирования большого объёма CSS.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'JavaScript / TypeScript',
+      category: 'Frontend',
+      levelLabel: 'Рабочий стек',
+      levelWidth: '92%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Реализую клиентскую логику, формы, расчёты, валидацию, работу с API и типизированные модели данных. TypeScript использую для явных контрактов и раннего обнаружения ошибок.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'React / Vite',
+      category: 'Frontend',
+      levelLabel: 'Основной frontend',
+      levelWidth: '94%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Собираю SPA-интерфейсы, маршрутизацию, формы, состояния загрузки и ошибок, адаптивные пользовательские сценарии и интеграцию frontend с API. Vite использую для быстрой разработки и воспроизводимой production-сборки.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'Next.js',
+      category: 'Frontend',
+      levelLabel: 'По задаче',
+      levelWidth: '82%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Разрабатываю сайты и продуктовые интерфейсы с файловой маршрутизацией, серверным рендерингом или статической генерацией, SEO-метаданными и оптимизированной структурой страниц.',
+      projects: ['LocalKit'],
+    },
+    {
+      name: 'TanStack Query / Zod',
+      category: 'Frontend',
+      levelLabel: 'API state и валидация',
+      levelWidth: '76%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Организую получение и обновление серверных данных, кеширование запросов, состояния загрузки и ошибок. Zod использую для проверки структуры данных и защиты интерфейса от некорректных ответов API.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Java / Spring Boot',
+      category: 'Backend',
+      levelLabel: 'Основной backend',
+      levelWidth: '82%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Разрабатываю REST backend для бизнес-процессов, разделяю доменную и прикладную логику, реализую валидацию, работу с PostgreSQL, пользователей, роли и историю изменений.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Spring Security',
+      category: 'Backend',
+      levelLabel: 'Роли и авторизация',
+      levelWidth: '78%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Реализую вход пользователей, безопасное хранение паролей, разграничение ролей и защиту backend-маршрутов. Проверяю сценарии доступа интеграционными тестами.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Python / FastAPI',
+      category: 'Backend',
+      levelLabel: 'Backend и API',
+      levelWidth: '80%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Создаю API для расчётов и обработки данных, формирую документы на сервере и связываю backend с React-интерфейсом. Описываю и проверяю входные и выходные модели API.',
+      projects: ['QuoteFlow'],
+    },
+    {
+      name: 'Node.js / Express',
+      category: 'Backend',
+      levelLabel: 'По задаче',
+      levelWidth: '82%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Разрабатываю серверную логику и вспомогательные API под конкретные рабочие сценарии, когда для задачи достаточно лёгкого Node.js backend и понятной маршрутизации.',
+    },
+    {
+      name: 'REST API',
+      category: 'Backend',
+      levelLabel: 'Интеграции и API',
+      levelWidth: '84%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Проектирую HTTP-контракты между frontend и backend, ресурсы, методы, статусы, обработку ошибок и проверку данных. Связываю интерфейс с серверной бизнес-логикой и базой данных.',
+      projects: ['QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'PostgreSQL',
+      category: 'Database',
+      levelLabel: 'Работа с данными',
+      levelWidth: '76%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Проектирую хранение связанных сущностей, пользователей, заявок и истории действий. Подключаю базу к backend и проверяю сценарии на реальной PostgreSQL.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'SQL',
+      category: 'Database',
+      levelLabel: 'Работа с данными',
+      levelWidth: '84%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Работаю со структурой реляционных данных, связями, ограничениями и запросами, необходимыми для backend-логики и проверки состояния приложения.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Vitest / Jest',
+      category: 'Testing',
+      levelLabel: 'Проверка логики и UI',
+      levelWidth: '72%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Проверяю функции, компоненты и пользовательскую логику изолированными автоматическими тестами, чтобы изменения не ломали уже работающие сценарии.',
+    },
+    {
+      name: 'Playwright',
+      category: 'Testing',
+      levelLabel: 'Ключевые сценарии',
+      levelWidth: '68%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Проверяю ключевые пользовательские сценарии в реальном браузере: навигацию, формы, адаптивность и критические состояния интерфейса.',
+      projects: ['Web Audit Lab'],
+    },
+    {
+      name: 'Testcontainers',
+      category: 'Testing',
+      levelLabel: 'Интеграционные тесты',
+      levelWidth: '66%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Запускаю интеграционные тесты backend на временной реальной PostgreSQL, чтобы проверять репозитории, безопасность и полные серверные сценарии независимо от локальной базы разработчика.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Docker / Docker Compose',
+      category: 'DevOps',
+      levelLabel: 'Контейнерные окружения',
+      levelWidth: '70%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Собираю frontend, backend и базу данных в изолированные контейнеры, настраиваю внутреннюю сеть, переменные окружения, healthchecks и воспроизводимый запуск всего приложения.',
+      projects: ['QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'Nginx',
+      category: 'DevOps',
+      levelLabel: 'Reverse proxy и HTTPS',
+      levelWidth: '70%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Настраиваю раздачу SPA, reverse proxy к backend, маршрутизацию API, домены и публикацию приложений через HTTPS на VPS.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'Linux / VPS',
+      category: 'DevOps',
+      levelLabel: 'Deployment и окружения',
+      levelWidth: '70%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Разворачиваю приложения на Ubuntu-серверах, работаю через SSH, подключаю домены, Nginx и TLS-сертификаты, проверяю health endpoints и выполняю контролируемые обновления.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+    {
+      name: 'Maven',
+      category: 'Tools',
+      levelLabel: 'Сборка и зависимости',
+      levelWidth: '74%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Собираю Java backend, управляю зависимостями, запускаю тесты и формирую исполняемый артефакт для контейнерной сборки.',
+      projects: ['ApprovalFlow'],
+    },
+    {
+      name: 'Gradle',
+      category: 'Tools',
+      levelLabel: 'JVM tooling',
+      levelWidth: '72%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Использую JVM tooling для задач, где нужен альтернативный сценарий сборки, управления зависимостями и запуска проверок в Java-проектах.',
+    },
+    {
+      name: 'Git / GitHub',
+      category: 'Tools',
+      levelLabel: 'Рабочий процесс',
+      levelWidth: '86%',
+      status: 'neutral-stack',
+      practicalUse:
+        'Веду изменения в отдельных ветках, проверяю diff, оформляю pull request, контролирую историю изменений и разворачиваю проверенные версии из main.',
+      projects: ['Stalarvision', 'QuoteFlow', 'ApprovalFlow'],
+    },
+  ] satisfies TechnologyItem[],
 };
 
 export const trustSection = {
