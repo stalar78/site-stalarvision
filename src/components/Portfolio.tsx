@@ -4,6 +4,7 @@ import {
   BookOpenText,
   ChevronDown,
   ExternalLink,
+  FileText,
   Github,
   Globe,
   ImageOff,
@@ -74,6 +75,7 @@ export function Portfolio() {
               : 'Исходники не опубликованы';
             const isBrandMarkMedia = project.mediaVariant === 'brand-mark';
             const perspective = 'perspective' in project ? project.perspective : undefined;
+            const CoverIcon = project.cover?.title === 'QuoteFlow' ? FileText : BookOpenText;
 
             return (
             <motion.div
@@ -109,7 +111,7 @@ export function Portfolio() {
                 ) : project.cover ? (
                   <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
                     <div className="max-w-[18rem] rounded-3xl border border-emerald-300/15 bg-slate-950/65 px-5 py-5 shadow-2xl shadow-emerald-950/20 backdrop-blur-sm">
-                      <BookOpenText size={28} className="mx-auto mb-3 text-emerald-200" />
+                      <CoverIcon size={28} className="mx-auto mb-3 text-emerald-200" />
                       <div className="text-2xl font-bold tracking-tight text-white">
                         {project.cover.title}
                       </div>
@@ -129,11 +131,13 @@ export function Portfolio() {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
-                <div className="absolute top-4 left-4 rounded-full bg-indigo-600/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
-                  {project.category}
-                </div>
-                <div className={`absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md sm:right-4 sm:top-4 ${badgeClassName}`}>
-                  {badgeLabel}
+                <div className="absolute inset-x-3 top-3 flex flex-wrap items-start justify-between gap-2 sm:inset-x-4 sm:top-4">
+                  <div className="max-w-full rounded-full bg-indigo-600/90 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
+                    {project.category}
+                  </div>
+                  <div className={`max-w-full rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md ${badgeClassName}`}>
+                    {badgeLabel}
+                  </div>
                 </div>
               </div>
 
@@ -198,15 +202,24 @@ export function Portfolio() {
                     </summary>
                     <div className="mt-3 space-y-3 text-sm leading-relaxed text-slate-300">
                       <p>{perspective.introduction}</p>
-                      <div className="space-y-2">
-                        {perspective.items.map((item) => (
-                          <div key={item} className="flex items-start gap-2">
-                            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-300" />
-                            <span>{item}</span>
+                      <div className="space-y-3">
+                        {perspective.groups.map((group) => (
+                          <div key={group.title} className="rounded-xl border border-slate-700/60 bg-slate-950/35 p-3">
+                            <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-100">
+                              {group.title}
+                            </div>
+                            <div className="space-y-1.5">
+                              {group.items.map((item) => (
+                                <div key={item} className="flex items-start gap-2">
+                                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-300" />
+                                  <span>{item}</span>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         ))}
                       </div>
-                      <p className="text-xs leading-relaxed text-slate-400">
+                      <p className="border-t border-emerald-300/15 pt-3 text-xs leading-relaxed text-slate-400">
                         {perspective.disclaimer}
                       </p>
                     </div>
