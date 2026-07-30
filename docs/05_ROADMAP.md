@@ -4,17 +4,18 @@
 
 Stalar Vision — production-ready коммерческий сайт одного независимого разработчика. Сайт работает на `https://stalarvision.ru`, использует React + TypeScript + Vite + Tailwind, HTTPS, Nginx, Web3Forms и Яндекс Метрику.
 
-Опубликованы и проиндексированы Google три самостоятельные коммерческие страницы:
+Опубликованы четыре самостоятельные коммерческие страницы:
 
 - `https://stalarvision.ru/dorabotka-sajta/`
 - `https://stalarvision.ru/audit-sajta/`
 - `https://stalarvision.ru/razrabotka-sajta/`
+- `https://stalarvision.ru/razrabotka-veb-prilozhenij/`
 
-Для всех трёх страниц подтверждены корректные canonical с завершающим слешем, успешное сканирование Googlebot и совпадение user-declared canonical с Google-selected canonical.
+Для страниц настроены route-specific static HTML, metadata, JSON-LD, sitemap entries, canonical URL и Nginx redirects. Первые три страницы проиндексированы Google; четвёртая опубликована и отправлена на переобход.
 
-Сайт добавлен в Яндекс Вебмастер, права подтверждены HTML-файлом, sitemap добавлен, главная и четыре коммерческие страницы отправлены на переобход.
+Сайт добавлен в Яндекс Вебмастер, права подтверждены HTML-файлом, sitemap добавлен. Исправлен server-side soft 404: неизвестные URL и файлы возвращают настоящий HTTP `404`.
 
-На главной опубликованы подтверждённые реальные проекты и программные продукты. Intelverbum представлен как флагманский production-кейс; QuoteFlow опубликован как собственный публичный full-stack demo-проект с живым demo и открытым репозиторием; Web Audit Lab и Phone Operator Detector имеют публичные GitHub-ссылки.
+На главной опубликованы подтверждённые реальные проекты и собственные demo-продукты. Intelverbum представлен как production-кейс; QuoteFlow и ApprovalFlow — как публичные workflow-demo с живыми demo и открытыми репозиториями.
 
 ## Что уже сделано
 
@@ -23,215 +24,137 @@ Stalar Vision — production-ready коммерческий сайт одног�
 - сайт позиционируется как сайт одного независимого разработчика, а не агентства;
 - зафиксирован спокойный деловой tone of voice;
 - удалены неподтверждённые отзывы, клиенты, метрики и другие фиктивные trust signals;
-- профиль, юридические данные и контакты централизованы в `src/data/profile.ts`;
-- контент и конфигурация вынесены в `src/data/*`;
+- профиль, юридические данные, контакты и контент централизованы в `src/data/*`;
 - услуги оказываются удалённо по всей России;
-- Санкт-Петербург и Ленинградская область используются только как первый рекламный тестовый регион, а не как ограничение услуги или подтверждение офиса.
+- Санкт-Петербург и Ленинградская область используются только как тестовый рекламный регион, а не как ограничение услуги или подтверждение офиса.
 
 ### 2. Production-инфраструктура
 
 - VPS, Ubuntu, Nginx, домен и SSL настроены;
-- Nginx отдаёт `/home/stanislav/project/stalarvision/dist`;
 - production deploy выполняется через `git pull`, `npm install`, `npm run build`, `nginx -t`, reload;
 - добавлены privacy/legal page, terms page, 404 и форма Web3Forms;
 - локальный `postcss.config.mjs` изолирует проект от внешней конфигурации родительского каталога;
-- исправлена обработка несуществующих URL: неизвестные страницы и файлы теперь возвращают настоящий HTTP `404`, а React NotFound сохраняется как визуальная оболочка;
-- для `/privacy` и `/terms` сохранён `200`, для вариантов со слешем — `301` на канонический URL без слеша;
-- commercial MPA routes продолжают возвращать `200` со слешем и `301` без слеша;
-- перед изменением Nginx создан backup `/etc/nginx/sites-available/stalarvision.backup-2026-07-22`;
-- `nginx -t`, reload и контрольные `curl -I` после исправления прошли успешно.
+- неизвестные страницы и файлы возвращают настоящий HTTP `404`, а React NotFound сохраняется как визуальная оболочка;
+- `/privacy` и `/terms` сохраняют `200`, варианты со слешем перенаправляются на канонические URL;
+- commercial MPA routes возвращают `200` со слешем и `301` без слеша.
 
-### 3. SEO и structured data
+### 3. SEO, structured data и static HTML
 
 - настроены canonical, Open Graph, Twitter meta, `robots.txt` и `sitemap.xml`;
 - добавлены runtime metadata и JSON-LD helpers;
-- используются стабильные сущности `Organization`, `Person`, `WebSite`, `WebPage`, `Service`;
-- не используются фиктивные `address`, `LocalBusiness`, `Offer`, цены, рейтинги или отзывы;
-- service area для коммерческих страниц — Россия;
-- устранён soft 404, на который указал Яндекс Вебмастер: неизвестные URL больше не получают `200 OK`.
-
-### 4. Route-specific static HTML
-
+- используются `Organization`, `Person`, `WebSite`, `WebPage`, `Service`;
+- не используются фиктивные `address`, `LocalBusiness`, `Offer`, цены, рейтинги и отзывы;
+- service area коммерческих страниц — Россия;
 - Vite работает в MPA-режиме для главной и четырёх service pages;
-- source HTML service pages содержит metadata и JSON-LD до выполнения JavaScript;
-- canonical согласован с URL с завершающим слешем;
-- Nginx отвечает `301` с URL без слеша на URL со слешем и `200` на канонический URL.
-
-Текущие Vite HTML entries:
-
-- `index.html`
-- `dorabotka-sajta/index.html`
-- `audit-sajta/index.html`
-- `razrabotka-sajta/index.html`
-- `razrabotka-veb-prilozhenij/index.html`
-
-### 5. Генератор service-page HTML
-
 - `src/data/servicePageSeo.json` используется как единый источник route-specific SEO;
-- созданы `scripts/service-page.template.html` и `scripts/generate-service-html.mjs`;
-- `npm run build` сначала запускает генератор, затем Vite;
-- генератор детерминирован и не переписывает идентичные HTML-файлы;
-- runtime SEO страниц использует те же централизованные значения.
+- `scripts/service-page.template.html` и `scripts/generate-service-html.mjs` формируют детерминированный static HTML перед Vite build.
 
-### 6. Коммерческие страницы
+### 4. Коммерческие страницы
 
-- опубликована и проиндексирована Google `/dorabotka-sajta/`;
-- опубликована и проиндексирована Google `/audit-sajta/`;
-- опубликована и проиндексирована Google `/razrabotka-sajta/`;
-- опубликована `/razrabotka-veb-prilozhenij/` и отправлена на переобход;
-- каждая страница имеет самостоятельные контент, route, metadata, JSON-LD, sitemap entry и route-specific контекст формы;
-- production-проверки подтвердили корректные редиректы, title, canonical, `og:url` и JSON-LD.
+- опубликованы `/dorabotka-sajta/`, `/audit-sajta/`, `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/`;
+- каждая страница имеет самостоятельный контент, route, metadata, JSON-LD, sitemap entry и контекст формы;
+- страница веб-приложений ориентирована на намерение «разработка веб-приложений на заказ»;
+- подтверждены решения целиком или отдельные frontend, backend, база данных, интеграция и интерфейсный слой;
+- подтверждены личные кабинеты, роли, авторизация и разграничение доступа;
+- production-проверки подтвердили direct load, redirects, title, canonical, `og:url`, JSON-LD, desktop/mobile, Console и Network.
 
-### 7. Яндекс Вебмастер
+### 5. Яндекс Вебмастер и Метрика
 
-- сайт `https://stalarvision.ru` добавлен;
 - права подтверждены файлом `public/yandex_04d5d400834f4551.html`;
-- verification-файл опубликован и отвечает `200 OK`;
-- `https://stalarvision.ru/sitemap.xml` добавлен;
-- на переобход отправлены главная и четыре коммерческие страницы;
-- Яндекс сообщил о некорректной обработке несуществующих страниц и файлов;
-- диагностика подтвердила soft 404 из-за SPA fallback `try_files $uri $uri/ /index.html;`;
-- 2026-07-22 Nginx исправлен: `location /` использует `try_files $uri $uri/ =404`, а `error_page 404 =404 /index.html` сохраняет визуальную React-страницу NotFound с настоящим HTTP `404`;
-- следующий контрольный этап — дождаться повторной диагностики Яндекса и обработки очереди без повторной отправки тех же URL.
+- sitemap добавлен;
+- главная и четыре коммерческие страницы отправлены на переобход;
+- повторно отправлять те же URL без причины не нужно;
+- после исправления real 404 нужно дождаться повторной диагностики Яндекса;
+- счётчик Метрики: `108788776`;
+- основная цель формы: `contact_form_success` / `Успешная отправка формы`;
+- подтверждены цели `Переход в Telegram`, `Переход в MAX`, `Клик по email`, `Клик по телефону`.
 
-### 8. Яндекс Метрика
+### 6. Реальные проекты и портфолио
 
-- счётчик `108788776` установлен;
-- SPA-переходы отправляются отдельными pageview;
-- включены `webvisor`, `clickmap` и `trackLinks`;
-- подтверждена цель `Успешная отправка формы` с идентификатором `contact_form_success`;
-- подтверждены именованные цели `Переход в Telegram`, `Переход в MAX`, `Клик по email`, `Клик по телефону`;
-- для отчётов и будущей рекламы используются именованные цели, а автоцели остаются вспомогательными.
+Канонический реестр: `docs/06_PORTFOLIO_REGISTRY.md`.
 
-### 9. Реальные проекты и портфолио
-
-- создан `docs/06_PORTFOLIO_REGISTRY.md` с канонической классификацией подтверждённых проектов;
 - Intelverbum опубликован как реальный production-кейс без раскрытия приватного репозитория;
-- brand-mark Intelverbum добавлен в commit `2886b69b3d54dd21e820dc9a0dc9e721e6c32b0c`, production deploy и visual QA пройдены;
-- Web Audit Lab получил публичную GitHub-ссылку в commit `473afef9c66ee9060ed0cff5013313ae9edd2197`, production deploy и visual QA пройдены;
-- для Phone Operator Detector выполнен отдельный security/publication audit;
-- исходный приватный репозиторий Phone Operator Detector не открывался из-за чувствительных Excel-файлов в истории;
-- создан независимый очищенный публичный репозиторий `stalar78/phone-operator-detector-public` без private Git history, реальных Excel-файлов и скачанных operator-reference CSV snapshots;
-- публичный snapshot прошёл 26 тестов и compile validation;
-- ссылка на публичный репозиторий добавлена в карточку Phone Operator Detector commit `b5a8b93`;
-- production deploy и responsive visual QA карточки Phone Operator Detector пройдены;
-- QuoteFlow прошёл отдельный engineering/publication audit и опубликован как собственный публичный demo-проект, а не клиентский заказ;
-- production demo QuoteFlow: `https://quoteflow.stalarvision.ru/`;
-- public repository QuoteFlow: `https://github.com/stalar78/quoteflow-demo`;
-- в commit `6069bf84943e87c862adc6b6549e98d6436db025` (`Add QuoteFlow public demo case`) карточка добавлена на главную и на `/razrabotka-veb-prilozhenij/` из единого source of truth;
-- добавлены локальный production screenshot и отдельные внешние действия `Открыть демо` / `GitHub`;
-- production deploy, HTTP checks и desktop/mobile visual QA QuoteFlow пройдены.
+- Web Audit Lab имеет публичный GitHub repository;
+- Phone Operator Detector опубликован через отдельный очищенный public snapshot без private history и чувствительных данных;
+- QuoteFlow прошёл engineering/publication audit и опубликован как собственный публичный demo-проект;
+- QuoteFlow demo: `https://quoteflow.stalarvision.ru/`;
+- QuoteFlow repository: `https://github.com/stalar78/quoteflow-demo`;
+- ApprovalFlow опубликован как собственный публичный workflow-demo;
+- ApprovalFlow demo: `https://approvalflow.stalarvision.ru/`;
+- ApprovalFlow repository: `https://github.com/stalar78/approvalflow`.
 
-### 10. Dependency security
+### 7. Route-level code splitting
 
-- выполнен диагностический `npm audit` без автоматических исправлений;
-- runtime advisory React Router устранён patch-обновлением `react-router-dom` и `react-router` до `6.30.4`;
-- изменение зафиксировано commit `c3333bb91e354bc7e9909db8c838a9a13aa26fc4` (`Update React Router security patch`);
-- `@remix-run/router` обновлён транзитивно до `1.23.3`;
-- Vite остался на `5.4.21`;
-- после обновления осталось 4 tooling-уязвимости: 1 low, 2 moderate, 1 high;
-- оставшиеся advisories относятся к `@babel/core`, `postcss`, `esbuild` и `vite`, а не к production runtime bundle;
-- `npm run build`, technical QA и visual QA после production deploy пройдены;
-- `npm audit fix --force` не применялся и не должен применяться без отдельного major-upgrade плана.
+- в commit `f25c8353691c40597a575154d1b2283fc6c6d8b9` lazy loading добавлен для service/legal/404 routes;
+- основной JS chunk уменьшился, предупреждение Vite о chunk больше 500 kB исчезло;
+- контрольные Lighthouse-прогоны подтвердили уменьшение JS transfer и unused JS;
+- итог классифицирован как modest improvement;
+- дальнейшая полировка Lighthouse без пользовательской проблемы не является приоритетом.
 
-### 11. Семантика Hero страницы разработки
+### 8. QuoteFlow и ApprovalFlow в основном портфолио
 
-- в `src/pages/WebsiteLaunch.tsx` внутренний Hero wrapper изменён с `<section>` на `<div>`;
-- `aria-labelledby`, `h1`, Tailwind classes, текст, aside, SEO, routing и contact logic не менялись;
-- изменение зафиксировано commit `239e5e77c2b00c9e3d755de09f15a81480291c6f` (`Fix nested Hero section semantics`);
-- production deploy выполнен;
-- desktop/mobile visual QA пройдены;
-- Console и Network в браузере проверены, ошибок нет.
+- в commit `1d469de004a16119b8e245bc55fa4ee8ba12832e` (`Add workflow projects to portfolio`) QuoteFlow перенесён из отдельного software-блока в основное портфолио;
+- добавлен ApprovalFlow с публичными demo и repository;
+- source of truth основных карточек портфолио — `src/data/cases.ts`;
+- специализированные software cases продолжают храниться в `src/data/softwareCases.ts`;
+- для QuoteFlow и ApprovalFlow добавлены сворачиваемые блоки «Перспектива развития»;
+- перспективы явно отделены от функций текущих demo-версий и не должны подаваться как уже реализованные возможности.
 
-### 12. Route-level code splitting
+### 9. Улучшение карточек проектов
 
-- production Lighthouse baseline показал высокий mobile TBT и значительный объём неиспользуемого JavaScript;
-- в commit `f25c8353691c40597a575154d1b2283fc6c6d8b9` (`Add route-level code splitting`) lazy loading добавлен для `WebsiteImprovement`, `WebsiteAudit`, `WebsiteLaunch`, `Privacy`, `Terms` и `NotFound`;
-- главная страница осталась eager, а в `App.tsx` добавлена единая нейтральная `Suspense` fallback-обёртка;
-- route paths, metadata, structured data, analytics, контент и генератор service-page HTML не менялись;
-- основной JS chunk уменьшился с 556116 до 501271 bytes, gzip — с 154961 до 148734 bytes;
-- предупреждение Vite о chunk больше 500 kB исчезло;
-- production deploy, direct-route checks, SPA navigation, Console и Network QA пройдены;
-- контрольные 12 Lighthouse-прогонов подтвердили корректную загрузку только нужных route chunks;
-- JS transfer уменьшился примерно на 41–55 KB, unused JS — примерно на 34–38 KB на проверенных маршрутах;
-- итог классифицирован как modest improvement: технический проход закрыт, дальнейшая полировка Lighthouse без пользовательской проблемы не является приоритетом.
+- в commit `0b90b49f99978cc9a046a07df5efeeced0b7c3d8` (`Improve portfolio covers and project perspectives`) унифицированы названия и категории;
+- устранено пересечение category/status badges;
+- QuoteFlow получил кодовую обложку в основном портфолио;
+- перспективы QuoteFlow и ApprovalFlow сгруппированы по направлениям;
+- сохранён disclaimer о том, что это направления возможного развития, а не текущие функции demo.
 
-### 13. Страница разработки веб-приложений и личных кабинетов
+### 10. Практический раскрываемый Technology Stack
 
-- контентная стратегия согласована вокруг коммерческого намерения «разработка веб-приложений на заказ»;
-- подтверждено, что работа может включать решение целиком или отдельный frontend, backend, базу данных, интеграцию либо интерфейсный слой;
-- подтверждены клиентские, партнёрские и кабинеты сотрудников, авторизация, роли и разграничение доступа;
-- в commit `6fe648fb3d037390773458e2e8f581fa7dcc4b51` (`Add web application development service page`) добавлен маршрут `/razrabotka-veb-prilozhenij/`;
-- добавлены data source `src/data/webApplicationDevelopment.ts` и lazy-loaded страница `src/pages/WebApplicationDevelopment.tsx`;
-- добавлены route-specific metadata, canonical, Open Graph, Twitter metadata, WebPage/Service JSON-LD и федеральный `areaServed: Россия`;
-- добавлены MPA entry, детерминированно сгенерированный HTML, sitemap entry, внутренняя ссылка с главной и контекст формы `Веб-приложение / личный кабинет`;
-- в качестве подтверждённых компетенций использованы Intelverbum, обезличенная закрытая информационная система и Phone Operator Detector с сохранением ограничений публикации;
-- два запуска generator подтвердили детерминированность, `npm run build` и `git diff --check` прошли;
-- GitHub review commit пройден без блокирующих замечаний;
-- production deploy выполнен из текущего `main`, generator остался детерминированным, build и `nginx -t` прошли;
-- канонический URL со слешем отвечает `200 OK`, URL без слеша перенаправляется `301` на канонический адрес;
-- production-проверка подтвердила title, description, canonical, `og:url`, JSON-LD и sitemap entry;
-- desktop/mobile visual QA, Console и Network QA пройдены без ошибок;
-- новый URL `https://stalarvision.ru/razrabotka-veb-prilozhenij/` отправлен на переобход в Яндекс Вебмастере 2026-07-18 и находится в очереди;
-- по состоянию на момент проверки главная, `/audit-sajta/` и `/dorabotka-sajta/` обработаны, а `/razrabotka-sajta/` и новая страница ещё находятся в очереди; повторная отправка не требуется.
+- в commit `704057df1e2b87f8151704f1e705a07fe23acf49` (`Add expandable technology stack details`) раздел технологий перестроен из декоративного списка в практическую витрину компетенций;
+- добавлен фильтр `Все` и категории Frontend, Backend, Database, Testing, DevOps и Tools;
+- каждая технология раскрывается через accessible `details/summary`;
+- для технологий добавлены task-oriented описания и подтверждённые проекты применения;
+- список уточнён по фактическому стеку Stalarvision, Intelverbum, QuoteFlow, ApprovalFlow, LocalKit и других подтверждённых проектов;
+- неподтверждённые сертификаты, достижения и численные метрики не добавлялись.
 
-### 14. QuoteFlow как публичный demo-кейс
+### 11. Dependency security
 
-- QuoteFlow — собственный демонстрационный проект Stalar Vision, не клиентская работа;
-- подтверждены frontend, backend, расчётная логика, API preview, JSON/CSV import/export, browser print, server-side PDF, Docker и production deployment;
-- QuoteFlow использует React, TypeScript, Vite, FastAPI, Python, Docker и Nginx;
-- проект имеет живой HTTPS demo и публичный repository;
-- перед публикацией проверены CI, dependencies, Git history/secrets, container hardening и production configuration;
-- карточка использует единый source of truth `src/data/softwareCases.ts` и переиспользуется на главной и на странице веб-приложений;
-- screenshot хранится локально в `public/uploads/cases/quoteflow-dashboard.webp`;
-- production deploy commit `6069bf84943e87c862adc6b6549e98d6436db025` прошёл успешно;
-- главная, страница веб-приложений и screenshot отвечают `200 OK`, screenshot отдаётся как `image/webp`;
-- владелец подтвердил корректную работу карточки, изображения и внешних ссылок на desktop и mobile;
-- запрещено приписывать QuoteFlow клиентов, активных коммерческих пользователей, выручку, конверсию, экономию времени и иные неподтверждённые результаты.
-
-### 15. Реальный HTTP 404 вместо soft 404
-
-- Яндекс Вебмастер сообщил о неправильном отображении несуществующих файлов и страниц;
-- проверка показала, что произвольный URL и несуществующий `.pdf` возвращали `200 OK` с главной SPA-страницей;
-- причина: `try_files $uri $uri/ /index.html;` в Nginx;
-- перед исправлением создан backup конфигурации;
-- известные React routes `/privacy` и `/terms` сохранены отдельными exact locations;
-- `location /` переведён на `try_files $uri $uri/ =404`;
-- `error_page 404 =404 /index.html` сохраняет визуальную React NotFound и настоящий HTTP status `404`;
-- `nginx -t` и reload прошли;
-- проверено: реальные routes и assets — `200`, canonical redirects — `301`, неизвестные страницы и файлы — `404`;
-- код и production build не менялись.
+- React Router runtime advisory устранён обновлением до `6.30.4`;
+- Vite остаётся на `5.4.21`;
+- остаются 4 tooling vulnerabilities: 1 low, 2 moderate, 1 high;
+- `npm audit fix --force` не применять без отдельного major-upgrade плана.
 
 ## Текущие технические наблюдения
 
-- после React Router patch остаются 4 tooling vulnerabilities: 1 low, 2 moderate, 1 high;
-- нельзя запускать `npm audit fix --force` без отдельного анализа major upgrade Vite;
+- build проходит успешно;
 - в `package.json` отсутствует script `lint`;
-- общие данные structured data в generator пока частично дублируются относительно runtime source of truth;
-- Lighthouse runtime-метрики имеют заметную вариативность, поэтому дальнейшие оптимизации должны опираться на конкретную пользовательскую проблему или реальные полевые данные;
+- общие structured-data сущности частично дублируются между runtime и HTML generator;
+- Lighthouse runtime-метрики вариативны;
 - сервер сообщает `System restart required`; плановое обновление и перезагрузка должны выполняться отдельным инфраструктурным этапом с проверкой всех размещённых сервисов.
+
+Эти пункты не являются текущим growth-приоритетом.
 
 ## Следующие шаги
 
 1. Дождаться повторной диагностики Яндекс Вебмастера после исправления real 404.
-2. Дождаться обработки `/razrabotka-sajta/` и `/razrabotka-veb-prilozhenij/` без повторной отправки.
-3. Позже проверить статус индексирования четырёх коммерческих страниц в Яндексе и Google.
-4. Наблюдать показы, поисковые запросы, переходы и обращения без преждевременных выводов по первым дням.
-5. Продолжать использовать `contact_form_success` и именованные контактные цели как основные цели конверсии.
-6. Использовать QuoteFlow как проверяемое доказательство компетенций на странице веб-приложений; отдельный case-study создавать только при обоснованной conversion-потребности.
-7. Следующий growth-этап выбирать после первичной проверки обработки и индексирования; tooling upgrade и дальнейшая полировка Lighthouse не являются текущим приоритетом.
+2. Дождаться обработки оставшихся коммерческих URL без повторной отправки.
+3. Проверить индексирование четырёх коммерческих страниц в Яндексе и Google.
+4. Наблюдать показы, поисковые запросы, переходы и обращения без преждевременных выводов.
+5. Использовать `contact_form_success` и именованные контактные цели как основные conversion signals.
+6. Использовать QuoteFlow и ApprovalFlow как проверяемые доказательства компетенций; отдельные case studies создавать только при обоснованной conversion-потребности.
+7. Следующий growth-этап выбирать на основе реальных поисковых данных, а не ради количества страниц.
 
 ## Что не является приоритетом сейчас
 
-- дальнейшая полировка Lighthouse без подтверждённой пользовательской проблемы;
+- дальнейшая полировка Lighthouse без подтверждённой проблемы;
 - большой редизайн;
 - миграция на Next.js;
-- тяжёлый backend или CMS;
+- тяжёлый backend или CMS для самого сайта;
 - массовое создание десятков SEO-страниц;
 - искусственные региональные страницы;
 - фиктивный адрес;
-- автоматическое исправление зависимостей через `npm audit fix --force`;
-- массовая публикация всех приватных GitHub-репозиториев без предварительного аудита.
+- `npm audit fix --force`;
+- публикация приватных репозиториев без предварительного аудита.
 
 ## Рабочий процесс
 
