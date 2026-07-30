@@ -2,15 +2,15 @@
 
 ## Назначение
 
-Этот документ фиксирует подтверждённую структуру портфолио Stalar Vision до изменения production-сайта.
+Этот документ фиксирует подтверждённую структуру портфолио Stalar Vision и правила публикации проектов на production-сайте.
 
 Реестр нужен, чтобы:
 
 - не путать количество GitHub-репозиториев с количеством самостоятельных проектов;
-- объединять frontend, backend, mobile, desktop, дизайн-референсы и вспомогательные инструменты в цельные инженерные истории;
+- объединять frontend, backend, mobile, desktop и вспомогательные инструменты в цельные инженерные истории;
 - не выдавать прототипы, учебные работы и шаблонные репозитории за коммерческие кейсы;
 - не публиковать закрытую информацию;
-- выбирать формат показа проекта исходя из его зрелости и коммерческой ценности;
+- выбирать формат показа проекта исходя из зрелости и коммерческой ценности;
 - не придумывать клиентов, метрики, сроки, финансовые результаты и неподтверждённые эффекты.
 
 ## Правила публикации
@@ -23,6 +23,7 @@
 6. Дизайн-референсы, asset-репозитории и ранние прототипы не считаются отдельными проектами.
 7. Учебные репозитории остаются частью GitHub-архива, но не смешиваются с production-кейсами.
 8. Ссылки, скриншоты и названия добавляются только после отдельной проверки допустимости раскрытия.
+9. Направления возможного развития должны быть явно отделены от функций текущей версии.
 
 ## Уровень A — основные доказательные кейсы
 
@@ -32,28 +33,17 @@
 
 **Тип:** production content platform.
 
-**Подтверждённая техническая рамка:**
+**Подтверждённая техническая рамка:** JSON-корпусы, валидация данных, release manifests, статическая генерация, поисковый индекс, административные интерфейсы, безопасный publish pipeline, Nginx/Linux и Git workflow.
 
-- несколько самостоятельных JSON-корпусов контента;
-- валидация данных и release manifests;
-- статическая генерация публичных страниц;
-- общий поисковый индекс;
-- специализированные административные интерфейсы;
-- безопасный publish pipeline;
-- разделение исходников и публичного web root;
-- контролируемый workflow переноса редакционных изменений с production обратно в Git.
+**Что демонстрирует:** архитектура контентных систем, Node.js tooling, поиск, админки и production operations.
 
-**Что демонстрирует:** архитектура контентных систем, Node.js tooling, статическая генерация, админки, поиск, production workflow, Nginx/Linux, Git-операции.
+**Формат:** сильная карточка на главной и потенциальный подробный case study.
 
-**Формат:** подробный case study и одна сильная карточка на главной.
-
-**Публичность:** название и публичный сайт допустимы; технические секреты, credentials и внутренние операционные данные не публикуются.
+**Публичность:** название и публичный сайт допустимы; технические секреты, credentials и внутренние данные не публикуются.
 
 ---
 
-### 2. QuoteFlow
-
-**Публичное название:** QuoteFlow — веб-приложение для подготовки коммерческих предложений и расчёта итоговой стоимости.
+### 2. QuoteFlow — коммерческие предложения
 
 **Тип:** собственный публичный demo-проект Stalar Vision, не клиентский заказ.
 
@@ -65,242 +55,145 @@
 - JSON/CSV import и export;
 - browser print и server-side PDF;
 - API preview;
-- адаптивный интерфейс;
-- React, TypeScript и Vite frontend;
+- адаптивный React/TypeScript/Vite frontend;
 - FastAPI/Python backend;
-- Docker и Nginx production deployment;
-- публичный HTTPS demo;
-- публичный GitHub repository.
+- Docker и Nginx deployment;
+- публичный HTTPS demo и GitHub repository.
 
-**Что демонстрирует:** full-stack web application development, расчётная бизнес-логика, API, PDF generation, frontend/backend integration, контейнеризация, production deployment и эксплуатационная подготовка.
-
-**Формат:** сильная карточка на главной и подтверждённый проект на странице `/razrabotka-veb-prilozhenij/`; в дальнейшем допустим отдельный case study, если появится продуктовая необходимость.
+**Что демонстрирует:** full-stack development, расчётную бизнес-логику, API, PDF generation, frontend/backend integration, контейнеризацию и production deployment.
 
 **Публичность:**
 
-- production demo: `https://quoteflow.stalarvision.ru/`;
-- public repository: `https://github.com/stalar78/quoteflow-demo`;
-- локальный production screenshot допустим;
-- source of truth карточки: `src/data/softwareCases.ts`.
+- demo: `https://quoteflow.stalarvision.ru/`;
+- repository: `https://github.com/stalar78/quoteflow-demo`;
+- source of truth основной карточки: `src/data/cases.ts`.
 
-**Проверки перед публикацией:** CI, dependency audit, secret/history scan, container hardening review, production deploy и desktop/mobile visual QA.
+**Текущее отображение:** QuoteFlow находится в основном портфолио, а не в отдельном software-case блоке.
 
-**Строгие ограничения:**
+**Перспектива развития:** в карточке допустим сворачиваемый блок с возможными направлениями — шаблоны и брендирование, каталоги и расчёты, CRM/1С, командное согласование, интеграции и аналитика. Эти пункты не являются функциями текущей demo-версии.
 
-- не называть клиентским кейсом;
-- не заявлять реальных компаний или активных коммерческих пользователей;
-- не придумывать экономию времени, конверсию, выручку, количество документов или другие метрики;
-- не позиционировать как подтверждённый коммерчески успешный SaaS.
+**Строгие ограничения:** не называть клиентским кейсом, не заявлять реальных пользователей, выручку, конверсию, экономию времени и иные неподтверждённые метрики.
 
 ---
 
-### 3. LocalKit
+### 3. ApprovalFlow — согласование внутренних заявок
 
-**Публичное название:** LocalKit — каталог нишевых сайтов для малого бизнеса.
+**Тип:** собственный публичный workflow-demo Stalar Vision, не клиентский заказ.
+
+**Подтверждённая техническая рамка:**
+
+- роли сотрудника и руководителя;
+- создание, редактирование и отправка заявок;
+- одобрение, отклонение, повторное открытие и повторная отправка;
+- история изменений и решений;
+- публичный demo-доступ для обеих ролей;
+- React/TypeScript frontend;
+- Spring Boot backend;
+- PostgreSQL;
+- Docker и Nginx deployment;
+- публичный HTTPS demo и GitHub repository.
+
+**Что демонстрирует:** workflow-системы, роли и состояния, frontend/backend integration, relational database, контейнеризацию и production deployment.
+
+**Публичность:**
+
+- demo: `https://approvalflow.stalarvision.ru/`;
+- repository: `https://github.com/stalar78/approvalflow`;
+- source of truth карточки: `src/data/cases.ts`.
+
+**Перспектива развития:** допустим сворачиваемый блок с направлениями маршрутизации и правил, совместной работы, администрирования, аудита, уведомлений, SSO/LDAP, 1С, CRM/ERP и API/webhooks. Эти пункты не являются функциями текущей demo-версии.
+
+**Строгие ограничения:** не называть клиентским кейсом, не заявлять реальное внедрение в компании, число пользователей, ускорение согласований и другие неподтверждённые результаты.
+
+---
+
+### 4. LocalKit
 
 **Тип:** собственный продукт и система коммерческих шаблонов.
 
-**Подтверждённая техническая рамка:**
+**Подтверждённая рамка:** Next.js App Router, TypeScript, Tailwind CSS, самостоятельные niche/premium модели, product pages, live demo, различающиеся hero/CTA/trust структуры, VPS deployment через Nginx, PM2 и SSL.
 
-- каталог на Next.js App Router;
-- TypeScript и Tailwind CSS;
-- несколько самостоятельных нишевых и premium-моделей;
-- отдельные product pages и live demo;
-- различающиеся hero-модели, CTA-логика, trust-механики и структура секций;
-- deployment на VPS через Nginx, PM2 и SSL.
+**Что демонстрирует:** продуктовый подход, коммерческие сайты, Next.js, переиспользуемую архитектуру и production deployment.
 
-**Что демонстрирует:** продуктовый подход, коммерческие сайты, Next.js, переиспользуемая архитектура, визуальная и структурная дифференциация, production deployment.
-
-**Формат:** подробный продуктовый case study и одна карточка на главной.
-
-**Публичность:** публичное название, каталог и разрешённые demo-ссылки допустимы.
-
-**Ограничение:** отдельные template/reference/asset-репозитории не публикуются как самостоятельные кейсы.
+**Ограничение:** template/reference/asset repositories не публикуются как отдельные кейсы.
 
 ---
 
-### 4. Web Audit Lab
+### 5. Web Audit Lab
 
-**Публичное название:** Web Audit Lab — автоматизированный технический аудит сайтов.
+**Тип:** инженерный инструмент для browser-based технического аудита.
 
-**Тип:** инженерный инструмент для внешнего browser-based аудита.
+**Подтверждённая рамка:** Playwright checks, SEO/metadata/canonical/internal links, desktop/mobile, accessibility basics, failed resources, page weight, JSON/Markdown reports и screenshots.
 
-**Подтверждённая техническая рамка:**
+**Публичность:** `https://github.com/stalar78/web-audit-lab`.
 
-- Playwright browser checks;
-- SEO и metadata checks;
-- проверка canonical и внутренних ссылок;
-- desktop/mobile responsive checks;
-- accessibility basics;
-- failed resources и page-weight signals;
-- JSON- и Markdown-отчёты;
-- скриншоты как доказательная база;
-- повторный запуск после исправлений.
-
-**Что демонстрирует:** browser automation, QA, технический аудит, воспроизводимые проверки, evidence-based reporting.
-
-**Формат:** подробный case study и одна карточка на главной.
-
-**Публичность:** публичный GitHub допустим; данные конкретных аудируемых сайтов публикуются только с разрешением.
-
-**Ограничение:** не позиционировать как SEO-продвижение или полноценный security-аудит.
-
----
-
-### 5. T-Bank Trading Bot
-
-**Публичное название:** Модульная система исследования и безопасной подготовки торговых решений.
-
-**Тип:** Python research/runtime framework.
-
-**Подтверждённая техническая рамка:**
-
-- research-to-runtime workflow;
-- backtesting и portfolio-level orchestration;
-- sandbox operation;
-- operator CLI и evidence collection;
-- explicit live-risk gates;
-- artifact governance;
-- запрет полного live-режима и live BUY без отдельного решения.
-
-**Что демонстрирует:** Python, интеграции, runtime architecture, риск-контроль, эксплуатационные runbooks, сложное модульное проектирование.
-
-**Формат:** подробный технический кейс второго экрана или отдельной страницы.
-
-**Публичность:** без ссылки на приватный репозиторий.
-
-**Запрещённые формулировки:** гарантированная прибыль, подтверждённая доходность, полностью автоматическая торговля, готовность к массовому live-использованию.
+**Ограничение:** не позиционировать как полноценное SEO-продвижение или security-аудит.
 
 ---
 
 ### 6. Закрытая информационная система
 
-**Публичное название:** Закрытая информационная система с веб-порталом, офлайн-мобильным приложением и полнотекстовым поиском.
-
-**Тип:** закрытая knowledge platform.
-
-**Подтверждённая техническая рамка:**
-
-- web portal;
-- offline-first mobile app на Expo React Native и TypeScript;
-- подготовка и структурный разбор документов;
-- SQLite build pipeline;
-- FTS5 full-text search;
-- JSON fallback;
-- локальные закладки и история просмотров;
-- разграничение доступа;
-- отдельные ранние client/server-прототипы.
-
-**Что демонстрирует:** web/mobile architecture, offline-first, document pipelines, SQLite/FTS5, поиск, локальное хранение, закрытые области доступа.
+**Тип:** закрытая knowledge platform с web portal, offline-first mobile app, document pipeline, SQLite/FTS5 search, локальными закладками и разграничением доступа.
 
 **Формат:** обезличенный подробный кейс без demo и внешних ссылок.
 
-**Строгие ограничения:**
+**Строгие ограничения:** не раскрывать настоящее название, организацию, предметную область, реальные документы, URL, GitHub и читаемые screenshots закрытого содержания.
 
-- не публиковать настоящее название;
-- не раскрывать организацию и предметную область;
-- не использовать реальные названия документов и разделов;
-- не добавлять URL, GitHub или demo;
-- не использовать читаемые скриншоты закрытого содержания;
-- допустимы только техническое описание, обезличенные схемы и специально подготовленные mockups.
+---
+
+### 7. T-Bank Trading Bot
+
+**Тип:** Python research/runtime framework.
+
+**Подтверждённая рамка:** research-to-runtime workflow, backtesting, portfolio orchestration, sandbox, operator CLI, evidence collection, explicit live-risk gates и artifact governance.
+
+**Запрещённые формулировки:** гарантированная прибыль, подтверждённая доходность, полностью автоматическая торговля и готовность к массовому live-использованию.
 
 ## Уровень B — сильные прикладные и инфраструктурные кейсы
 
-### 7. Конвейер извлечения знаний из аудио и видео
+### 8. Конвейер извлечения знаний из аудио и видео
 
-**Тип:** Python/AI-assisted content pipeline с операторской панелью.
+Python/AI-assisted pipeline с faster-whisper, batch processing, таймкодами, словарной очисткой, audit reports, GPT-конспектами, локальной базой знаний и операторской панелью.
 
-**Функции:** faster-whisper, одиночная и пакетная обработка, транскрипты с таймкодами, словарная очистка, audit reports, GPT-конспекты, локальная база знаний, GUI/панель управления.
+### 9. Анализатор производственных смен
 
-**Формат:** средний case study или расширенная карточка.
+Streamlit-инструмент анализа SQLite-данных: time series, histogram, box plot, rolling metrics, correlations, outliers и Cp/Cpk. Реальные производственные базы и чувствительные данные не публикуются.
 
-**Ценность:** автоматизация обработки контента и построение воспроизводимого AI workflow.
+### 10. Phone Operator Detector
 
----
+Python monorepo с Excel processing, operator/region lookup, desktop GUI, CLI, Flask web MVP, PyInstaller build и тестами.
 
-### 8. Анализатор производственных смен
+Публичный snapshot: `https://github.com/stalar78/phone-operator-detector-public`.
 
-**Тип:** Streamlit-инструмент анализа SQLite-данных промышленного процесса.
+Исходный приватный repository не открывается из-за чувствительных файлов в Git history.
 
-**Функции:** статистика смены, time series, histogram, box plot, rolling metrics, correlations, IQR/Z-score outliers, ranking by variability, Cp/Cpk при заданных допусках.
+### 11. Развёртывание и сопровождение защищённого VPN
 
-**Формат:** средний обезличенный case study.
+Operations-first проект на WireGuard/Ubuntu VPS с SSH hardening, UFW, backup/restore и runbooks. Не публиковать IP, подсети, порты, peer names, ключи и topology details.
 
-**Ограничения:** не публиковать реальные производственные базы, номера деталей и чувствительные данные.
+### 12. Система документированного анализа рисков онлайн-платформ
 
----
-
-### 9. Обработка телефонных баз по операторам
-
-**Тип:** Python monorepo с общей доменной логикой.
-
-**Функции:** Excel processing, operator/region lookup, desktop GUI, CLI, Flask web MVP, PyInstaller build, Waitress entry, split export, unit/integration/web tests.
-
-**Формат:** средний case study или расширенная карточка.
-
-**Подтверждённые ограничения:** российские мобильные номера, локальный справочник, MNP не учитывается, web deployment пока single-instance без auth.
-
----
-
-### 10. Развёртывание и сопровождение защищённого VPN
-
-**Тип:** инфраструктурный operations-first проект.
-
-**Функции:** WireGuard, Ubuntu VPS, multi-device clients, SSH hardening, UFW, backup/restore, add/revoke workflow, operator review, restore drills, runbooks.
-
-**Формат:** обезличенная инфраструктурная карточка или средний кейс.
-
-**Строгие ограничения:** не публиковать IP, подсети, порты, peer names, конфигурации, ключи, topology details и ссылку на приватный репозиторий.
-
----
-
-### 11. Система документированного анализа рисков онлайн-платформ
-
-**Тип:** documentation-first evidence framework.
-
-**Функции:** intake, evidence log, public website/legal document review, checklist, observations, cautious report, разделение фактов, заявлений, интерпретаций и ограничений.
-
-**Формат:** средний специализированный кейс или часть блока «Аудит и анализ».
-
-**Ограничения:** не заявлять выявление мошенничества, незаконности или юридически доказанного нарушения; не описывать hacking, bypass или aggressive scanning как часть услуги.
+Documentation-first evidence framework с intake, evidence log, public legal/site review и cautious report. Не заявлять выявление мошенничества, незаконности или юридически доказанного нарушения.
 
 ## Уровень C — компактные продукты
 
-### 12. Math Brain Trainer
+### 13. Math Brain Trainer
 
-Локальный React + TypeScript + Vite тренажёр устного счёта с RU/EN интерфейсом, упражнениями сложения, числовыми пирамидами, локальной историей и экраном прогресса.
+Локальный React + TypeScript + Vite тренажёр устного счёта с RU/EN интерфейсом и локальной историей.
 
-**Формат:** компактная продуктовая карточка.
+### 14. Сценарный каталог образовательных программ
 
-Связанные visual/reference repositories не считаются отдельными продуктами.
+Next.js MVP с подборками, guides, methodology/disclosure pages и типизированной моделью Offer/Collection/Guide. Не позиционировать как marketplace, школу или transactional platform.
 
----
+### 15. Stalar Vision
 
-### 13. Сценарный каталог образовательных программ
-
-Next.js MVP с подборками по жизненным сценариям, редакционными guides, methodology/disclosure pages и типизированной моделью Offer/Collection/Guide.
-
-**Формат:** компактная продуктовая карточка.
-
-**Ограничение:** не позиционировать как marketplace, школу, CMS или transactional platform.
-
----
-
-### 14. Stalar Vision
-
-Production-сайт услуг независимого разработчика: React/Vite/Tailwind, route-specific static HTML, service pages, SEO, structured data, Google/Yandex indexing, Web3Forms, Yandex Metrika goals и VPS deployment.
-
-**Формат:** компактный self-case или техническая заметка.
+Production-сайт услуг независимого разработчика: React/Vite/Tailwind, route-specific static HTML, service pages, SEO, structured data, Web3Forms, Метрика и VPS deployment.
 
 Не должен становиться главным кейсом, чтобы портфолио не выглядело замкнутым на самом себе.
 
----
+### 16. SportAndBeauty
 
-### 15. SportAndBeauty
-
-Подтверждён современный Next.js/TypeScript baseline и структурированная homepage data model, но назначение, пользовательские сценарии и текущая зрелость ещё не проверены полностью.
-
-**Формат:** не публиковать до дополнительной проверки.
+Подтверждён Next.js/TypeScript baseline, но назначение, сценарии и зрелость ещё не проверены полностью. До дополнительной проверки не публиковать.
 
 ## Технический архив
 
@@ -313,26 +206,19 @@ Production-сайт услуг независимого разработчика
 - design/reference/asset repositories;
 - учебные Java, React и алгоритмические проекты.
 
-Эти работы могут оставаться на GitHub и подтверждать широту опыта, но не должны конкурировать с production-системами.
-
 ## Текущее отображение на production-сайте
 
-На главной и в тематических блоках используются реальные подтверждённые software cases из `src/data/softwareCases.ts`.
-
-QuoteFlow опубликован как один из наиболее проверяемых публичных примеров, потому что одновременно имеет:
-
-- живой production demo;
-- публичный source repository;
-- локальный production screenshot;
-- подтверждённый frontend/backend scope;
-- проверенный Docker/Nginx deployment.
-
-Это не меняет его статус: QuoteFlow остаётся собственным demo-проектом, а не клиентским кейсом.
+- основное портфолио формируется из `src/data/cases.ts`;
+- QuoteFlow и ApprovalFlow находятся в основном портфолио;
+- специализированные программные кейсы продолжают храниться в `src/data/softwareCases.ts` и отображаться отдельным блоком;
+- карточки используют единые названия, кодовые обложки и непротиворечивые category/status badges;
+- блоки «Перспектива развития» доступны только для подтверждённых проектов и содержат явный disclaimer;
+- раздел Technology Stack связывает технологии с подтверждёнными проектами, но не заменяет реестр портфолио.
 
 ## Следующий практический шаг
 
 Не расширять портфолио количеством карточек без необходимости. Следующий кейсовый шаг выбирать по коммерческой ценности:
 
-- либо подготовить отдельный подробный QuoteFlow case study, если он нужен для конверсии страницы веб-приложений;
-- либо завершить fact/publication audit следующего сильного проекта;
-- либо улучшать уже опубликованные карточки только при конкретной UX или conversion-проблеме.
+- отдельный QuoteFlow или ApprovalFlow case study — только при подтверждённой conversion-потребности;
+- следующий сильный проект — только после fact/security/publication audit;
+- существующие карточки улучшать только при конкретной UX, clarity или conversion-проблеме.
