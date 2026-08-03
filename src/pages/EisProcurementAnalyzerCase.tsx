@@ -459,6 +459,74 @@ export default function EisProcurementAnalyzerCase() {
           </div>
         </section>
 
+        <section id={eisProcurementAnalyzerCase.developmentPerspective.id} className="relative overflow-hidden bg-slate-950 py-16 sm:py-20">
+          <div aria-hidden="true" className="absolute left-[-8rem] top-16 h-80 w-80 rounded-full bg-cyan-500/10 blur-[110px]" />
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-9 max-w-4xl sm:mb-12">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-200">
+                <FolderKanban size={14} />
+                {eisProcurementAnalyzerCase.developmentPerspective.eyebrow}
+              </div>
+              <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
+                {eisProcurementAnalyzerCase.developmentPerspective.title}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+                {eisProcurementAnalyzerCase.developmentPerspective.description}
+              </p>
+              <p className="mt-4 max-w-3xl rounded-3xl border border-white/8 bg-slate-900/50 p-5 text-sm leading-relaxed text-slate-300 sm:text-base">
+                {eisProcurementAnalyzerCase.developmentPerspective.introduction}
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {eisProcurementAnalyzerCase.developmentPerspective.groups.map((group) => (
+                <article key={group.title} className="rounded-[2rem] border border-slate-800 bg-slate-900/45 p-5 sm:p-6">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-200">
+                    <FileSearch size={22} />
+                  </div>
+                  <h3 className="text-lg font-bold text-white">{group.title}</h3>
+                  <div className="mt-4 space-y-2.5">
+                    {group.items.map((item) => (
+                      <div key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[2rem] border border-indigo-400/20 bg-indigo-500/8 p-6 sm:p-8">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950/55 text-indigo-200">
+                <Waypoints size={22} />
+              </div>
+              <h3 className="text-2xl font-bold text-white">
+                {eisProcurementAnalyzerCase.developmentPerspective.sourceAdaptation.title}
+              </h3>
+              <p className="mt-4 max-w-4xl text-sm leading-relaxed text-indigo-100/90 sm:text-base">
+                {eisProcurementAnalyzerCase.developmentPerspective.sourceAdaptation.description}
+              </p>
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {eisProcurementAnalyzerCase.developmentPerspective.sourceAdaptation.notes.map((item) => (
+                  <div key={item} className="rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-sm leading-relaxed text-slate-200">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-3xl border border-amber-500/20 bg-amber-500/10 p-5 sm:p-6">
+              <div className="flex items-start gap-3">
+                <AlertTriangle size={20} className="mt-0.5 shrink-0 text-amber-200" />
+                <p className="text-sm leading-relaxed text-amber-50/90 sm:text-base">
+                  {eisProcurementAnalyzerCase.developmentPerspective.disclaimer}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id={eisProcurementAnalyzerCase.repository.id} className="bg-slate-950 py-16 sm:py-20">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-[2rem] border border-slate-800 bg-slate-900/45 p-6 sm:p-8 lg:p-10">
