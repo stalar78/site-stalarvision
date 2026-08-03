@@ -7,6 +7,7 @@ const WebsiteImprovement = lazy(() => import('./pages/WebsiteImprovement'))
 const WebsiteAudit = lazy(() => import('./pages/WebsiteAudit'))
 const WebsiteLaunch = lazy(() => import('./pages/WebsiteLaunch'))
 const WebApplicationDevelopment = lazy(() => import('./pages/WebApplicationDevelopment'))
+const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: 'razrabotka-veb-prilozhenij',
         element: <WebApplicationDevelopment />,
+      },
+      {
+        path: 'cases/eis-procurement-analyzer',
+        element: <EisProcurementAnalyzerCase />,
       },
       {
         path: '*',

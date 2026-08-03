@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   BookOpenText,
   ChevronDown,
@@ -227,6 +228,15 @@ export function Portfolio() {
                 ) : null}
 
                 <div className="mt-auto flex flex-col gap-3 border-t border-slate-800 pt-4 sm:flex-row sm:items-center sm:gap-4">
+                  {'caseLink' in project && project.caseLink ? (
+                    <Link
+                      to={project.caseLink}
+                      className="flex items-center gap-2 text-sm font-semibold text-indigo-300 transition-colors hover:text-indigo-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                    >
+                      <FileText size={16} />
+                      Подробнее о кейсе
+                    </Link>
+                  ) : null}
                   {project.link ? (
                     <a
                       href={project.link}
