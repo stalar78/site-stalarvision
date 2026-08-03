@@ -101,7 +101,7 @@ const seo = servicePageSeo.webApplicationDevelopment;
 
 const confirmedQuoteFlowProjectItems: ProjectItem[] = softwareCasesSection.items
   .filter((item) => item.title === 'QuoteFlow')
-  .map((item: (typeof softwareCasesSection.items)[number] & { demoUrl?: string; repositoryUrl?: string }) => {
+  .map((item) => {
     const links = [
       item.demoUrl ? { label: 'Открыть демо', href: item.demoUrl } : null,
       item.repositoryUrl || item.github

@@ -91,7 +91,7 @@ export default function Terms() {
                   </div>
                 )}
 
-                {'items' in section && Array.isArray(section.items) && (
+                {section.items && (
                   <ul className="space-y-3 text-slate-300 leading-relaxed">
                     {section.items.map((item) => (
                       <li key={item} className="flex items-start gap-3">
