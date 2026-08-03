@@ -216,6 +216,7 @@ export const casesSection = {
         subtitle: 'Procurement document intelligence',
       },
       tags: ['Python', 'Playwright', 'Document analysis', 'Excel', 'Evidence', 'Decision model'],
+      caseLink: '/cases/eis-procurement-analyzer/',
       link: '',
       github: 'https://github.com/stalar78/eis-procurement-analyzer',
       category: 'Аналитическая система',

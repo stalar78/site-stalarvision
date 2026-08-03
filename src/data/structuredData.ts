@@ -1,4 +1,5 @@
 import { profile } from './profile';
+import { eisProcurementAnalyzerCase } from './eisProcurementAnalyzerCase';
 import servicePageSeo from './servicePageSeo.json';
 import { webApplicationDevelopmentPage } from './webApplicationDevelopment';
 import { websiteAuditPage } from './websiteAudit';
@@ -20,6 +21,8 @@ const websiteLaunchWebpageId = `${websiteLaunchPage.seo.canonical}#webpage`;
 const websiteLaunchServiceId = `${websiteLaunchPage.seo.canonical}#service`;
 const webApplicationDevelopmentWebpageId = `${webApplicationDevelopmentPage.seo.canonical}#webpage`;
 const webApplicationDevelopmentServiceId = `${webApplicationDevelopmentPage.seo.canonical}#service`;
+const eisProcurementAnalyzerCaseWebpageId = `${eisProcurementAnalyzerCase.seo.canonical}#webpage`;
+const eisProcurementAnalyzerCaseSoftwareId = `${eisProcurementAnalyzerCase.seo.canonical}#software`;
 
 const homeUrl = `${siteUrl}${profile.seo.defaultPath}`;
 const logoUrl = `${siteUrl}/icon-512.png`;
@@ -253,6 +256,46 @@ export const webApplicationDevelopmentStructuredData: JsonLdObject = {
       areaServed: {
         '@type': 'Country',
         name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const eisProcurementAnalyzerCaseStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': eisProcurementAnalyzerCaseWebpageId,
+      url: eisProcurementAnalyzerCase.seo.canonical,
+      name: eisProcurementAnalyzerCase.seo.title,
+      description: eisProcurementAnalyzerCase.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': eisProcurementAnalyzerCaseSoftwareId,
+      },
+      mainEntity: {
+        '@id': eisProcurementAnalyzerCaseSoftwareId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      '@id': eisProcurementAnalyzerCaseSoftwareId,
+      name: 'EIS Procurement Analyzer',
+      description: eisProcurementAnalyzerCase.seo.description,
+      codeRepository: 'https://github.com/stalar78/eis-procurement-analyzer',
+      programmingLanguage: ['Python'],
+      runtimePlatform: 'Python 3',
+      license: 'https://spdx.org/licenses/MIT.html',
+      url: eisProcurementAnalyzerCase.seo.canonical,
+      author: {
+        '@id': personId,
       },
     },
   ],
