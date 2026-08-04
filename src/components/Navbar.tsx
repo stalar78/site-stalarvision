@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { mobileMenuSocialLinks, navbarSocialLinks } from '@/data/contacts';
 import { navbarData } from '@/data/site';
@@ -9,6 +9,8 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const markControls = useAnimationControls();
+  const isMarkAnimating = useRef(false);
 
   const handleMobileMenuNavigation = (href: string) => {
     setIsOpen(false);
@@ -21,6 +23,52 @@ export function Navbar() {
     window.setTimeout(() => {
       scrollToCurrentHashWithRetry({ behavior: 'smooth' });
     }, 220);
+  };
+
+  const handleMarkHoverStart = async () => {
+    if (isMarkAnimating.current) {
+      return;
+    }
+
+    isMarkAnimating.current = true;
+
+    try {
+      if (shouldReduceMotion) {
+        await markControls.start({
+          scale: [1, 1.04, 1],
+          transition: {
+            duration: 0.28,
+            ease: 'easeOut',
+          },
+        });
+
+        return;
+      }
+
+      await markControls.start({
+        rotateY: [0, 180, 360],
+        scale: [1, 1.08, 1],
+        y: [0, -1, 0],
+        filter: [
+          'drop-shadow(0 4px 10px rgba(59, 130, 246, 0.35))',
+          'drop-shadow(0 0 14px rgba(34, 211, 238, 0.85))',
+          'drop-shadow(0 4px 10px rgba(99, 102, 241, 0.45))',
+        ],
+        transition: {
+          duration: 0.82,
+          ease: 'easeInOut',
+        },
+      });
+
+      markControls.set({
+        rotateY: 0,
+        scale: 1,
+        y: 0,
+        filter: 'drop-shadow(0 4px 10px rgba(15, 23, 42, 0.4))',
+      });
+    } finally {
+      isMarkAnimating.current = false;
+    }
   };
 
   useEffect(() => {
@@ -48,19 +96,8 @@ export function Navbar() {
               className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             >
               <motion.span
-                whileHover={shouldReduceMotion
-                  ? { scale: 1.04 }
-                  : {
-                    rotateY: [0, 180, 360],
-                    scale: [1, 1.08, 1],
-                    y: [0, -1, 0],
-                    filter: [
-                      'drop-shadow(0 4px 10px rgba(59, 130, 246, 0.35))',
-                      'drop-shadow(0 0 14px rgba(34, 211, 238, 0.85))',
-                      'drop-shadow(0 4px 10px rgba(99, 102, 241, 0.45))',
-                    ],
-                  }}
-                transition={{ duration: 0.82, ease: 'easeInOut' }}
+                animate={markControls}
+                onHoverStart={handleMarkHoverStart}
                 style={{
                   transformStyle: 'preserve-3d',
                   perspective: 700,
