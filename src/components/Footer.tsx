@@ -1,10 +1,9 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { footerContactMethods, footerSocialLinks } from '@/data/contacts';
 import { footerData } from '@/data/site';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const shouldReduceMotion = useReducedMotion();
 
   return (
     <footer className="border-t border-slate-800/80 bg-slate-950 py-11 sm:py-12">
@@ -12,28 +11,12 @@ export const Footer = () => {
         <div className="mb-9 grid grid-cols-1 gap-10 md:mb-10 md:grid-cols-4 md:gap-10">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <div className="mb-4 flex items-center gap-2.5">
-              <motion.span
-                whileHover={shouldReduceMotion ? undefined : { rotate: 10, y: -1, scale: 1.02 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="relative flex h-10 w-10 shrink-0 items-center justify-center"
-              >
-                <motion.span
-                  aria-hidden="true"
-                  animate={shouldReduceMotion ? undefined : { opacity: [0.12, 0.24, 0.12], scale: [0.95, 1.06, 0.95] }}
-                  transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
-                  style={shouldReduceMotion ? { opacity: 0.14 } : undefined}
-                  className="pointer-events-none absolute inset-[35%] rounded-full bg-cyan-300/30 blur-[6px]"
-                />
-                <img
-                  src="/brand/logo-compass.png"
-                  alt="Stalar Vision Logo"
-                  className="relative z-10 h-10 w-10 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.38)]"
-                />
-              </motion.span>
-              <span className="text-[1.08rem] font-semibold tracking-tight text-white sm:text-xl">
-                {footerData.brandName}
-              </span>
+            <div className="mb-5">
+              <img
+                src="/brand/stalarvision-logo.png"
+                alt="Stalar Vision"
+                className="h-auto w-full max-w-[12rem] object-contain drop-shadow-[0_4px_12px_rgba(15,23,42,0.38)] sm:max-w-[14rem]"
+              />
             </div>
             <p className="mb-5 max-w-sm text-sm leading-relaxed text-slate-400 sm:text-[1.01rem]">
               {footerData.description}
