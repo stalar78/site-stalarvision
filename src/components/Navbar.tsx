@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useAnimationControls, useReducedMotion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { mobileMenuSocialLinks, navbarSocialLinks } from '@/data/contacts';
 import { navbarData } from '@/data/site';
@@ -9,6 +9,8 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const markControls = useAnimationControls();
+  const isMarkAnimating = useRef(false);
 
   const handleMobileMenuNavigation = (href: string) => {
     setIsOpen(false);
@@ -21,6 +23,52 @@ export function Navbar() {
     window.setTimeout(() => {
       scrollToCurrentHashWithRetry({ behavior: 'smooth' });
     }, 220);
+  };
+
+  const handleMarkHoverStart = async () => {
+    if (isMarkAnimating.current) {
+      return;
+    }
+
+    isMarkAnimating.current = true;
+
+    try {
+      if (shouldReduceMotion) {
+        await markControls.start({
+          scale: [1, 1.04, 1],
+          transition: {
+            duration: 0.28,
+            ease: 'easeOut',
+          },
+        });
+
+        return;
+      }
+
+      await markControls.start({
+        rotateY: [0, 180, 360],
+        scale: [1, 1.08, 1],
+        y: [0, -1, 0],
+        filter: [
+          'drop-shadow(0 4px 10px rgba(59, 130, 246, 0.35))',
+          'drop-shadow(0 0 14px rgba(34, 211, 238, 0.85))',
+          'drop-shadow(0 4px 10px rgba(99, 102, 241, 0.45))',
+        ],
+        transition: {
+          duration: 0.82,
+          ease: 'easeInOut',
+        },
+      });
+
+      markControls.set({
+        rotateY: 0,
+        scale: 1,
+        y: 0,
+        filter: 'drop-shadow(0 4px 10px rgba(15, 23, 42, 0.4))',
+      });
+    } finally {
+      isMarkAnimating.current = false;
+    }
   };
 
   useEffect(() => {
@@ -48,21 +96,19 @@ export function Navbar() {
               className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             >
               <motion.span
-                whileHover={shouldReduceMotion ? undefined : { rotate: 12, y: -1, scale: 1.02 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
+                animate={markControls}
+                onHoverStart={handleMarkHoverStart}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: 700,
+                }}
                 className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
               >
-                <motion.span
-                  aria-hidden="true"
-                  animate={shouldReduceMotion ? undefined : { opacity: [0.14, 0.28, 0.14], scale: [0.95, 1.08, 0.95] }}
-                  transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-                  style={shouldReduceMotion ? { opacity: 0.16 } : undefined}
-                  className="pointer-events-none absolute inset-[34%] rounded-full bg-cyan-300/35 blur-[6px]"
-                />
                 <img
-                  src="/brand/logo-compass.png"
-                  alt="Stalar Vision Logo"
-                  className="relative z-10 h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
+                  src="/brand/stalarvision-mark.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] sm:h-10 sm:w-10"
                 />
               </motion.span>
               <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
