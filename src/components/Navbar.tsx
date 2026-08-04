@@ -48,8 +48,23 @@ export function Navbar() {
               className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             >
               <motion.span
-                whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.03 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
+                whileHover={shouldReduceMotion
+                  ? { scale: 1.04 }
+                  : {
+                    rotateY: [0, 180, 360],
+                    scale: [1, 1.08, 1],
+                    y: [0, -1, 0],
+                    filter: [
+                      'drop-shadow(0 4px 10px rgba(59, 130, 246, 0.35))',
+                      'drop-shadow(0 0 14px rgba(34, 211, 238, 0.85))',
+                      'drop-shadow(0 4px 10px rgba(99, 102, 241, 0.45))',
+                    ],
+                  }}
+                transition={{ duration: 0.82, ease: 'easeInOut' }}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: 700,
+                }}
                 className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
               >
                 <img
