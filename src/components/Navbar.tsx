@@ -43,15 +43,26 @@ export function Navbar() {
               href={navbarData.brand.href}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.01 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -1 }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
-              className="group flex min-w-0 shrink items-center rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+              className="group flex min-w-0 items-center gap-2.5 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
             >
-              <img
-                src="/brand/stalarvision-logo.png"
-                alt="Stalar Vision"
-                className="h-12 w-auto max-w-[9.5rem] object-contain drop-shadow-[0_4px_12px_rgba(15,23,42,0.45)] sm:h-14 sm:max-w-[11rem]"
-              />
+              <motion.span
+                whileHover={shouldReduceMotion ? undefined : { y: -1, scale: 1.03 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10"
+              >
+                <img
+                  src="/brand/stalarvision-mark.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-9 w-9 object-contain drop-shadow-[0_4px_10px_rgba(15,23,42,0.4)] sm:h-10 sm:w-10"
+                />
+              </motion.span>
+              <span className="truncate text-[1.04rem] font-semibold tracking-tight text-white sm:text-[1.12rem]">
+                {navbarData.brand.name}
+                <span className="text-indigo-500">{navbarData.brand.accent}</span>
+              </span>
             </motion.a>
 
           {/* Desktop Links */}
