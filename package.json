@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "generate:service-html": "node scripts/generate-service-html.mjs",
-    "build": "npm run generate:service-html && vite build",
+    "generate:article-html": "node scripts/generate-article-html.mjs",
+    "build": "npm run generate:service-html && npm run generate:article-html && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

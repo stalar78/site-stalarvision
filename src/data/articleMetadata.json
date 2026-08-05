@@ -1,0 +1,68 @@
+{
+  "index": {
+    "path": "/articles/",
+    "title": "Практические материалы о сайтах и веб-приложениях",
+    "description": "Практические материалы о выборе, разработке, доработке и безопасной эксплуатации сайтов и веб-приложений.",
+    "seo": {
+      "title": "Материалы о разработке сайтов и веб-приложений — Stalar Vision",
+      "description": "Практические материалы о выборе, разработке, доработке и безопасной эксплуатации сайтов и веб-приложений.",
+      "socialImage": "https://stalarvision.ru/brand/share-preview.png",
+      "socialImageAlt": "Stalar Vision — разработка сайтов и веб-приложений",
+      "canonical": "https://stalarvision.ru/articles/",
+      "robots": "index, follow",
+      "ogType": "website"
+    },
+    "staticIntro": "Практические материалы о выборе формата проекта, планировании разработки сайта или веб-приложения, составе работ, эксплуатации, безопасности и работе с разработчиком."
+  },
+  "articles": [
+    {
+      "slug": "wordpress-ili-individualnaya-razrabotka",
+      "path": "/articles/wordpress-ili-individualnaya-razrabotka/",
+      "title": "WordPress или индивидуальная разработка: что выбрать для бизнеса",
+      "shortTitle": "WordPress или индивидуальная разработка",
+      "description": "Когда бизнесу подходит WordPress, а когда нужна индивидуальная разработка сайта, личного кабинета или административной панели.",
+      "excerpt": "Спокойный разбор выбора между WordPress и индивидуальной разработкой: где достаточно типовой платформы, а где проект уже становится частью бизнес-процесса.",
+      "category": "Выбор решения",
+      "publishedAt": "2026-08-04",
+      "updatedAt": "2026-08-04",
+      "author": "Станислав Ларин",
+      "coverImage": "/articles/wordpress-vs-custom-development-cover.svg",
+      "coverAlt": "Схематичное сравнение модульной CMS и индивидуальной архитектуры веб-проекта",
+      "coverWidth": 1200,
+      "coverHeight": 630,
+      "coverPosition": "center",
+      "seo": {
+        "title": "WordPress или индивидуальная разработка: что выбрать бизнесу",
+        "description": "Когда бизнесу подходит WordPress, а когда нужна индивидуальная разработка сайта, личного кабинета или административной панели.",
+        "socialImage": "https://stalarvision.ru/brand/share-preview.png",
+        "socialImageAlt": "Stalar Vision — разработка сайтов и веб-приложений",
+        "canonical": "https://stalarvision.ru/articles/wordpress-ili-individualnaya-razrabotka/",
+        "robots": "index, follow",
+        "ogType": "article"
+      },
+      "staticIntro": "Нет универсального ответа: выбор зависит от бизнес-задачи, пользовательских сценариев, данных, интеграций, операционных требований и будущего развития.",
+      "relatedServiceLinks": [
+        {
+          "title": "Разработка сайта",
+          "description": "Новый сайт или первый релиз с понятной структурой и ключевыми сценариями.",
+          "href": "/razrabotka-sajta/"
+        },
+        {
+          "title": "Разработка веб-приложений",
+          "description": "Личные кабинеты, роли, данные, API-интеграции и рабочие процессы.",
+          "href": "/razrabotka-veb-prilozhenij/"
+        },
+        {
+          "title": "Доработка сайта",
+          "description": "Развитие существующего сайта без резкой замены всего проекта.",
+          "href": "/dorabotka-sajta/"
+        },
+        {
+          "title": "Технический аудит",
+          "description": "Разбор текущего состояния, рисков, зависимостей и приоритетов изменений.",
+          "href": "/audit-sajta/"
+        }
+      ]
+    }
+  ]
+}

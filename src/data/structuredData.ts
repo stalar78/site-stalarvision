@@ -1,4 +1,9 @@
 import { profile } from './profile';
+import articleMetadata from './articleMetadata.json';
+import {
+  buildArticleStructuredData,
+  buildArticlesIndexStructuredData,
+} from './articleStructuredData';
 import { eisProcurementAnalyzerCase } from './eisProcurementAnalyzerCase';
 import servicePageSeo from './servicePageSeo.json';
 import { webApplicationDevelopmentPage } from './webApplicationDevelopment';
@@ -300,3 +305,12 @@ export const eisProcurementAnalyzerCaseStructuredData: JsonLdObject = {
     },
   ],
 };
+
+export const articlesIndexStructuredData: JsonLdObject = buildArticlesIndexStructuredData(
+  articleMetadata.index,
+  articleMetadata.articles,
+);
+
+export const wordpressOrCustomArticleStructuredData: JsonLdObject = buildArticleStructuredData(
+  articleMetadata.articles[0],
+);

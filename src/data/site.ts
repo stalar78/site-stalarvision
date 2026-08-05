@@ -58,6 +58,7 @@ export const navbarData = {
   },
   links: [
     { name: 'Услуги', href: '/#services' },
+    { name: 'Материалы', href: '/articles/' },
     { name: 'Обо мне', href: '/#about' },
     { name: 'Портфолио', href: '/#portfolio' },
     { name: 'Этапы', href: '/#process' },
