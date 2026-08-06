@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ArrowRight, BookOpen, MessageCircle } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, MessageCircle } from 'lucide-react';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { articlesIndexPage, publishedArticles } from '@/data/articles';
@@ -7,10 +7,12 @@ import { profile } from '@/data/profile';
 import { articlesIndexStructuredData } from '@/data/structuredData';
 import { formatRussianCalendarDate } from '@/lib/date';
 import { applyDocumentMeta } from '@/lib/meta';
+import { calculateReadingTimeMinutes, formatReadingTimeLabel } from '@/lib/readingTime';
 import { applyDocumentStructuredData } from '@/lib/structuredData';
 
 export default function Articles() {
   const [featuredArticle] = publishedArticles;
+  const featuredReadingTimeLabel = formatReadingTimeLabel(calculateReadingTimeMinutes(featuredArticle));
 
   useEffect(() => {
     applyDocumentMeta({
@@ -72,19 +74,37 @@ export default function Articles() {
               </div>
             </div>
 
-            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1fr)_20rem] 2xl:items-start">
+            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1fr)_18rem] 2xl:items-start">
               <article className="min-w-0 overflow-hidden rounded-[2.25rem] border border-white/10 bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.14),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.96),rgba(2,6,23,0.98))] shadow-2xl shadow-slate-950/35">
-                <div className="grid gap-0 2xl:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)]">
-                  <div className="order-2 min-w-0 flex flex-col justify-center p-6 sm:p-8 2xl:order-1 2xl:p-10">
-                    <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                <div className="grid min-w-0 lg:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
+                  <a
+                    href={featuredArticle.path}
+                    className="group flex min-w-0 items-center overflow-hidden border-b border-white/10 bg-slate-950/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70 lg:order-2 lg:border-b-0 lg:border-l"
+                    aria-label={`Читать материал: ${featuredArticle.title}`}
+                  >
+                    <img
+                      src={featuredArticle.coverImage}
+                      alt={featuredArticle.coverAlt}
+                      width={featuredArticle.coverWidth}
+                      height={featuredArticle.coverHeight}
+                      className="block aspect-[1200/630] h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
+                      style={{ objectPosition: featuredArticle.coverPosition }}
+                    />
+                  </a>
+                  <div className="min-w-0 flex flex-col justify-center p-6 sm:p-8 lg:order-1 2xl:p-10">
+                    <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                       <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-cyan-200">
                         {featuredArticle.category}
                       </span>
                       <time dateTime={featuredArticle.publishedAt}>
                         {formatRussianCalendarDate(featuredArticle.publishedAt)}
                       </time>
+                      <span className="inline-flex items-center gap-1.5 text-slate-300">
+                        <Clock size={14} aria-hidden="true" />
+                        {featuredReadingTimeLabel}
+                      </span>
                     </div>
-                    <h3 className="max-w-3xl break-words text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl 2xl:text-5xl">
+                    <h3 className="max-w-[44rem] break-words text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl">
                       {featuredArticle.title}
                     </h3>
                     <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
@@ -98,20 +118,6 @@ export default function Articles() {
                       <ArrowRight size={16} />
                     </a>
                   </div>
-                  <a
-                    href={featuredArticle.path}
-                    className="group order-1 block min-w-0 overflow-hidden bg-slate-950/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70 2xl:order-2"
-                    aria-label={`Читать материал: ${featuredArticle.title}`}
-                  >
-                    <img
-                      src={featuredArticle.coverImage}
-                      alt={featuredArticle.coverAlt}
-                      width={featuredArticle.coverWidth}
-                      height={featuredArticle.coverHeight}
-                      className="h-full min-h-[15rem] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:min-h-[20rem] 2xl:min-h-full"
-                      style={{ objectPosition: featuredArticle.coverPosition }}
-                    />
-                  </a>
                 </div>
               </article>
 
