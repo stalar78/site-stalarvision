@@ -31,6 +31,11 @@ export type ArticleCallout = {
   paragraphs: string[];
 };
 
+export type ArticleConclusion = {
+  title: string;
+  paragraphs: string[];
+};
+
 export type Article = {
   slug: string;
   path: string;
@@ -60,6 +65,7 @@ export type Article = {
   callouts: ArticleCallout[];
   comparison: ArticleComparisonRow[];
   decisionQuestions: string[];
+  conclusion: ArticleConclusion;
   relatedServiceLinks: RelatedServiceLink[];
 };
 
@@ -287,6 +293,14 @@ export const publishedArticles: Article[] = [
       'Какие ограничения готовой платформы приемлемы?',
       'Что произойдет, если интеграция или плагин перестанут работать?',
     ],
+    conclusion: {
+      title: 'Вывод',
+      paragraphs: [
+        'WordPress — это инструмент для определенного класса проектов. Он может быть разумным выбором для стандартных контентных сайтов, если ограничения платформы, поддержка и эксплуатация понятны заранее.',
+        'Индивидуальная разработка не является автоматически премиальным или более правильным вариантом. Она оправдана тогда, когда задача требует отдельной системы: нестандартной логики, данных, ролей, интеграций, автоматизации и контролируемого развития.',
+        'Решение лучше принимать после анализа процессов, данных, интеграций, операционной модели и будущего развития проекта.',
+      ],
+    },
     relatedServiceLinks: [
       {
         title: 'Разработка сайта',

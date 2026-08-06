@@ -72,10 +72,10 @@ export default function Articles() {
               </div>
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-[1fr_0.34fr] xl:items-start">
-              <article className="overflow-hidden rounded-[2.25rem] border border-white/10 bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.14),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.96),rgba(2,6,23,0.98))] shadow-2xl shadow-slate-950/35">
-                <div className="grid gap-0 lg:grid-cols-[0.58fr_0.42fr]">
-                  <div className="order-2 flex flex-col justify-center p-6 sm:p-8 lg:order-1 lg:p-10">
+            <div className="grid gap-6 2xl:grid-cols-[minmax(0,1fr)_20rem] 2xl:items-start">
+              <article className="min-w-0 overflow-hidden rounded-[2.25rem] border border-white/10 bg-[radial-gradient(circle_at_18%_12%,rgba(34,211,238,0.14),transparent_32%),linear-gradient(135deg,rgba(15,23,42,0.96),rgba(2,6,23,0.98))] shadow-2xl shadow-slate-950/35">
+                <div className="grid gap-0 2xl:grid-cols-[minmax(0,0.58fr)_minmax(0,0.42fr)]">
+                  <div className="order-2 min-w-0 flex flex-col justify-center p-6 sm:p-8 2xl:order-1 2xl:p-10">
                     <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                       <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-cyan-200">
                         {featuredArticle.category}
@@ -84,7 +84,7 @@ export default function Articles() {
                         {formatRussianCalendarDate(featuredArticle.publishedAt)}
                       </time>
                     </div>
-                    <h3 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                    <h3 className="max-w-3xl break-words text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl 2xl:text-5xl">
                       {featuredArticle.title}
                     </h3>
                     <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
@@ -100,7 +100,7 @@ export default function Articles() {
                   </div>
                   <a
                     href={featuredArticle.path}
-                    className="group order-1 block overflow-hidden bg-slate-950/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70 lg:order-2"
+                    className="group order-1 block min-w-0 overflow-hidden bg-slate-950/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70 2xl:order-2"
                     aria-label={`Читать материал: ${featuredArticle.title}`}
                   >
                     <img
@@ -108,14 +108,14 @@ export default function Articles() {
                       alt={featuredArticle.coverAlt}
                       width={featuredArticle.coverWidth}
                       height={featuredArticle.coverHeight}
-                      className="h-full min-h-[15rem] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:min-h-[20rem] lg:min-h-full"
+                      className="h-full min-h-[15rem] w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] sm:min-h-[20rem] 2xl:min-h-full"
                       style={{ objectPosition: featuredArticle.coverPosition }}
                     />
                   </a>
                 </div>
               </article>
 
-              <aside className="rounded-[2rem] border border-indigo-500/20 bg-indigo-500/10 p-6 sm:p-7">
+              <aside className="min-w-0 rounded-[2rem] border border-indigo-500/20 bg-indigo-500/10 p-6 sm:p-7">
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-indigo-100">
                   <MessageCircle size={24} />
                 </div>
