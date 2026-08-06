@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Абстрактное сравнение модульной CMS и индивидуальной архитектуры</title>
+  <desc id="desc">Темная редакционная иллюстрация с модульными блоками слева и связанными архитектурными узлами справа.</desc>
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="44%" r="72%">
+      <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0.22" />
+      <stop offset="45%" stop-color="#0f172a" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+    <linearGradient id="panelLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.96" />
+      <stop offset="100%" stop-color="#020617" stop-opacity="0.98" />
+    </linearGradient>
+    <linearGradient id="panelRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#172554" stop-opacity="0.82" />
+    </linearGradient>
+    <linearGradient id="cyanStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.2" />
+      <stop offset="52%" stop-color="#818cf8" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.55" />
+    </linearGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGlow)" />
+  <path d="M0 82C190 38 320 102 504 68C710 30 844 -10 1200 52V0H0Z" fill="#1e3a8a" opacity="0.18" />
+  <path d="M0 582C215 520 342 620 546 568C777 510 925 488 1200 570V630H0Z" fill="#0891b2" opacity="0.12" />
+
+  <g opacity="0.26">
+    <path d="M126 110H1074" stroke="#334155" stroke-width="1" />
+    <path d="M126 520H1074" stroke="#334155" stroke-width="1" />
+    <path d="M200 72V558" stroke="#334155" stroke-width="1" />
+    <path d="M1000 72V558" stroke="#334155" stroke-width="1" />
+  </g>
+
+  <g transform="translate(118 114)">
+    <rect width="404" height="402" rx="42" fill="url(#panelLeft)" stroke="#334155" stroke-width="1.4" />
+    <text x="42" y="68" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700">Готовая платформа</text>
+    <text x="42" y="102" fill="#64748b" font-family="Inter, system-ui, sans-serif" font-size="16">модули, шаблоны, расширения</text>
+
+    <g transform="translate(42 148)">
+      <rect width="136" height="78" rx="20" fill="#0f172a" stroke="#38bdf8" stroke-opacity="0.36" />
+      <rect x="18" y="20" width="72" height="10" rx="5" fill="#38bdf8" opacity="0.72" />
+      <rect x="18" y="42" width="96" height="8" rx="4" fill="#64748b" opacity="0.7" />
+    </g>
+    <g transform="translate(214 148)">
+      <rect width="136" height="78" rx="20" fill="#0f172a" stroke="#818cf8" stroke-opacity="0.38" />
+      <rect x="18" y="20" width="86" height="10" rx="5" fill="#818cf8" opacity="0.78" />
+      <rect x="18" y="42" width="82" height="8" rx="4" fill="#64748b" opacity="0.7" />
+    </g>
+    <g transform="translate(42 254)">
+      <rect width="136" height="78" rx="20" fill="#0f172a" stroke="#818cf8" stroke-opacity="0.32" />
+      <rect x="18" y="20" width="62" height="10" rx="5" fill="#818cf8" opacity="0.7" />
+      <rect x="18" y="42" width="100" height="8" rx="4" fill="#64748b" opacity="0.7" />
+    </g>
+    <g transform="translate(214 254)">
+      <rect width="136" height="78" rx="20" fill="#0f172a" stroke="#22d3ee" stroke-opacity="0.34" />
+      <rect x="18" y="20" width="78" height="10" rx="5" fill="#22d3ee" opacity="0.68" />
+      <rect x="18" y="42" width="92" height="8" rx="4" fill="#64748b" opacity="0.7" />
+    </g>
+  </g>
+
+  <g transform="translate(552 122)" filter="url(#softGlow)">
+    <circle cx="48" cy="193" r="46" fill="#0f172a" stroke="url(#cyanStroke)" stroke-width="2" />
+    <path d="M28 193H68M48 173V213" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" opacity="0.72" />
+  </g>
+
+  <g transform="translate(678 114)">
+    <rect width="404" height="402" rx="42" fill="url(#panelRight)" stroke="#334155" stroke-width="1.4" />
+    <text x="42" y="68" fill="#dbeafe" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700">Своя архитектура</text>
+    <text x="42" y="102" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="16">данные, роли, интеграции</text>
+
+    <path d="M94 266C142 210 210 212 260 158" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.6" />
+    <path d="M132 314C206 300 244 258 298 280" fill="none" stroke="#818cf8" stroke-width="3" stroke-opacity="0.62" />
+    <path d="M104 184C168 182 196 248 268 230" fill="none" stroke="#22d3ee" stroke-width="3" stroke-opacity="0.42" />
+
+    <g fill="#0f172a" stroke-width="2">
+      <circle cx="96" cy="266" r="28" stroke="#38bdf8" />
+      <circle cx="260" cy="158" r="34" stroke="#818cf8" />
+      <circle cx="132" cy="314" r="25" stroke="#22d3ee" />
+      <circle cx="298" cy="280" r="31" stroke="#38bdf8" />
+      <circle cx="104" cy="184" r="24" stroke="#818cf8" />
+      <circle cx="268" cy="230" r="23" stroke="#22d3ee" />
+    </g>
+    <g fill="#e0f2fe" opacity="0.88">
+      <circle cx="96" cy="266" r="6" />
+      <circle cx="260" cy="158" r="7" />
+      <circle cx="132" cy="314" r="5" />
+      <circle cx="298" cy="280" r="6" />
+      <circle cx="104" cy="184" r="5" />
+      <circle cx="268" cy="230" r="5" />
+    </g>
+  </g>
+
+  <g transform="translate(96 550)">
+    <rect width="1008" height="1" fill="url(#cyanStroke)" opacity="0.7" />
+    <text x="0" y="38" fill="#64748b" font-family="Inter, system-ui, sans-serif" font-size="15" letter-spacing="3">STALAR VISION · ВЫБОР РЕШЕНИЯ</text>
+  </g>
+</svg>
