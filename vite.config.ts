@@ -59,6 +59,7 @@ export default defineConfig(({ mode }) => {
           webApplicationDevelopment: path.resolve(__dirname, 'razrabotka-veb-prilozhenij/index.html'),
           articles: path.resolve(__dirname, 'articles/index.html'),
           wordpressOrCustomDevelopmentArticle: path.resolve(__dirname, 'articles/wordpress-ili-individualnaya-razrabotka/index.html'),
+          projectPreparationArticle: path.resolve(__dirname, 'articles/podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya/index.html'),
         },
       },
     },

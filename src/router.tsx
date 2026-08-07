@@ -10,6 +10,7 @@ const WebApplicationDevelopment = lazy(() => import('./pages/WebApplicationDevel
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Articles = lazy(() => import('./pages/Articles'))
 const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPressOrCustomDevelopmentArticle'))
+const ProjectPreparationArticle = lazy(() => import('./pages/ProjectPreparationArticle'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: 'articles/wordpress-ili-individualnaya-razrabotka',
         element: <WordPressOrCustomDevelopmentArticle />,
+      },
+      {
+        path: 'articles/podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya',
+        element: <ProjectPreparationArticle />,
       },
       {
         path: '*',
