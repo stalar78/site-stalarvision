@@ -11,7 +11,7 @@ import { calculateReadingTimeMinutes, formatReadingTimeLabel } from '@/lib/readi
 import { applyDocumentStructuredData } from '@/lib/structuredData';
 
 export default function Articles() {
-  const [featuredArticle] = publishedArticles;
+  const [featuredArticle, ...otherArticles] = publishedArticles;
   const featuredReadingTimeLabel = formatReadingTimeLabel(calculateReadingTimeMinutes(featuredArticle));
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function Articles() {
       ogSiteName: profile.brand.fullName,
       ogUrl: articlesIndexPage.seo.canonical,
       ogImage: articlesIndexPage.seo.socialImage,
+      ogImageAlt: articlesIndexPage.seo.socialImageAlt,
       canonical: articlesIndexPage.seo.canonical,
       twitterCard: profile.seo.twitterCard,
       twitterTitle: articlesIndexPage.seo.title,
@@ -139,6 +140,71 @@ export default function Articles() {
             </div>
           </div>
         </section>
+
+        {otherArticles.length > 0 ? (
+          <section className="bg-slate-950 pb-16 sm:pb-20">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="mb-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">Ещё материалы</p>
+                <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">Редакционные публикации</h2>
+              </div>
+              <div className="grid gap-6">
+                {otherArticles.map((article) => {
+                  const readingTimeLabel = formatReadingTimeLabel(calculateReadingTimeMinutes(article));
+
+                  return (
+                    <article
+                      key={article.slug}
+                      className="grid min-w-0 overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/45 shadow-2xl shadow-slate-950/25 lg:grid-cols-[minmax(0,0.58fr)_minmax(280px,0.42fr)]"
+                    >
+                      <div className="min-w-0 p-6 sm:p-8 lg:p-9">
+                        <div className="mb-5 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                          <span className="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-cyan-200">
+                            {article.category}
+                          </span>
+                          <time dateTime={article.publishedAt}>
+                            {formatRussianCalendarDate(article.publishedAt)}
+                          </time>
+                          <span className="inline-flex items-center gap-1.5 text-slate-300">
+                            <Clock size={14} aria-hidden="true" />
+                            {readingTimeLabel}
+                          </span>
+                        </div>
+                        <h3 className="max-w-3xl text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">
+                          {article.title}
+                        </h3>
+                        <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
+                          {article.excerpt}
+                        </p>
+                        <a
+                          href={article.path}
+                          className="mt-7 inline-flex w-fit items-center gap-2 rounded-2xl border border-indigo-400/25 bg-indigo-500/10 px-5 py-3 text-sm font-semibold text-indigo-100 transition-colors hover:border-indigo-300/45 hover:bg-indigo-500/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                        >
+                          Читать материал
+                          <ArrowRight size={16} />
+                        </a>
+                      </div>
+                      <a
+                        href={article.path}
+                        className="group flex min-w-0 items-center overflow-hidden border-t border-white/10 bg-slate-950/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70 lg:border-l lg:border-t-0"
+                        aria-label={`Читать материал: ${article.title}`}
+                      >
+                        <img
+                          src={article.coverImage}
+                          alt={article.coverAlt}
+                          width={article.coverWidth}
+                          height={article.coverHeight}
+                          className="block aspect-[1200/630] h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
+                          style={{ objectPosition: article.coverPosition }}
+                        />
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
       <Footer />
     </div>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Схема подготовки задачи к разработке сайта или веб-приложения</title>
+  <desc id="desc">Разрозненные вводные объединяются в понятный первый этап проекта.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="0.48" stop-color="#172554"/>
+      <stop offset="1" stop-color="#06111f"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111c3d"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" x2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.13 0 0 0 0 0.82 0 0 0 0 0.93 0 0 0 .55 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 122c158-36 270-10 420-4 210 9 317-60 518-42 111 10 198 46 262 78v476H0z" fill="#020617" opacity=".48"/>
+  <path d="M0 534c134-44 259-24 382-6 160 23 311 50 500-7 120-36 220-39 318-2v111H0z" fill="#083344" opacity=".48"/>
+  <g opacity=".22">
+    <path d="M160 114h880M160 316h880M160 518h880M230 72v488M600 72v488M970 72v488" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="600" cy="318" r="74" fill="#0f172a" stroke="#22d3ee" stroke-width="3"/>
+    <circle cx="600" cy="318" r="52" fill="#111827" stroke="#818cf8" stroke-width="2"/>
+    <path d="M570 318h60M600 288v60" stroke="#c4b5fd" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g fill="url(#panel)" stroke="#334155" stroke-width="2">
+    <rect x="116" y="126" width="214" height="118" rx="30"/>
+    <rect x="116" y="386" width="214" height="118" rx="30"/>
+    <rect x="856" y="126" width="228" height="118" rx="30"/>
+    <rect x="856" y="386" width="228" height="118" rx="30"/>
+    <rect x="424" y="92" width="352" height="104" rx="32"/>
+    <rect x="424" y="440" width="352" height="104" rx="32"/>
+  </g>
+  <g stroke="url(#cyan)" stroke-width="4" stroke-linecap="round" fill="none" opacity=".9">
+    <path d="M330 185c68 8 111 34 168 82"/>
+    <path d="M330 445c71-11 118-42 173-87"/>
+    <path d="M776 144c-57 19-99 58-132 111"/>
+    <path d="M776 492c-59-20-101-58-134-111"/>
+  </g>
+  <g fill="#22d3ee">
+    <circle cx="330" cy="185" r="7"/>
+    <circle cx="330" cy="445" r="7"/>
+    <circle cx="776" cy="144" r="7"/>
+    <circle cx="776" cy="492" r="7"/>
+  </g>
+  <g fill="#cbd5e1" opacity=".96">
+    <rect x="158" y="168" width="82" height="12" rx="6"/>
+    <rect x="158" y="196" width="128" height="10" rx="5" opacity=".62"/>
+    <rect x="158" y="428" width="104" height="12" rx="6"/>
+    <rect x="158" y="456" width="136" height="10" rx="5" opacity=".62"/>
+    <rect x="468" y="130" width="118" height="12" rx="6"/>
+    <rect x="468" y="158" width="264" height="10" rx="5" opacity=".62"/>
+    <rect x="468" y="478" width="142" height="12" rx="6"/>
+    <rect x="468" y="506" width="220" height="10" rx="5" opacity=".62"/>
+    <rect x="904" y="168" width="116" height="12" rx="6"/>
+    <rect x="904" y="196" width="132" height="10" rx="5" opacity=".62"/>
+    <rect x="904" y="428" width="128" height="12" rx="6"/>
+    <rect x="904" y="456" width="96" height="10" rx="5" opacity=".62"/>
+  </g>
+  <g fill="none" stroke="#818cf8" stroke-width="2" opacity=".75">
+    <circle cx="186" cy="150" r="10"/>
+    <path d="M178 224h36M224 224h36"/>
+    <rect x="448" y="112" width="34" height="34" rx="10"/>
+    <path d="M448 492h34M448 512h58"/>
+    <circle cx="884" cy="154" r="9"/>
+    <circle cx="908" cy="154" r="9"/>
+    <path d="M888 414h44M888 438h74M888 462h34"/>
+  </g>
+  <path d="M92 578h1016" stroke="#22d3ee" stroke-width="1" opacity=".18"/>
+</svg>

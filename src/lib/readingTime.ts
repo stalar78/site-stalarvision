@@ -32,13 +32,20 @@ export const formatReadingTimeLabel = (minutes: number) =>
 export const calculateReadingTimeMinutes = (article: Article, wordsPerMinute = 190) => {
   const textSegments = [
     article.staticIntro,
+    ...(article.lead ?? []),
     ...article.sections.flatMap((section) => [
       ...(section.paragraphs ?? []).flatMap((paragraph) => paragraph.map((segment) => segment.text)),
       ...(section.items ?? []),
     ]),
-    ...article.comparison.flatMap((row) => [row.criterion, row.wordpress, row.custom]),
+    article.comparison.title,
+    article.comparison.introduction,
+    article.comparison.leftColumnTitle,
+    article.comparison.rightColumnTitle,
+    ...article.comparison.rows.flatMap((row) => [row.criterion, row.left, row.right]),
     ...article.callouts.flatMap((callout) => [callout.title, ...callout.paragraphs]),
-    ...article.decisionQuestions,
+    article.decisionQuestions.title,
+    article.decisionQuestions.introduction,
+    ...article.decisionQuestions.questions,
     article.conclusion.title,
     ...article.conclusion.paragraphs,
   ];

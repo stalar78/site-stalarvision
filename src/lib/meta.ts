@@ -9,6 +9,7 @@ type MetaConfig = {
   ogSiteName?: string;
   ogUrl?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonical?: string;
   twitterCard?: string;
   twitterTitle?: string;
@@ -55,6 +56,7 @@ export const applyDocumentMeta = ({
   ogSiteName,
   ogUrl,
   ogImage,
+  ogImageAlt,
   canonical,
   twitterCard,
   twitterTitle,
@@ -116,6 +118,13 @@ export const applyDocumentMeta = ({
     upsertMeta('meta[property="og:image"]', {
       property: 'og:image',
       content: ogImage,
+    });
+  }
+
+  if (ogImageAlt) {
+    upsertMeta('meta[property="og:image:alt"]', {
+      property: 'og:image:alt',
+      content: ogImageAlt,
     });
   }
 

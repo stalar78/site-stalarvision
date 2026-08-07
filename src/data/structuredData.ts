@@ -314,3 +314,7 @@ export const articlesIndexStructuredData: JsonLdObject = buildArticlesIndexStruc
 export const wordpressOrCustomArticleStructuredData: JsonLdObject = buildArticleStructuredData(
   articleMetadata.articles[0],
 );
+
+export const projectPreparationArticleStructuredData: JsonLdObject = buildArticleStructuredData(
+  articleMetadata.articles[1],
+);
