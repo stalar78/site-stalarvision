@@ -70,7 +70,12 @@ export function Portfolio() {
             const scenarioLabel = isRealProject ? 'Задача проекта' : 'Формат задачи';
             const neededLabel = isRealProject ? 'Что реализовано' : 'Что важно на старте';
             const resultLabel = isRealProject ? 'Технический результат' : 'Возможный первый этап';
-            const linkLabel = isRealProject ? 'Открыть сайт' : 'Демо';
+            const caseLinkLabel = 'caseLinkLabel' in project
+              ? project.caseLinkLabel ?? 'Подробнее о кейсе'
+              : 'Подробнее о кейсе';
+            const linkLabel = 'linkLabel' in project
+              ? project.linkLabel ?? (isRealProject ? 'Открыть сайт' : 'Демо')
+              : isRealProject ? 'Открыть сайт' : 'Демо';
             const missingGithubLabel = isRealProject
               ? 'Исходники проекта закрыты'
               : 'Исходники не опубликованы';
@@ -234,7 +239,7 @@ export function Portfolio() {
                       className="flex items-center gap-2 text-sm font-semibold text-indigo-300 transition-colors hover:text-indigo-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                     >
                       <FileText size={16} />
-                      Подробнее о кейсе
+                      {caseLinkLabel}
                     </Link>
                   ) : null}
                   {project.link ? (
