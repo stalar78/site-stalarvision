@@ -4,6 +4,7 @@ import {
   buildArticleStructuredData,
   buildArticlesIndexStructuredData,
 } from './articleStructuredData';
+import { cakeAndShapeCase } from './cakeAndShapeCase';
 import { eisProcurementAnalyzerCase } from './eisProcurementAnalyzerCase';
 import { etrnPage } from './etrn';
 import servicePageSeo from './servicePageSeo.json';
@@ -29,6 +30,8 @@ const webApplicationDevelopmentWebpageId = `${webApplicationDevelopmentPage.seo.
 const webApplicationDevelopmentServiceId = `${webApplicationDevelopmentPage.seo.canonical}#service`;
 const etrnWebpageId = `${etrnPage.seo.canonical}#webpage`;
 const etrnServiceId = `${etrnPage.seo.canonical}#service`;
+const cakeAndShapeCaseWebpageId = `${cakeAndShapeCase.seo.canonical}#webpage`;
+const cakeAndShapeCaseCreativeWorkId = `${cakeAndShapeCase.seo.canonical}#case`;
 const eisProcurementAnalyzerCaseWebpageId = `${eisProcurementAnalyzerCase.seo.canonical}#webpage`;
 const eisProcurementAnalyzerCaseSoftwareId = `${eisProcurementAnalyzerCase.seo.canonical}#software`;
 
@@ -343,6 +346,43 @@ export const eisProcurementAnalyzerCaseStructuredData: JsonLdObject = {
       runtimePlatform: 'Python 3',
       license: 'https://spdx.org/licenses/MIT.html',
       url: eisProcurementAnalyzerCase.seo.canonical,
+      author: {
+        '@id': personId,
+      },
+    },
+  ],
+};
+
+export const cakeAndShapeCaseStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': cakeAndShapeCaseWebpageId,
+      url: cakeAndShapeCase.seo.canonical,
+      name: cakeAndShapeCase.seo.title,
+      description: cakeAndShapeCase.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': cakeAndShapeCaseCreativeWorkId,
+      },
+      mainEntity: {
+        '@id': cakeAndShapeCaseCreativeWorkId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'CreativeWork',
+      '@id': cakeAndShapeCaseCreativeWorkId,
+      name: 'Cake & Shape',
+      description: cakeAndShapeCase.seo.description,
+      url: cakeAndShapeCase.seo.canonical,
+      codeRepository: 'https://github.com/stalar78/shapecake',
       author: {
         '@id': personId,
       },
