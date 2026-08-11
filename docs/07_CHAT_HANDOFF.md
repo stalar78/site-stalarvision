@@ -3,25 +3,29 @@
 ## Позиционирование
 
 - Stalar Vision — сайт услуг и личный бренд одного независимого разработчика, а не агентства и не обычное резюме.
-- Владелец: Ларин Станислав, ИП Ларин Станислав Николаевич.
-- Работа ведётся напрямую с заказчиком и удалённо по всей России.
-- Санкт-Петербург и Ленинградская область — только тестовый рекламный регион, а не ограничение услуг и не подтверждение офиса.
-- Нельзя придумывать клиентов, отзывы, кейсы, сроки, цены, гарантии, цифры и метрики.
+- Владелец: Станислав Ларин, ИП Ларин Станислав Николаевич.
+- Работа ведётся напрямую с заказчиком и удалённо по России.
+- Нельзя придумывать клиентов, отзывы, кейсы, бюджеты, цены, гарантии, сроки, метрики и бизнес-эффекты.
+- Если подтверждённых данных нет, нужно прямо отметить ограничение, а не заполнять пробел предположением.
 
 ## Production-состояние
 
 - Сайт: `https://stalarvision.ru`.
-- Репозиторий: `stalar78/site-stalarvision`, ветка `main`.
+- Репозиторий: `stalar78/site-stalarvision`.
+- Основная ветка: `main`.
+- Локальный проект: `C:\Users\stala\OneDrive\Рабочий стол\Dev\site-stalarvision`.
 - Серверный каталог: `/home/stanislav/project/stalarvision`.
 - Nginx root: `/home/stanislav/project/stalarvision/dist`.
-- Стек: React + TypeScript + Vite + Tailwind.
+- Стек: React + TypeScript + Vite + Tailwind + React Router.
 - Контактная форма: Web3Forms.
-- Яндекс Метрика: счётчик `108788776`.
+- Яндекс Метрика: `108788776`.
 
 Безопасный deploy:
 
 ```bash
 cd /home/stanislav/project/stalarvision
+git status
+git branch --show-current
 git pull --ff-only origin main
 npm install
 npm run build
@@ -29,122 +33,155 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-Не копировать `dist` вручную частями и не изменять внешний `/home/stanislav/postcss.config.mjs`.
+Для docs-only изменения production build и reload Nginx не нужны.
 
-Если изменены только `docs/*`, production build и reload Nginx не нужны.
-
-## Коммерческие страницы
-
-Опубликованы:
+## Публичные коммерческие страницы
 
 - `/dorabotka-sajta/`
 - `/audit-sajta/`
 - `/razrabotka-sajta/`
 - `/razrabotka-veb-prilozhenij/`
+- `/etrn/`
 
-Первые три проиндексированы Google. Четвёртая опубликована и отправлена на переобход.
+Коммерческие страницы имеют route-specific metadata/static HTML/structured data в рамках текущей архитектуры, canonical с завершающим слешем и sitemap entries.
 
-Для страниц реализованы route-specific static HTML, metadata, JSON-LD, sitemap entries, canonical с завершающим слешем, Nginx redirects и route-specific контекст формы.
+## Материалы
 
-Генератор service pages использует:
+Раздел:
 
-- `src/data/servicePageSeo.json`
-- `scripts/service-page.template.html`
-- `scripts/generate-service-html.mjs`
+- `/articles/`
 
-## Яндекс Вебмастер и Метрика
+Опубликованы:
 
-- Права подтверждены файлом `public/yandex_04d5d400834f4551.html`.
-- Sitemap добавлен.
-- Главная и четыре коммерческие страницы отправлены на переобход.
-- Повторно отправлять те же URL без новой причины не нужно.
-- Исправлен soft 404: неизвестные страницы и файлы возвращают настоящий HTTP `404` с визуальной React NotFound.
-- Нужно дождаться повторной диагностики Яндекса после server-side исправления.
-- Основная цель формы: `contact_form_success` / `Успешная отправка формы`.
-- Подтверждены цели: `Переход в Telegram`, `Переход в MAX`, `Клик по email`, `Клик по телефону`.
+- `/articles/wordpress-ili-individualnaya-razrabotka/`
+- `/articles/podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya/`
 
-## Реальные проекты и портфолио
+Главный редакционный документ:
 
-Канонический реестр: `docs/06_PORTFOLIO_REGISTRY.md`.
+- `docs/ARTICLE_EDITORIAL_GUIDE.md`
 
-### Основное портфолио
+Рабочая частота: примерно одна сильная статья в неделю / 3–4 статьи в месяц, без публикаций ради количества.
 
-Source of truth: `src/data/cases.ts`.
+## Портфолио
 
-В основном портфолио сейчас находятся:
+Канонический реестр:
 
-- Intelverbum;
-- QuoteFlow — коммерческие предложения;
-- ApprovalFlow — согласование внутренних заявок.
+- `docs/06_PORTFOLIO_REGISTRY.md`
 
-QuoteFlow и ApprovalFlow являются собственными публичными demo-проектами, а не клиентскими заказами.
+Source of truth основных карточек:
+
+- `src/data/cases.ts`
+
+Текущий рекомендуемый порядок основных real-project карточек:
+
+1. Cake & Shape
+2. Intelverbum
+3. ETRN Flow
+4. QuoteFlow
+5. ApprovalFlow
+6. EIS Procurement Analyzer
+
+### Cake & Shape
+
+Production case завершён и merge-нут в `main`.
+
+- Portfolio title: `Cake & Shape — сайт и система управления бизнесом`.
+- Category: `Сайт + бизнес-система`.
+- Case page: `https://stalarvision.ru/cases/cake-and-shape/`.
+- Production: `https://cakeshape.ru/`.
+- Repository: `https://github.com/stalar78/shapecake` — public.
+- Main commit: `67a8d8ff9636f425421d7d9d597f1f53fc9a5587`.
+
+Ключевое позиционирование:
+
+Cake & Shape — не просто сайт кондитерской, а production business system: публичный Next.js frontend, отдельное React/Vite admin-приложение, FastAPI backend, PostgreSQL, общая модель данных и production Docker/Nginx/HTTPS контур.
+
+В case page используются 5 оптимизированных WebP screenshots:
+
+- `cake-and-shape-hero.webp`
+- `cake-and-shape-catalog.webp`
+- `cake-and-shape-admin-catalog.webp`
+- `cake-and-shape-admin-product-media.webp`
+- `cake-and-shape-admin-settings.webp`
+
+Admin screenshots публикуются только после маскирования персональных данных.
+
+Future directions строго отделены от текущего production scope. Нельзя заявлять online payment, customer accounts, delivery integrations, warehouse, loyalty или CRM как уже реализованные возможности.
+
+### ETRN Flow
+
+- Commercial landing: `https://stalarvision.ru/etrn/`.
+- Demo: `https://etrn.stalarvision.ru/`.
+- Landing commit: `6703d03d58697b35c536dc520c26f6766057d40d`.
+- Portfolio internal-link commit: `383a0bc9258d09a5cf5260187c53d911643f1d8e`.
+- Repository `stalar78/etrn-flow-demo` сейчас private.
+
+Позиционирование:
+
+ETRN Flow — интерактивное B2B demo управления жизненным циклом перевозки через состояния, роли, действия и события. Это не готовая универсальная TMS и не оператор ИС ЭПД.
+
+Текущий маленький UX-долг: убрать/заменить публичный GitHub CTA в карточке ETRN Flow, пока repository остаётся private.
 
 ### QuoteFlow
 
 - Demo: `https://quoteflow.stalarvision.ru/`.
 - Repository: `https://github.com/stalar78/quoteflow-demo`.
-- Подтверждены React, TypeScript, Vite, FastAPI, Python, Docker, Nginx, расчётная логика, local drafts, JSON/CSV import/export, browser print, server-side PDF и API preview.
-- Карточка перенесена в основное портфолио commit `1d469de004a16119b8e245bc55fa4ee8ba12832e`.
-- Текущее название карточки: `QuoteFlow — коммерческие предложения`.
-- «Перспектива развития» описывает возможные направления, а не реализованные функции.
-- Нельзя заявлять клиентов, активных коммерческих пользователей, выручку, конверсию, экономию времени и другие неподтверждённые результаты.
+- Собственный публичный demo-проект, не клиентское внедрение.
+- Perspective описывает только возможное развитие.
 
 ### ApprovalFlow
 
 - Demo: `https://approvalflow.stalarvision.ru/`.
 - Repository: `https://github.com/stalar78/approvalflow`.
-- Подтверждены роли сотрудника и руководителя, создание и согласование заявок, история изменений, React/TypeScript, Spring Boot, PostgreSQL, Docker и Nginx.
-- Добавлен в основное портфолио commit `1d469de004a16119b8e245bc55fa4ee8ba12832e`.
-- Текущее название карточки: `ApprovalFlow — согласование внутренних заявок`.
-- «Перспектива развития» описывает возможные маршруты, уведомления, администрирование и интеграции, но не функции текущего demo.
-- Нельзя заявлять реальное внедрение, число пользователей или подтверждённое ускорение согласований.
+- Собственный публичный workflow-demo, не клиентское внедрение.
+- Perspective описывает будущие направления, а не текущие функции.
 
-### Другие подтверждённые проекты
+### Intelverbum
 
-- Intelverbum — реальный production-кейс, приватный исходный код не раскрывается.
-- Web Audit Lab — public repository `https://github.com/stalar78/web-audit-lab`.
-- Phone Operator Detector — отдельный очищенный snapshot `https://github.com/stalar78/phone-operator-detector-public`; private history и реальные Excel-файлы не раскрываются.
-- Специализированные software cases хранятся в `src/data/softwareCases.ts` и показываются отдельным блоком.
+- Реальный production-кейс.
+- Закрытый исходный код не раскрывается.
+- Нельзя создавать публичный GitHub CTA для приватного исходного repository.
 
-## Последние завершённые изменения
+### EIS Procurement Analyzer
 
-### 1. Workflow projects в основном портфолио
+- Отдельная case page: `/cases/eis-procurement-analyzer/`.
+- Использовать только подтверждённые факты и аккуратные ограничения вокруг аналитических выводов.
 
-Commit: `1d469de004a16119b8e245bc55fa4ee8ba12832e` (`Add workflow projects to portfolio`).
+## Cake & Shape — последний завершённый stage
 
-- QuoteFlow перенесён в основное портфолио;
-- добавлен ApprovalFlow;
-- добавлены optional collapsed perspective sections;
-- карточки перестали растягиваться до высоты соседней раскрытой карточки.
+PR #13:
 
-### 2. Covers и перспективы проектов
+`feat: add Cake & Shape production case`
 
-Commit: `0b90b49f99978cc9a046a07df5efeeced0b7c3d8` (`Improve portfolio covers and project perspectives`).
+Squash merge commit:
 
-- устранено пересечение category/status badges;
-- унифицированы названия и категории;
-- QuoteFlow получил кодовую обложку;
-- перспективы QuoteFlow и ApprovalFlow сгруппированы по направлениям;
-- disclaimer о нереализованных функциях сохранён.
+`67a8d8ff9636f425421d7d9d597f1f53fc9a5587`
 
-### 3. Практический Technology Stack
+Stage включил:
 
-Commit: `704057df1e2b87f8151704f1e705a07fe23acf49` (`Add expandable technology stack details`).
+- первую карточку Portfolio;
+- отдельную case page;
+- screenshots;
+- route;
+- SEO metadata;
+- structured data;
+- sitemap;
+- static HTML;
+- Vite input;
+- финальный CTA;
+- privacy masking admin screenshots.
 
-- добавлен фильтр `Все` и категории стека;
-- технологии оформлены как accessible expandable rows через `details/summary`;
-- добавлены task-oriented описания;
-- добавлены подтверждённые проекты применения;
-- перечень технологий уточнён по фактическим проектам;
-- Technology Stack теперь объясняет практическое применение, а не служит декоративным списком.
+После merge локальный `main` был синхронизирован и имел clean working tree.
 
-## Dependency security
+## SEO / Search Console / Webmaster
 
-- `react-router-dom` и `react-router` обновлены до `6.30.4`.
-- `@remix-run/router` обновлён транзитивно до `1.23.3`.
-- Vite остаётся на `5.4.21`.
-- Остались 4 tooling vulnerabilities: 1 low, 2 moderate, 1 high.
-- Не запускать `npm audit fix --force`; tooling upgrade должен быть отдельной задачей.
+- Яндекс Вебмастер подключён, права подтверждены.
+- Sitemap добавлен.
+- Исправлен server-side soft 404.
+- Основная цель формы: `contact_form_success` / `Успешная отправка формы`.
+- Подтверждены цели Telegram/MAX/email/phone.
+- Новый публичный URL после deploy можно один раз отправить на индексирование в Google Search Console и Яндекс Вебмастер.
+- Не делать регулярные повторные submit без новой причины.
 
 ## Главные source of truth файлы
 
@@ -152,43 +189,45 @@ Commit: `704057df1e2b87f8151704f1e705a07fe23acf49` (`Add expandable technology s
 - `src/data/site.ts`
 - `src/data/services.ts`
 - `src/data/servicePageSeo.json`
-- `src/data/webApplicationDevelopment.ts`
 - `src/data/cases.ts`
-- `src/data/softwareCases.ts`
+- `src/data/cakeAndShapeCase.ts`
+- `src/data/eisProcurementAnalyzerCase.ts`
+- `src/data/etrn.ts`
+- `src/data/structuredData.ts`
 - `src/components/Portfolio.tsx`
-- `src/components/SoftwareCases.tsx`
-- `src/components/TechStack.tsx`
-- `src/data/contacts.ts`
-- `src/data/faq.ts`
-- `src/data/legal.ts`
-- `src/lib/meta.ts`
-- `src/lib/utils.ts`
+- `src/pages/CakeAndShapeCase.tsx`
+- `src/pages/Etrn.tsx`
+- `src/router.tsx`
 - `public/sitemap.xml`
-- `postcss.config.mjs`
+- `vite.config.ts`
+- `docs/05_ROADMAP.md`
+- `docs/06_PORTFOLIO_REGISTRY.md`
+- `docs/ARTICLE_EDITORIAL_GUIDE.md`
+
+## Технические baseline-условия
+
+- `npm run build` должен проходить.
+- Новых TypeScript errors быть не должно.
+- Допустимы только известные baseline errors в `src/data/webApplicationDevelopment.ts` и `src/pages/Terms.tsx`.
+- `git diff --check` должен проходить; Windows line-ending warnings сами по себе не blocker.
+- Vite warning о chunk > 500 kB может считаться baseline, если не сопровождается пользовательской проблемой.
+- Не применять `npm audit fix --force` без отдельного upgrade-stage.
 
 ## Рабочий процесс
 
-1. GPT анализирует фактическое состояние и предлагает один следующий логичный шаг.
-2. GPT пишет prompt для Codex на английском языке.
-3. Codex меняет только код и связанные статические файлы, не `docs/*`, не commit и не push.
-4. Владелец проверяет diff, делает commit и push.
-5. GPT читает GitHub, проводит review и обновляет `docs/*`.
-6. Владелец выполняет безопасный production deploy.
-7. После deploy выполняется ручной technical/visual QA.
+1. GPT анализирует фактический код и docs и выбирает один следующий логичный шаг.
+2. Для крупных изменений GPT пишет точный prompt для Codex на русском языке.
+3. Codex меняет код/статику, но не `docs/*`, если это отдельно не указано.
+4. Пользователь присылает отчёт или полные изменённые файлы, проверяет локально, затем commit/push feature branch.
+5. GPT делает GitHub review и при необходимости небольшие безопасные remote review-fix.
+6. GPT управляет PR/merge и после принятого stage обновляет docs.
+7. Пользователь синхронизирует `main`, выполняет build/deploy и production QA.
 
-## Текущие технические наблюдения
+## Следующий практический шаг
 
-- Build проходит успешно.
-- Остались 4 tooling vulnerabilities.
-- Script `lint` отсутствует.
-- Есть неблокирующее дублирование structured-data сущностей между runtime и HTML generator.
-- Lighthouse runtime-метрики вариативны; новые performance-задачи открывать только при конкретной проблеме или полевых данных.
-- Сервер сообщает `System restart required`; обновление и перезагрузка должны выполняться отдельным инфраструктурным этапом.
+После подтверждения production deploy Cake & Shape:
 
-## Следующий шаг
-
-1. Дождаться повторной диагностики Яндекс Вебмастера после исправления real 404.
-2. Проверить обработку и индексирование четырёх коммерческих страниц без повторной отправки тех же URL.
-3. Наблюдать показы, запросы, переходы и обращения.
-4. Следующий growth-этап выбирать по реальным поисковым и conversion-данным, а не ради количества страниц.
-5. Не открывать новый технический optimization pass без конкретной пользовательской проблемы.
+1. проверить `/cases/cake-and-shape/` в production;
+2. один раз отправить URL на индексирование;
+3. убрать/заменить GitHub CTA у private ETRN repository;
+4. затем выбирать следующий growth-stage по реальным поисковым/conversion данным или по новой сильной бизнес-возможности.
