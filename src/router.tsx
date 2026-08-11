@@ -8,6 +8,7 @@ const WebsiteAudit = lazy(() => import('./pages/WebsiteAudit'))
 const WebsiteLaunch = lazy(() => import('./pages/WebsiteLaunch'))
 const WebApplicationDevelopment = lazy(() => import('./pages/WebApplicationDevelopment'))
 const Etrn = lazy(() => import('./pages/Etrn'))
+const CakeAndShapeCase = lazy(() => import('./pages/CakeAndShapeCase'))
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Articles = lazy(() => import('./pages/Articles'))
 const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPressOrCustomDevelopmentArticle'))
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: 'etrn',
         element: <Etrn />,
+      },
+      {
+        path: 'cases/cake-and-shape',
+        element: <CakeAndShapeCase />,
       },
       {
         path: 'cases/eis-procurement-analyzer',

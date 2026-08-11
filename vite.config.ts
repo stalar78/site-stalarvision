@@ -52,6 +52,7 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
+          cakeAndShapeCase: path.resolve(__dirname, 'cases/cake-and-shape/index.html'),
           eisProcurementAnalyzerCase: path.resolve(__dirname, 'cases/eis-procurement-analyzer/index.html'),
           websiteImprovement: path.resolve(__dirname, 'dorabotka-sajta/index.html'),
           websiteAudit: path.resolve(__dirname, 'audit-sajta/index.html'),
