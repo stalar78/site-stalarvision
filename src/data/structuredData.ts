@@ -5,6 +5,7 @@ import {
   buildArticlesIndexStructuredData,
 } from './articleStructuredData';
 import { eisProcurementAnalyzerCase } from './eisProcurementAnalyzerCase';
+import { etrnPage } from './etrn';
 import servicePageSeo from './servicePageSeo.json';
 import { webApplicationDevelopmentPage } from './webApplicationDevelopment';
 import { websiteAuditPage } from './websiteAudit';
@@ -26,6 +27,8 @@ const websiteLaunchWebpageId = `${websiteLaunchPage.seo.canonical}#webpage`;
 const websiteLaunchServiceId = `${websiteLaunchPage.seo.canonical}#service`;
 const webApplicationDevelopmentWebpageId = `${webApplicationDevelopmentPage.seo.canonical}#webpage`;
 const webApplicationDevelopmentServiceId = `${webApplicationDevelopmentPage.seo.canonical}#service`;
+const etrnWebpageId = `${etrnPage.seo.canonical}#webpage`;
+const etrnServiceId = `${etrnPage.seo.canonical}#service`;
 const eisProcurementAnalyzerCaseWebpageId = `${eisProcurementAnalyzerCase.seo.canonical}#webpage`;
 const eisProcurementAnalyzerCaseSoftwareId = `${eisProcurementAnalyzerCase.seo.canonical}#software`;
 
@@ -255,6 +258,47 @@ export const webApplicationDevelopmentStructuredData: JsonLdObject = {
       serviceType: servicePageSeo.webApplicationDevelopment.serviceType,
       description: webApplicationDevelopmentPage.seo.description,
       url: webApplicationDevelopmentPage.seo.canonical,
+      provider: {
+        '@id': organizationId,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const etrnStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': etrnWebpageId,
+      url: etrnPage.seo.canonical,
+      name: etrnPage.seo.title,
+      description: etrnPage.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': etrnServiceId,
+      },
+      mainEntity: {
+        '@id': etrnServiceId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'Service',
+      '@id': etrnServiceId,
+      name: servicePageSeo.etrn.serviceName,
+      serviceType: servicePageSeo.etrn.serviceType,
+      description: etrnPage.seo.description,
+      url: etrnPage.seo.canonical,
       provider: {
         '@id': organizationId,
       },
