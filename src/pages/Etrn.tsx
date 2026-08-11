@@ -378,13 +378,25 @@ export default function Etrn() {
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-indigo-100/85 sm:text-lg">
               {etrnPage.finalCta.description}
             </p>
-            <a
-              href={etrnPage.finalCta.buttonHref}
-              onClick={trackContactCta}
-              className="mt-7 inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 font-bold text-slate-950 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-            >
-              {etrnPage.finalCta.buttonLabel}
-            </a>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a
+                href={etrnPage.finalCta.buttonHref}
+                onClick={trackContactCta}
+                className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3.5 font-bold text-slate-950 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+              >
+                {etrnPage.finalCta.buttonLabel}
+              </a>
+              <a
+                href={etrnPage.demo.ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={trackDemoCta}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-cyan-300/30 bg-cyan-500/10 px-6 py-3.5 font-semibold text-cyan-100 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-200/50 hover:bg-cyan-500/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+              >
+                Посмотреть ETRN Flow
+                <ExternalLink size={18} />
+              </a>
+            </div>
           </div>
         </section>
 
