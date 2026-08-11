@@ -94,7 +94,7 @@ export default function CakeAndShapeCase() {
                 </a>
               </div>
             </div>
-            <ScreenshotPanel image={cakeAndShapeCase.hero.image} caption="Hero-витрина публичного сайта без потери пропорций скриншота." />
+            <ScreenshotPanel image={cakeAndShapeCase.hero.image} caption="Hero-витрина сайта без потери пропорций скриншота." />
           </div>
         </section>
 
