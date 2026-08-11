@@ -382,7 +382,6 @@ export const cakeAndShapeCaseStructuredData: JsonLdObject = {
       name: 'Cake & Shape',
       description: cakeAndShapeCase.seo.description,
       url: cakeAndShapeCase.seo.canonical,
-      codeRepository: 'https://github.com/stalar78/shapecake',
       author: {
         '@id': personId,
       },
