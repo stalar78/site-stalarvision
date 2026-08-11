@@ -6,219 +6,271 @@
 
 Реестр нужен, чтобы:
 
-- не путать количество GitHub-репозиториев с количеством самостоятельных проектов;
-- объединять frontend, backend, mobile, desktop и вспомогательные инструменты в цельные инженерные истории;
-- не выдавать прототипы, учебные работы и шаблонные репозитории за коммерческие кейсы;
-- не публиковать закрытую информацию;
-- выбирать формат показа проекта исходя из зрелости и коммерческой ценности;
-- не придумывать клиентов, метрики, сроки, финансовые результаты и неподтверждённые эффекты.
+- не путать количество репозиториев с количеством самостоятельных проектов;
+- объединять frontend, backend, admin, database, infra и tooling в цельные инженерные истории;
+- не выдавать prototypes/demo/учебные работы за клиентские внедрения;
+- не публиковать чувствительные данные и private source links;
+- выбирать формат показа проекта по зрелости, коммерческой ценности и проверяемости;
+- не придумывать клиентов, метрики, сроки, выручку, конверсию, экономию времени и другие неподтверждённые эффекты.
 
 ## Правила публикации
 
 1. Полноценный кейс публикуется только на основе подтверждённого проекта и проверяемых функций.
-2. Результат описывается качественно, если нет подтверждённых численных метрик.
-3. Приватный GitHub-репозиторий не связывается с публичной карточкой автоматически.
-4. Закрытые проекты публикуются только обезличенно.
-5. Несколько репозиториев одной системы объединяются в один кейс.
-6. Дизайн-референсы, asset-репозитории и ранние прототипы не считаются отдельными проектами.
-7. Учебные репозитории остаются частью GitHub-архива, но не смешиваются с production-кейсами.
-8. Ссылки, скриншоты и названия добавляются только после отдельной проверки допустимости раскрытия.
-9. Направления возможного развития должны быть явно отделены от функций текущей версии.
+2. Без подтверждённых метрик результат описывается качественно.
+3. Private repository не получает публичный GitHub CTA автоматически.
+4. Закрытые проекты публикуются только обезличенно и после security/publication review.
+5. Несколько приложений одной системы объединяются в один кейс.
+6. Design/reference/asset repositories не считаются отдельными проектами.
+7. Учебные и ранние prototype repositories не смешиваются с production-портфолио.
+8. Screenshots публикуются только после проверки допустимости раскрытия и маскирования PII при необходимости.
+9. Направления возможного развития всегда отделяются от текущего scope явным disclaimer.
+10. Карточка должна объяснять бизнес-задачу и инженерную ценность, а не только перечислять технологии.
 
-## Уровень A — основные доказательные кейсы
+## Основные доказательные кейсы
 
-### 1. Intelverbum
+### 1. Cake & Shape — сайт и система управления бизнесом
 
-**Публичное название:** Intelverbum — культурно-интеллектуальная publishing system.
+**Тип:** production business system.
 
-**Тип:** production content platform.
+**Production:** `https://cakeshape.ru/`
 
-**Подтверждённая техническая рамка:** JSON-корпусы, валидация данных, release manifests, статическая генерация, поисковый индекс, административные интерфейсы, безопасный publish pipeline, Nginx/Linux и Git workflow.
+**Case page:** `https://stalarvision.ru/cases/cake-and-shape/`
 
-**Что демонстрирует:** архитектура контентных систем, Node.js tooling, поиск, админки и production operations.
-
-**Формат:** сильная карточка на главной и потенциальный подробный case study.
-
-**Публичность:** название и публичный сайт допустимы; технические секреты, credentials и внутренние данные не публикуются.
-
----
-
-### 2. QuoteFlow — коммерческие предложения
-
-**Тип:** собственный публичный demo-проект Stalar Vision, не клиентский заказ.
+**Repository:** `https://github.com/stalar78/shapecake` — public.
 
 **Подтверждённая техническая рамка:**
 
-- позиции и автоматические расчёты;
-- скидки и налоги;
-- локальные черновики;
-- JSON/CSV import и export;
-- browser print и server-side PDF;
-- API preview;
-- адаптивный React/TypeScript/Vite frontend;
-- FastAPI/Python backend;
-- Docker и Nginx deployment;
-- публичный HTTPS demo и GitHub repository.
-
-**Что демонстрирует:** full-stack development, расчётную бизнес-логику, API, PDF generation, frontend/backend integration, контейнеризацию и production deployment.
-
-**Публичность:**
-
-- demo: `https://quoteflow.stalarvision.ru/`;
-- repository: `https://github.com/stalar78/quoteflow-demo`;
-- source of truth основной карточки: `src/data/cases.ts`.
-
-**Текущее отображение:** QuoteFlow находится в основном портфолио, а не в отдельном software-case блоке.
-
-**Перспектива развития:** в карточке допустим сворачиваемый блок с возможными направлениями — шаблоны и брендирование, каталоги и расчёты, CRM/1С, командное согласование, интеграции и аналитика. Эти пункты не являются функциями текущей demo-версии.
-
-**Строгие ограничения:** не называть клиентским кейсом, не заявлять реальных пользователей, выручку, конверсию, экономию времени и иные неподтверждённые метрики.
-
----
-
-### 3. ApprovalFlow — согласование внутренних заявок
-
-**Тип:** собственный публичный workflow-demo Stalar Vision, не клиентский заказ.
-
-**Подтверждённая техническая рамка:**
-
-- роли сотрудника и руководителя;
-- создание, редактирование и отправка заявок;
-- одобрение, отклонение, повторное открытие и повторная отправка;
-- история изменений и решений;
-- публичный demo-доступ для обеих ролей;
-- React/TypeScript frontend;
-- Spring Boot backend;
+- Next.js public frontend;
+- React/Vite admin frontend;
+- FastAPI backend;
 - PostgreSQL;
-- Docker и Nginx deployment;
-- публичный HTTPS demo и GitHub repository.
+- async SQLAlchemy;
+- Alembic;
+- shared typed API client;
+- Docker Compose;
+- Nginx;
+- HTTPS;
+- health checks;
+- backup operations;
+- metadata/canonical/sitemap/robots/Open Graph/JSON-LD.
 
-**Что демонстрирует:** workflow-системы, роли и состояния, frontend/backend integration, relational database, контейнеризацию и production deployment.
+**Подтверждённый business/admin scope:**
 
-**Публичность:**
+- динамический каталог и страницы десертов;
+- категории, публикация, доступность, сортировка и архивирование;
+- варианты веса и цены;
+- изображения, primary image и ordering;
+- reviews/promotions;
+- site settings и business content;
+- защищённая административная сессия и CSRF;
+- сохранённый backend/admin inquiry/order-request domain после упрощения публичного UX.
 
-- demo: `https://approvalflow.stalarvision.ru/`;
-- repository: `https://github.com/stalar78/approvalflow`;
-- source of truth карточки: `src/data/cases.ts`.
+**Что демонстрирует:** end-to-end delivery — frontend, admin, backend, data model, security, SEO, deployment и production operations.
 
-**Перспектива развития:** допустим сворачиваемый блок с направлениями маршрутизации и правил, совместной работы, администрирования, аудита, уведомлений, SSO/LDAP, 1С, CRM/ERP и API/webhooks. Эти пункты не являются функциями текущей demo-версии.
+**Публичное позиционирование:** не «сайт кондитерской», а цифровая система малого бизнеса с публичным и административным контурами.
 
-**Строгие ограничения:** не называть клиентским кейсом, не заявлять реальное внедрение в компании, число пользователей, ускорение согласований и другие неподтверждённые результаты.
+**Future-only:** online payment, customer accounts, delivery integrations, warehouse accounting, loyalty, CRM/external integrations.
 
----
+**Строгие ограничения:** не заявлять рост продаж, конверсии, экономию времени, число заказов или другие бизнес-метрики без фактических данных.
 
-### 4. LocalKit
-
-**Тип:** собственный продукт и система коммерческих шаблонов.
-
-**Подтверждённая рамка:** Next.js App Router, TypeScript, Tailwind CSS, самостоятельные niche/premium модели, product pages, live demo, различающиеся hero/CTA/trust структуры, VPS deployment через Nginx, PM2 и SSL.
-
-**Что демонстрирует:** продуктовый подход, коммерческие сайты, Next.js, переиспользуемую архитектуру и production deployment.
-
-**Ограничение:** template/reference/asset repositories не публикуются как отдельные кейсы.
-
----
-
-### 5. Web Audit Lab
-
-**Тип:** инженерный инструмент для browser-based технического аудита.
-
-**Подтверждённая рамка:** Playwright checks, SEO/metadata/canonical/internal links, desktop/mobile, accessibility basics, failed resources, page weight, JSON/Markdown reports и screenshots.
-
-**Публичность:** `https://github.com/stalar78/web-audit-lab`.
-
-**Ограничение:** не позиционировать как полноценное SEO-продвижение или security-аудит.
+**Production integration в StalarVision:** commit `67a8d8ff9636f425421d7d9d597f1f53fc9a5587`.
 
 ---
 
-### 6. Закрытая информационная система
+### 2. Intelverbum
 
-**Тип:** закрытая knowledge platform с web portal, offline-first mobile app, document pipeline, SQLite/FTS5 search, локальными закладками и разграничением доступа.
+**Тип:** production content/publishing platform.
 
-**Формат:** обезличенный подробный кейс без demo и внешних ссылок.
+**Подтверждённая рамка:** структурированные JSON-корпусы, валидация, release manifests, статическая генерация, поисковый индекс, специализированные admin-интерфейсы, publish workflow, Nginx/Linux и Git operations.
 
-**Строгие ограничения:** не раскрывать настоящее название, организацию, предметную область, реальные документы, URL, GitHub и читаемые screenshots закрытого содержания.
+**Что демонстрирует:** архитектуру контентных систем, data/content pipelines, search, admin tools и production operations.
+
+**Публичность:** production-сайт допустим; private source repository не раскрывается.
 
 ---
 
-### 7. T-Bank Trading Bot
+### 3. ETRN Flow — управление жизненным циклом перевозки
 
-**Тип:** Python research/runtime framework.
+**Тип:** собственный публичный B2B workflow demo.
 
-**Подтверждённая рамка:** research-to-runtime workflow, backtesting, portfolio orchestration, sandbox, operator CLI, evidence collection, explicit live-risk gates и artifact governance.
+**Landing:** `https://stalarvision.ru/etrn/`
 
-**Запрещённые формулировки:** гарантированная прибыль, подтверждённая доходность, полностью автоматическая торговля и готовность к массовому live-использованию.
+**Demo:** `https://etrn.stalarvision.ru/`
 
-## Уровень B — сильные прикладные и инфраструктурные кейсы
+**Repository:** `stalar78/etrn-flow-demo` — private на 2026-08-11.
 
-### 8. Конвейер извлечения знаний из аудио и видео
+**Подтверждённая рамка:**
 
-Python/AI-assisted pipeline с faster-whisper, batch processing, таймкодами, словарной очисткой, audit reports, GPT-конспектами, локальной базой знаний и операторской панелью.
+- guest demo sessions;
+- перевозки и detail view;
+- последовательные workflow states;
+- role/state-aware actions;
+- server-side validation переходов;
+- event history;
+- controlled demo reset;
+- React + TypeScript;
+- Fastify;
+- PostgreSQL;
+- Docker/Nginx production contour.
 
-### 9. Анализатор производственных смен
+**Что демонстрирует:** формализацию операционного процесса через `Состояние → Роль → Действие → Событие`.
 
-Streamlit-инструмент анализа SQLite-данных: time series, histogram, box plot, rolling metrics, correlations, outliers и Cp/Cpk. Реальные производственные базы и чувствительные данные не публикуются.
+**Строгие ограничения:**
 
-### 10. Phone Operator Detector
+- не позиционировать как готовую универсальную TMS;
+- не позиционировать как оператора ИС ЭПД/ГИС ЭПД;
+- не заявлять реальную интеграцию с ИС ЭПД;
+- не заявлять юридически значимое подписание;
+- private repository не должен иметь работающий public GitHub CTA.
 
-Python monorepo с Excel processing, operator/region lookup, desktop GUI, CLI, Flask web MVP, PyInstaller build и тестами.
+**Perspective:** допустимы сценарии исключений, дополнительные роли, документы, уведомления, API/webhooks, 1С/CRM/ERP и управленческие инструменты только как future directions с disclaimer.
 
-Публичный snapshot: `https://github.com/stalar78/phone-operator-detector-public`.
+**StalarVision landing commit:** `6703d03d58697b35c536dc520c26f6766057d40d`.
 
-Исходный приватный repository не открывается из-за чувствительных файлов в Git history.
+**Portfolio internal-link commit:** `383a0bc9258d09a5cf5260187c53d911643f1d8e`.
 
-### 11. Развёртывание и сопровождение защищённого VPN
+---
 
-Operations-first проект на WireGuard/Ubuntu VPS с SSH hardening, UFW, backup/restore и runbooks. Не публиковать IP, подсети, порты, peer names, ключи и topology details.
+### 4. QuoteFlow — коммерческие предложения
 
-### 12. Система документированного анализа рисков онлайн-платформ
+**Тип:** собственный публичный demo-проект, не клиентский заказ.
 
-Documentation-first evidence framework с intake, evidence log, public legal/site review и cautious report. Не заявлять выявление мошенничества, незаконности или юридически доказанного нарушения.
+**Demo:** `https://quoteflow.stalarvision.ru/`
 
-## Уровень C — компактные продукты
+**Repository:** `https://github.com/stalar78/quoteflow-demo`.
 
-### 13. Math Brain Trainer
+**Подтверждённая рамка:** позиции, расчёты, скидки и налоги, локальные черновики, JSON/CSV import/export, browser print, server-side PDF, API preview, React/TypeScript/Vite, FastAPI/Python, Docker, Nginx.
 
-Локальный React + TypeScript + Vite тренажёр устного счёта с RU/EN интерфейсом и локальной историей.
+**Что демонстрирует:** full-stack development, расчётную бизнес-логику, PDF generation, API и production deployment.
 
-### 14. Сценарный каталог образовательных программ
+**Строгие ограничения:** не заявлять реальных клиентов, коммерческих пользователей, выручку, конверсию или подтверждённую экономию времени.
 
-Next.js MVP с подборками, guides, methodology/disclosure pages и типизированной моделью Offer/Collection/Guide. Не позиционировать как marketplace, школу или transactional platform.
+---
 
-### 15. Stalar Vision
+### 5. ApprovalFlow — согласование внутренних заявок
 
-Production-сайт услуг независимого разработчика: React/Vite/Tailwind, route-specific static HTML, service pages, SEO, structured data, Web3Forms, Метрика и VPS deployment.
+**Тип:** собственный публичный workflow-demo, не клиентский заказ.
 
-Не должен становиться главным кейсом, чтобы портфолио не выглядело замкнутым на самом себе.
+**Demo:** `https://approvalflow.stalarvision.ru/`
 
-### 16. SportAndBeauty
+**Repository:** `https://github.com/stalar78/approvalflow`.
 
-Подтверждён Next.js/TypeScript baseline, но назначение, сценарии и зрелость ещё не проверены полностью. До дополнительной проверки не публиковать.
+**Подтверждённая рамка:** роли сотрудника и руководителя, создание/редактирование/отправка заявок, approval/rejection/reopen/resubmit, история изменений, React/TypeScript, Spring Boot, PostgreSQL, Docker и Nginx.
 
-## Технический архив
+**Что демонстрирует:** role-based workflow, state transitions, frontend/backend integration и relational data.
 
-В архив, а не в основную коммерческую витрину, относятся:
+**Строгие ограничения:** не заявлять реальное корпоративное внедрение, число пользователей или ускорение согласований.
 
-- desktop-загрузчик видео на Java/JavaFX;
-- парсеры и инструменты сбора контента;
-- ранние client/server-прототипы;
-- небольшие Python-утилиты;
+---
+
+### 6. EIS Procurement Analyzer
+
+**Тип:** аналитический research/engineering project с отдельной публичной case page.
+
+**Case page:** `https://stalarvision.ru/cases/eis-procurement-analyzer/`
+
+**Подтверждённая рамка:** collection pipeline, документы разных форматов, classification, strict extraction, evidence records, unresolved fields, quality issues, разделённые technical/market/overall decision layers и exports.
+
+**Что демонстрирует:** evidence-first automation и document-analysis engineering.
+
+**Ограничения:** не выдавать recommendation за гарантированный бизнес-результат или юридическое/финансовое решение; human review остаётся обязательным.
+
+## Другие сильные подтверждённые проекты
+
+### LocalKit
+
+Next.js/TypeScript/Tailwind продуктовая система коммерческих шаблонов и niche/premium моделей. Template/reference/asset repositories не публикуются отдельными кейсами.
+
+### Web Audit Lab
+
+Browser-based technical audit tool с Playwright checks, metadata/canonical/internal-links проверками, desktop/mobile, accessibility basics, failed resources, page weight, JSON/Markdown reports и screenshots.
+
+Public repository: `https://github.com/stalar78/web-audit-lab`.
+
+Не позиционировать как полноценное SEO-продвижение или security audit.
+
+### Phone Operator Detector
+
+Python monorepo с Excel processing, operator/region lookup, GUI, CLI, Flask web MVP, PyInstaller и тестами.
+
+Public cleaned snapshot: `https://github.com/stalar78/phone-operator-detector-public`.
+
+Private history и реальные рабочие Excel не раскрываются.
+
+### Закрытая информационная система
+
+Knowledge platform с web portal, offline-first mobile app, document pipeline, SQLite/FTS5 search, bookmarks и access control.
+
+Публикация возможна только обезличенно, без настоящего названия, организации, предметной области, URL, source repository и читаемых screenshots закрытого контента.
+
+### T-Bank Trading Bot
+
+Python research/runtime framework с backtesting, portfolio orchestration, sandbox/operator tooling, research-to-runtime bridge и explicit live-risk gates.
+
+Нельзя заявлять гарантированную прибыль, подтверждённую доходность или массовую production-ready автоторговлю.
+
+## Прикладные / инфраструктурные кейсы
+
+### Конвейер извлечения знаний из аудио и видео
+
+Python/AI-assisted pipeline с faster-whisper, batch processing, таймкодами, очисткой, audit reports и локальной базой знаний.
+
+### Анализатор производственных смен
+
+Streamlit + SQLite analysis: time series, histogram, box plot, rolling metrics, correlations, outliers, Cp/Cpk. Реальные производственные данные не раскрываются.
+
+### Защищённый VPN deployment
+
+WireGuard/Ubuntu VPS, SSH hardening, UFW, backup/restore и runbooks. Не публиковать IP, подсети, порты, peer names и ключи.
+
+### Система документированного анализа рисков онлайн-платформ
+
+Evidence-first framework с intake, evidence log, public legal/site review и cautious report. Не заявлять юридически доказанное мошенничество или нарушение без соответствующего основания.
+
+## Компактные продукты / archive candidates
+
+- Math Brain Trainer;
+- каталог образовательных программ;
+- Stalar Vision как собственный сайт;
+- SportAndBeauty до отдельной проверки зрелости;
+- небольшие Python utilities;
+- desktop Java/JavaFX tools;
+- ранние parsers/prototypes;
 - design/reference/asset repositories;
-- учебные Java, React и алгоритмические проекты.
+- учебные Java/React/algorithm projects.
+
+Stalar Vision не должен становиться главным кейсом, чтобы портфолио не выглядело замкнутым на самом себе.
 
 ## Текущее отображение на production-сайте
 
-- основное портфолио формируется из `src/data/cases.ts`;
-- QuoteFlow и ApprovalFlow находятся в основном портфолио;
-- специализированные программные кейсы продолжают храниться в `src/data/softwareCases.ts` и отображаться отдельным блоком;
-- карточки используют единые названия, кодовые обложки и непротиворечивые category/status badges;
-- блоки «Перспектива развития» доступны только для подтверждённых проектов и содержат явный disclaimer;
-- раздел Technology Stack связывает технологии с подтверждёнными проектами, но не заменяет реестр портфолио.
+Source of truth основных карточек: `src/data/cases.ts`.
+
+Рекомендуемый порядок real-project карточек:
+
+1. Cake & Shape
+2. Intelverbum
+3. ETRN Flow
+4. QuoteFlow
+5. ApprovalFlow
+6. EIS Procurement Analyzer
+
+Отдельные case/landing pages:
+
+- `/cases/cake-and-shape/`
+- `/cases/eis-procurement-analyzer/`
+- `/etrn/`
+
+Правила:
+
+- screenshots должны подтверждать реальный интерфейс и быть очищены от PII;
+- private repository CTA не публикуется;
+- future/perspective блоки содержат disclaimer;
+- Technology Stack подтверждает компетенции через реальные проекты, но не заменяет portfolio registry;
+- не добавлять новые карточки только ради количества.
 
 ## Следующий практический шаг
 
-Не расширять портфолио количеством карточек без необходимости. Следующий кейсовый шаг выбирать по коммерческой ценности:
-
-- отдельный QuoteFlow или ApprovalFlow case study — только при подтверждённой conversion-потребности;
-- следующий сильный проект — только после fact/security/publication audit;
-- существующие карточки улучшать только при конкретной UX, clarity или conversion-проблеме.
+1. После production deploy проверить Cake & Shape case и один раз отправить URL на индексирование.
+2. Исправить GitHub CTA ETRN Flow, пока repository private.
+3. Следующий большой case/project добавлять только после fact/security/publication audit и при понятной коммерческой ценности.
+4. Существующие карточки улучшать только при конкретной UX, clarity или conversion-проблеме.
