@@ -24,6 +24,8 @@ const YANDEX_METRIKA_COUNTER_ID = 108788776
 
 export const YANDEX_METRIKA_GOALS = {
   contactFormSuccess: 'contact_form_success',
+  etrnContactCtaClick: 'etrn_contact_cta_click',
+  etrnDemoCtaClick: 'etrn_demo_cta_click',
 } as const
 
 function injectScriptOnce(src: string, id: string): void {

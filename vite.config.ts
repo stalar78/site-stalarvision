@@ -57,6 +57,7 @@ export default defineConfig(({ mode }) => {
           websiteAudit: path.resolve(__dirname, 'audit-sajta/index.html'),
           websiteLaunch: path.resolve(__dirname, 'razrabotka-sajta/index.html'),
           webApplicationDevelopment: path.resolve(__dirname, 'razrabotka-veb-prilozhenij/index.html'),
+          etrn: path.resolve(__dirname, 'etrn/index.html'),
           articles: path.resolve(__dirname, 'articles/index.html'),
           wordpressOrCustomDevelopmentArticle: path.resolve(__dirname, 'articles/wordpress-ili-individualnaya-razrabotka/index.html'),
           projectPreparationArticle: path.resolve(__dirname, 'articles/podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya/index.html'),
