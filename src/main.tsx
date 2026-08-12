@@ -5,7 +5,6 @@ import './index.css'
 import { router } from './router'
 import { profile } from './data/profile'
 import { applyDocumentMeta } from './lib/meta'
-import { initializeAnalytics } from './lib/utils'
 
 applyDocumentMeta({
   lang: profile.seo.htmlLang,
@@ -26,8 +25,6 @@ applyDocumentMeta({
   themeColor: profile.seo.themeColor,
   robots: 'index,follow',
 })
-
-initializeAnalytics()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -21,6 +21,11 @@ declare global {
 
 const TOP_MAIL_COUNTER_ID = '3759601'
 const YANDEX_METRIKA_COUNTER_ID = 108788776
+const ANALYTICS_CONSENT_STORAGE_KEY = 'stalar_analytics_consent'
+export const ANALYTICS_SETTINGS_EVENT = 'stalar:open-analytics-settings'
+let analyticsConsentFallback: AnalyticsConsent = 'unknown'
+
+export type AnalyticsConsent = 'unknown' | 'accepted' | 'rejected'
 
 export const YANDEX_METRIKA_GOALS = {
   contactFormSuccess: 'contact_form_success',
@@ -44,8 +49,58 @@ function injectScriptOnce(src: string, id: string): void {
   document.head.appendChild(script)
 }
 
+export function getAnalyticsConsent(): AnalyticsConsent {
+  if (typeof window === 'undefined') {
+    return 'unknown'
+  }
+
+  try {
+    const storedConsent = window.localStorage.getItem(ANALYTICS_CONSENT_STORAGE_KEY)
+
+    if (storedConsent === 'accepted' || storedConsent === 'rejected') {
+      analyticsConsentFallback = storedConsent
+      return storedConsent
+    }
+  } catch (error) {
+    // Storage can be unavailable in restricted browser modes.
+    return analyticsConsentFallback
+  }
+
+  return 'unknown'
+}
+
+export function setAnalyticsConsent(consent: Exclude<AnalyticsConsent, 'unknown'>): void {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  analyticsConsentFallback = consent
+
+  try {
+    window.localStorage.setItem(ANALYTICS_CONSENT_STORAGE_KEY, consent)
+  } catch (error) {
+    // Keep the app usable even if localStorage writes fail.
+  }
+}
+
+export function isAnalyticsAccepted(): boolean {
+  return getAnalyticsConsent() === 'accepted'
+}
+
+export function openAnalyticsSettings(): void {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  window.dispatchEvent(new CustomEvent(ANALYTICS_SETTINGS_EVENT))
+}
+
 export function initializeAnalytics() {
   if (typeof window === 'undefined') {
+    return
+  }
+
+  if (!isAnalyticsAccepted()) {
     return
   }
 
@@ -73,13 +128,12 @@ export function initializeAnalytics() {
   if (!window.__stalarYandexInitialized && window.ym) {
     window.ym(YANDEX_METRIKA_COUNTER_ID, 'init', {
       ssr: true,
-      webvisor: true,
-      clickmap: true,
-      ecommerce: 'dataLayer',
+      webvisor: false,
+      clickmap: false,
       referrer: document.referrer,
       url: location.href,
       accurateTrackBounce: true,
-      trackLinks: true,
+      trackLinks: false,
     })
     window.__stalarYandexInitialized = true
   }
@@ -88,10 +142,11 @@ export function initializeAnalytics() {
 }
 
 export function trackPageView() {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== 'undefined' && isAnalyticsAccepted() && window.__stalarAnalyticsInitialized) {
     try {
-      window._tmr = window._tmr || []
-      window._tmr.push({ id: TOP_MAIL_COUNTER_ID, type: 'pageView', start: Date.now() });
+      if (window._tmr) {
+        window._tmr.push({ id: TOP_MAIL_COUNTER_ID, type: 'pageView', start: Date.now() });
+      }
     } catch (error) {
       // Silently ignore if analytics fails
     }
@@ -103,7 +158,7 @@ export function trackPageView() {
  * Безопасно работает, если ym ещё не загружен.
  */
 export function trackYandexMetrikaPageView() {
-  if (typeof window !== 'undefined' && window.ym) {
+  if (typeof window !== 'undefined' && isAnalyticsAccepted() && window.__stalarAnalyticsInitialized && window.ym) {
     try {
       window.ym(YANDEX_METRIKA_COUNTER_ID, 'hit', window.location.href, {
         referrer: document.referrer,
@@ -119,7 +174,12 @@ export function trackYandexMetrikaGoal(
   goalIdentifier: string,
   params?: Record<string, unknown>,
 ): void {
-  if (typeof window === 'undefined' || !window.ym) {
+  if (
+    typeof window === 'undefined'
+    || !isAnalyticsAccepted()
+    || !window.__stalarAnalyticsInitialized
+    || !window.ym
+  ) {
     return
   }
 

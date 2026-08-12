@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { footerContactMethods, footerSocialLinks } from '@/data/contacts';
 import { footerData } from '@/data/site';
+import { openAnalyticsSettings } from '@/lib/utils';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -81,11 +82,20 @@ export const Footer = () => {
                       className="text-slate-400 transition-colors hover:text-indigo-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                     >
                       {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  </a>
+                </li>
+              ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openAnalyticsSettings}
+                  className="text-left text-slate-400 transition-colors hover:text-indigo-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                >
+                  {footerData.analyticsSettingsLabel}
+                </button>
+              </li>
+            </ul>
+          </div>
           </div>
 
           {/* Contact Info */}

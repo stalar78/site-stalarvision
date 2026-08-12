@@ -518,6 +518,7 @@ export const footerData = {
     { name: 'Условия использования', href: '/terms' },
     { name: 'Реквизиты', href: '/privacy#requisites' },
   ] satisfies NavLink[],
+  analyticsSettingsLabel: 'Настройки аналитики',
   contactTitle: 'Контакты',
   legalName: profile.owner.legalName,
   taxIdLabel: `ИНН ${profile.owner.taxId}`,
