@@ -56,9 +56,15 @@
   </url>
   <url>
     <loc>https://stalarvision.ru/articles/</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stalarvision.ru/articles/kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet/</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://stalarvision.ru/articles/wordpress-ili-individualnaya-razrabotka/</loc>
