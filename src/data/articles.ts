@@ -1,4 +1,5 @@
 import articleMetadata from './articleMetadata.json';
+import { webServiceOrPersonalAccountArticle } from './webServiceOrPersonalAccountArticle';
 
 export type ArticleTextSegment = {
   text: string;
@@ -99,8 +100,9 @@ export type Article = {
 export const articlesIndexPage = articleMetadata.index;
 
 export const publishedArticles: Article[] = [
+  webServiceOrPersonalAccountArticle,
   {
-    ...articleMetadata.articles[0],
+    ...articleMetadata.articles[1],
     sections: [
       {
         id: 'intro',
@@ -369,7 +371,7 @@ export const publishedArticles: Article[] = [
     },
   },
   {
-    ...articleMetadata.articles[1],
+    ...articleMetadata.articles[2],
     lead: [
       'Многие откладывают обращение к разработчику, потому что считают свою идею недостаточно оформленной. Кажется, что сначала нужно самостоятельно выбрать технологии, составить полный список функций, продумать каждый экран и написать техническое задание.',
       'На практике для первого содержательного разговора важнее другое: какую проблему должен решить продукт, кто будет им пользоваться, какие действия должны быть возможны и какие ограничения уже известны. Эти сведения не заменяют проектирование, но создают основу, с которой можно начать обсуждение и определить подходящий первый этап.',
@@ -900,7 +902,7 @@ export const publishedArticles: Article[] = [
         'Чем понятнее исходный контекст, тем легче обсуждать не максимально сложное решение, а то, которое действительно соответствует задаче.',
       ],
     },
-    relatedServiceLinks: articleMetadata.articles[1].relatedServiceLinks,
+    relatedServiceLinks: articleMetadata.articles[2].relatedServiceLinks,
     cta: {
       eyebrow: 'Обсуждение задачи',
       title: 'Необязательно приходить с готовым техническим заданием',
@@ -914,5 +916,6 @@ export const publishedArticles: Article[] = [
   },
 ];
 
-export const wordpressOrCustomArticle = publishedArticles[0];
-export const projectPreparationArticle = publishedArticles[1];
+export { webServiceOrPersonalAccountArticle };
+export const wordpressOrCustomArticle = publishedArticles[1];
+export const projectPreparationArticle = publishedArticles[2];

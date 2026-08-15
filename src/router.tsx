@@ -11,6 +11,7 @@ const Etrn = lazy(() => import('./pages/Etrn'))
 const CakeAndShapeCase = lazy(() => import('./pages/CakeAndShapeCase'))
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Articles = lazy(() => import('./pages/Articles'))
+const WebServiceOrPersonalAccountArticle = lazy(() => import('./pages/WebServiceOrPersonalAccountArticle'))
 const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPressOrCustomDevelopmentArticle'))
 const ProjectPreparationArticle = lazy(() => import('./pages/ProjectPreparationArticle'))
 const Privacy = lazy(() => import('./pages/Privacy'))
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: 'articles',
         element: <Articles />,
+      },
+      {
+        path: 'articles/kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet',
+        element: <WebServiceOrPersonalAccountArticle />,
       },
       {
         path: 'articles/wordpress-ili-individualnaya-razrabotka',
