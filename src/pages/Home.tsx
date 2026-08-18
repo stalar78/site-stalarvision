@@ -8,6 +8,7 @@ import { Portfolio } from '../components/Portfolio';
 import { SoftwareCases } from '../components/SoftwareCases';
 import { Process } from '../components/Process';
 import { TechStack } from '../components/TechStack';
+import { CertificatesSection } from '../components/CertificatesSection';
 import { Testimonials } from '../components/Testimonials';
 import { FAQ } from '../components/FAQ';
 import { Contact } from '../components/Contact';
@@ -64,6 +65,7 @@ export default function Home() {
         <SoftwareCases />
         <Process />
         <TechStack />
+        <CertificatesSection />
         <Testimonials />
         <FAQ />
         <Contact />
