@@ -53,6 +53,8 @@ const organizationEntity: JsonLdObject = {
     profile.contacts.github.href,
     profile.contacts.telegram.href,
     profile.contacts.max.href,
+    profile.contacts.vk.href,
+    profile.contacts.workspace.href,
   ],
   founder: {
     '@id': personId,
@@ -71,6 +73,8 @@ const personEntity: JsonLdObject = {
   sameAs: [
     profile.contacts.github.href,
     profile.contacts.telegram.href,
+    profile.contacts.vk.href,
+    profile.contacts.workspace.href,
   ],
 };
 

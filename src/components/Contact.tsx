@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
-import { contactMethods, contactSection } from '@/data/contacts';
+import { contactExternalProfiles, contactMethods, contactSection } from '@/data/contacts';
 import { YANDEX_METRIKA_GOALS, trackYandexMetrikaGoal } from '@/lib/utils';
 
 type FormValues = {
@@ -241,6 +241,27 @@ export function Contact({ defaultProjectType }: ContactProps) {
                   </div>
                 </a>
               ))}
+            </div>
+
+            <div className="mb-8 sm:mb-9">
+              <div className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-slate-500">
+                Профили
+              </div>
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+                {contactExternalProfiles.map((profileLink) => (
+                  <a
+                    key={profileLink.label}
+                    href={profileLink.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-2.5 text-sm font-semibold text-slate-300 transition-all duration-200 hover:border-slate-700 hover:bg-slate-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 sm:w-auto"
+                    aria-label={`Открыть профиль ${profileLink.label} в новой вкладке`}
+                  >
+                    <span>{profileLink.value}</span>
+                    <profileLink.icon size={15} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div className="rounded-3xl bg-indigo-600 p-5 text-white sm:p-6">
