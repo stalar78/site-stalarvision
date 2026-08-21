@@ -70,8 +70,8 @@ export const profile = {
     },
     telegram: {
       label: 'Telegram',
-      value: '@stanislav_lsn',
-      href: 'https://t.me/stanislav_lsn',
+      value: '@stalarvision',
+      href: 'https://t.me/stalarvision',
     },
     max: {
       label: 'MAX',
