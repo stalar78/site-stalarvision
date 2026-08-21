@@ -395,13 +395,17 @@ export const articlesIndexStructuredData: JsonLdObject = buildArticlesIndexStruc
 );
 
 export const wordpressOrCustomArticleStructuredData: JsonLdObject = buildArticleStructuredData(
-  articleMetadata.articles[1],
-);
-
-export const projectPreparationArticleStructuredData: JsonLdObject = buildArticleStructuredData(
   articleMetadata.articles[2],
 );
 
+export const projectPreparationArticleStructuredData: JsonLdObject = buildArticleStructuredData(
+  articleMetadata.articles[3],
+);
+
 export const webServiceOrPersonalAccountArticleStructuredData: JsonLdObject = buildArticleStructuredData(
+  articleMetadata.articles[1],
+);
+
+export const siteNoLeadsArticleStructuredData: JsonLdObject = buildArticleStructuredData(
   articleMetadata.articles[0],
 );
