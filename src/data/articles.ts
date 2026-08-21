@@ -1,4 +1,5 @@
 import articleMetadata from './articleMetadata.json';
+import { siteNoLeadsArticle } from './siteNoLeadsArticle';
 import { webServiceOrPersonalAccountArticle } from './webServiceOrPersonalAccountArticle';
 
 export type ArticleTextSegment = {
@@ -72,8 +73,8 @@ export type Article = {
   publishedAt: string;
   updatedAt: string;
   author: string;
-  coverImage: string;
-  coverAlt: string;
+  coverImage?: string;
+  coverAlt?: string;
   coverWidth?: number;
   coverHeight?: number;
   coverPosition?: string;
@@ -100,9 +101,10 @@ export type Article = {
 export const articlesIndexPage = articleMetadata.index;
 
 export const publishedArticles: Article[] = [
+  siteNoLeadsArticle,
   webServiceOrPersonalAccountArticle,
   {
-    ...articleMetadata.articles[1],
+    ...articleMetadata.articles[2],
     sections: [
       {
         id: 'intro',
@@ -371,7 +373,7 @@ export const publishedArticles: Article[] = [
     },
   },
   {
-    ...articleMetadata.articles[2],
+    ...articleMetadata.articles[3],
     lead: [
       'Многие откладывают обращение к разработчику, потому что считают свою идею недостаточно оформленной. Кажется, что сначала нужно самостоятельно выбрать технологии, составить полный список функций, продумать каждый экран и написать техническое задание.',
       'На практике для первого содержательного разговора важнее другое: какую проблему должен решить продукт, кто будет им пользоваться, какие действия должны быть возможны и какие ограничения уже известны. Эти сведения не заменяют проектирование, но создают основу, с которой можно начать обсуждение и определить подходящий первый этап.',
@@ -902,7 +904,7 @@ export const publishedArticles: Article[] = [
         'Чем понятнее исходный контекст, тем легче обсуждать не максимально сложное решение, а то, которое действительно соответствует задаче.',
       ],
     },
-    relatedServiceLinks: articleMetadata.articles[2].relatedServiceLinks,
+    relatedServiceLinks: articleMetadata.articles[3].relatedServiceLinks,
     cta: {
       eyebrow: 'Обсуждение задачи',
       title: 'Необязательно приходить с готовым техническим заданием',
@@ -917,5 +919,6 @@ export const publishedArticles: Article[] = [
 ];
 
 export { webServiceOrPersonalAccountArticle };
-export const wordpressOrCustomArticle = publishedArticles[1];
-export const projectPreparationArticle = publishedArticles[2];
+export { siteNoLeadsArticle };
+export const wordpressOrCustomArticle = publishedArticles[2];
+export const projectPreparationArticle = publishedArticles[3];

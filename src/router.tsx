@@ -11,6 +11,7 @@ const Etrn = lazy(() => import('./pages/Etrn'))
 const CakeAndShapeCase = lazy(() => import('./pages/CakeAndShapeCase'))
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Articles = lazy(() => import('./pages/Articles'))
+const SiteNoLeadsArticle = lazy(() => import('./pages/SiteNoLeadsArticle'))
 const WebServiceOrPersonalAccountArticle = lazy(() => import('./pages/WebServiceOrPersonalAccountArticle'))
 const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPressOrCustomDevelopmentArticle'))
 const ProjectPreparationArticle = lazy(() => import('./pages/ProjectPreparationArticle'))
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: 'articles',
         element: <Articles />,
+      },
+      {
+        path: 'articles/pochemu-sajt-ne-prinosit-zayavki',
+        element: <SiteNoLeadsArticle />,
       },
       {
         path: 'articles/kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet',

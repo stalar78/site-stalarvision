@@ -2,7 +2,7 @@ import articleMetadata from './articleMetadata.json';
 import content from './webServiceOrPersonalAccountArticleContent.json';
 import type { Article, ArticleTextSegment } from './articles';
 
-const metadata = articleMetadata.articles[0];
+const metadata = articleMetadata.articles[1];
 
 const linkedParagraph = (
   text: string,
