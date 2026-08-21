@@ -1,7 +1,6 @@
 import {
   Brain,
   Github,
-  ExternalLink,
   Mail,
   MessageCircle,
   MessageSquare,
@@ -9,12 +8,16 @@ import {
   Send,
   type LucideIcon,
 } from 'lucide-react';
+import { VkIcon } from '@/components/icons/VkIcon';
+import { WorkspaceIcon } from '@/components/icons/WorkspaceIcon';
 import { profile } from '@/data/profile';
+
+type IconComponent = LucideIcon | typeof VkIcon;
 
 type IconLink = {
   label: string;
   href?: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   status: string;
 };
 
@@ -22,7 +25,7 @@ type ContactMethod = {
   label: string;
   value: string;
   href?: string;
-  icon: LucideIcon;
+  icon: IconComponent;
   status: string;
 };
 
@@ -107,13 +110,13 @@ export const footerSocialLinks = [
   {
     label: profile.contacts.vk.label,
     href: profile.contacts.vk.href,
-    icon: ExternalLink,
+    icon: VkIcon,
     status: 'approved-link',
   },
   {
     label: profile.contacts.workspace.label,
     href: profile.contacts.workspace.href,
-    icon: ExternalLink,
+    icon: WorkspaceIcon,
     status: 'approved-link',
   },
 ] satisfies IconLink[];
@@ -250,14 +253,14 @@ export const contactExternalProfiles = [
     label: profile.contacts.vk.label,
     value: profile.contacts.vk.value,
     href: profile.contacts.vk.href,
-    icon: ExternalLink,
+    icon: VkIcon,
     status: 'approved-link',
   },
   {
     label: profile.contacts.workspace.label,
     value: profile.contacts.workspace.value,
     href: profile.contacts.workspace.href,
-    icon: ExternalLink,
+    icon: WorkspaceIcon,
     status: 'approved-link',
   },
 ] satisfies ContactMethod[];
