@@ -28,6 +28,8 @@ const sharedGraphEntities = [
       'https://github.com/stalar78',
       'https://t.me/stalarvision',
       'https://max.ru/u/f9LHodD0cOJItuTP3SMGVRtHcw0yRKpDg9eECrwfI-RnFlZ6MpXXSN0OrYI',
+      'https://vk.ru/odulq',
+      'https://workspace.ru/contractors/stalar-vision/',
     ],
     founder: {
       '@id': personId,
@@ -45,6 +47,8 @@ const sharedGraphEntities = [
     sameAs: [
       'https://github.com/stalar78',
       'https://t.me/stalarvision',
+      'https://vk.ru/odulq',
+      'https://workspace.ru/contractors/stalar-vision/',
     ],
   },
   {

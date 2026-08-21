@@ -83,6 +83,16 @@ export const profile = {
       value: 'stalar78',
       href: 'https://github.com/stalar78',
     },
+    vk: {
+      label: 'ВКонтакте',
+      value: 'ВКонтакте',
+      href: 'https://vk.ru/odulq',
+    },
+    workspace: {
+      label: 'Workspace',
+      value: 'Workspace',
+      href: 'https://workspace.ru/contractors/stalar-vision/',
+    },
   },
   availability: {
     label: 'Открыт к новым проектам',

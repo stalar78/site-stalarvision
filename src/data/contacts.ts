@@ -1,6 +1,7 @@
 import {
   Brain,
   Github,
+  ExternalLink,
   Mail,
   MessageCircle,
   MessageSquare,
@@ -102,6 +103,18 @@ export const footerSocialLinks = [
     href: profile.contacts.email.href,
     icon: Mail,
     status: 'approved-contact',
+  },
+  {
+    label: profile.contacts.vk.label,
+    href: profile.contacts.vk.href,
+    icon: ExternalLink,
+    status: 'approved-link',
+  },
+  {
+    label: profile.contacts.workspace.label,
+    href: profile.contacts.workspace.href,
+    icon: ExternalLink,
+    status: 'approved-link',
   },
 ] satisfies IconLink[];
 
@@ -229,6 +242,23 @@ export const contactMethods = [
     href: profile.contacts.max.href,
     icon: MessageSquare,
     status: 'approved-contact',
+  },
+] satisfies ContactMethod[];
+
+export const contactExternalProfiles = [
+  {
+    label: profile.contacts.vk.label,
+    value: profile.contacts.vk.value,
+    href: profile.contacts.vk.href,
+    icon: ExternalLink,
+    status: 'approved-link',
+  },
+  {
+    label: profile.contacts.workspace.label,
+    value: profile.contacts.workspace.value,
+    href: profile.contacts.workspace.href,
+    icon: ExternalLink,
+    status: 'approved-link',
   },
 ] satisfies ContactMethod[];
 
