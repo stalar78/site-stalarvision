@@ -2,7 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { certificates } from '@/data/certificates';
-import type { Certificate } from '@/data/certificates';
+import type { Certificate, CompetencyCertificate, CourseCertificate } from '@/data/certificates';
+
+const competencyCertificates = certificates.filter(
+  (certificate): certificate is CompetencyCertificate => certificate.kind === 'competency',
+);
+
+const courseCertificates = certificates.filter(
+  (certificate): certificate is CourseCertificate => certificate.kind === 'course',
+);
+
+function getDialogMeta(certificate: Certificate) {
+  if (certificate.kind === 'competency') {
+    return `${certificate.scope} · ${certificate.level}`;
+  }
+
+  return `${certificate.issuer} · ${certificate.completedAt}`;
+}
 
 export function CertificatesSection() {
   const [activeCertificate, setActiveCertificate] = useState<Certificate | null>(null);
@@ -40,6 +56,104 @@ export function CertificatesSection() {
     };
   }, [activeCertificate]);
 
+  const renderCertificateCard = (certificate: Certificate, index: number) => (
+    <motion.article
+      key={certificate.id}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08 }}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 transition-colors hover:border-indigo-500/35"
+    >
+      <button
+        type="button"
+        ref={(element) => {
+          openerButtonRefs.current[certificate.id] = element;
+        }}
+        onClick={() => setActiveCertificate(certificate)}
+        className="relative block aspect-[4/3] overflow-hidden border-b border-slate-800 bg-slate-950 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70"
+        aria-label={`Открыть сертификат ${certificate.title}`}
+      >
+        <img
+          src={certificate.image}
+          alt={certificate.alt}
+          loading="lazy"
+          className="h-full w-full object-contain p-3 transition duration-300 group-hover:opacity-95"
+        />
+        <span className="absolute bottom-3 right-3 rounded-lg border border-white/10 bg-slate-950/80 px-3 py-1 text-xs font-medium text-slate-200 backdrop-blur">
+          Открыть
+        </span>
+      </button>
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <h3 className="text-lg font-bold leading-snug text-white sm:text-xl">
+            {certificate.title}
+          </h3>
+          {certificate.kind === 'competency' ? (
+            <span className="rounded-lg border border-indigo-400/20 bg-indigo-500/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-indigo-200">
+              {certificate.level}
+            </span>
+          ) : null}
+        </div>
+
+        {certificate.kind === 'competency' ? (
+          <dl className="mt-auto grid gap-3 text-sm">
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Тип подтверждения
+              </dt>
+              <dd className="mt-1 text-slate-300">{certificate.scope}</dd>
+            </div>
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Дата подтверждения
+              </dt>
+              <dd className="mt-1 text-slate-300">{certificate.confirmedAt}</dd>
+            </div>
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                ID сертификата
+              </dt>
+              <dd className="mt-1 font-mono text-xs text-slate-400">
+                {certificate.certificateId}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Действителен до
+              </dt>
+              <dd className="mt-1 text-slate-300">{certificate.validUntil}</dd>
+            </div>
+          </dl>
+        ) : (
+          <dl className="mt-auto grid gap-3 text-sm">
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Организация / источник
+              </dt>
+              <dd className="mt-1 text-slate-300">{certificate.issuer}</dd>
+            </div>
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Дата завершения
+              </dt>
+              <dd className="mt-1 text-slate-300">{certificate.completedAt}</dd>
+            </div>
+            <div>
+              <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
+                Номер сертификата
+              </dt>
+              <dd className="mt-1 font-mono text-xs text-slate-400">
+                {certificate.certificateId}
+              </dd>
+            </div>
+          </dl>
+        )}
+      </div>
+    </motion.article>
+  );
+
   return (
     <section id="certificates" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -59,73 +173,24 @@ export function CertificatesSection() {
           </p>
         </motion.div>
 
-        <div className="grid gap-5 md:grid-cols-3 sm:gap-6">
-          {certificates.map((certificate, index) => (
-            <motion.article
-              key={certificate.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 transition-colors hover:border-indigo-500/35"
-            >
-              <button
-                type="button"
-                ref={(element) => {
-                  openerButtonRefs.current[certificate.id] = element;
-                }}
-                onClick={() => setActiveCertificate(certificate)}
-                className="relative block aspect-[4/3] overflow-hidden border-b border-slate-800 bg-slate-950 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-300/70"
-                aria-label={`Открыть сертификат ${certificate.title}`}
-              >
-                <img
-                  src={certificate.image}
-                  alt={certificate.alt}
-                  loading="lazy"
-                  className="h-full w-full object-contain p-3 transition duration-300 group-hover:opacity-95"
-                />
-                <span className="absolute bottom-3 right-3 rounded-lg border border-white/10 bg-slate-950/80 px-3 py-1 text-xs font-medium text-slate-200 backdrop-blur">
-                  Открыть
-                </span>
-              </button>
+        <div className="space-y-14 sm:space-y-16">
+          <div>
+            <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
+              Подтверждённые ИТ-компетенции
+            </h3>
+            <div className="grid gap-5 md:grid-cols-3 sm:gap-6">
+              {competencyCertificates.map(renderCertificateCard)}
+            </div>
+          </div>
 
-              <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <h3 className="text-xl font-bold text-white">{certificate.title}</h3>
-                  <span className="rounded-lg border border-indigo-400/20 bg-indigo-500/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-indigo-200">
-                    {certificate.level}
-                  </span>
-                </div>
-
-                <dl className="mt-auto grid gap-3 text-sm">
-                  <div>
-                    <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-                      Тип подтверждения
-                    </dt>
-                    <dd className="mt-1 text-slate-300">{certificate.scope}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-                      Дата подтверждения
-                    </dt>
-                    <dd className="mt-1 text-slate-300">{certificate.confirmedAt}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-                      ID сертификата
-                    </dt>
-                    <dd className="mt-1 font-mono text-xs text-slate-400">{certificate.certificateId}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">
-                      Действителен до
-                    </dt>
-                    <dd className="mt-1 text-slate-300">{certificate.validUntil}</dd>
-                  </div>
-                </dl>
-              </div>
-            </motion.article>
-          ))}
+          <div>
+            <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
+              Дополнительное обучение
+            </h3>
+            <div className="grid gap-5 md:grid-cols-3 sm:gap-6">
+              {courseCertificates.map(renderCertificateCard)}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -147,7 +212,7 @@ export function CertificatesSection() {
                   {activeCertificate.title}
                 </h3>
                 <p className="text-xs text-slate-400 sm:text-sm">
-                  {activeCertificate.scope} · {activeCertificate.level}
+                  {getDialogMeta(activeCertificate)}
                 </p>
               </div>
               <button
