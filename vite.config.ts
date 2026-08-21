@@ -60,6 +60,7 @@ export default defineConfig(({ mode }) => {
           webApplicationDevelopment: path.resolve(__dirname, 'razrabotka-veb-prilozhenij/index.html'),
           etrn: path.resolve(__dirname, 'etrn/index.html'),
           articles: path.resolve(__dirname, 'articles/index.html'),
+          siteNoLeadsArticle: path.resolve(__dirname, 'articles/pochemu-sajt-ne-prinosit-zayavki/index.html'),
           webServiceOrPersonalAccountArticle: path.resolve(__dirname, 'articles/kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet/index.html'),
           wordpressOrCustomDevelopmentArticle: path.resolve(__dirname, 'articles/wordpress-ili-individualnaya-razrabotka/index.html'),
           projectPreparationArticle: path.resolve(__dirname, 'articles/podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya/index.html'),
