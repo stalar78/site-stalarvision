@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { About } from '../components/About';
 import { Services } from '../components/Services';
+import { CapabilitiesCarousel } from '../components/CapabilitiesCarousel';
 import { Portfolio } from '../components/Portfolio';
 import { SoftwareCases } from '../components/SoftwareCases';
 import { Process } from '../components/Process';
@@ -61,6 +62,7 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <CapabilitiesCarousel />
         <Portfolio />
         <SoftwareCases />
         <Process />
