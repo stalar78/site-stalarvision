@@ -11,6 +11,8 @@ const REQUIRED_ENV_KEYS = [
   'CONSENT_LOG_PATH',
 ];
 
+const ALLOWED_HOSTS = new Set(['127.0.0.1', '::1']);
+
 const parsePort = (value, key) => {
   const port = Number.parseInt(value, 10);
 
@@ -40,9 +42,16 @@ export function loadConfig(env = process.env) {
     throw new Error(`Missing required environment variables: ${missingKeys.join(', ')}`);
   }
 
+  const host = env.CONTACT_API_HOST || '127.0.0.1';
+
+  if (!ALLOWED_HOSTS.has(host)) {
+    throw new Error('Invalid CONTACT_API_HOST');
+  }
+
   return {
-    host: env.CONTACT_API_HOST || '127.0.0.1',
+    host,
     port: env.CONTACT_API_PORT ? parsePort(env.CONTACT_API_PORT, 'CONTACT_API_PORT') : 8010,
+    trustProxy: env.TRUST_PROXY ? parseBoolean(env.TRUST_PROXY, 'TRUST_PROXY') : false,
     smtp: {
       host: env.SMTP_HOST,
       port: parsePort(env.SMTP_PORT, 'SMTP_PORT'),

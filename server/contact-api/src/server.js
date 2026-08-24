@@ -53,8 +53,16 @@ const readJsonBody = (request, limitBytes) =>
   });
 
 const appendConsentRecord = async (filePath, record) => {
-  await mkdir(dirname(filePath), { recursive: true });
-  await appendFile(filePath, `${JSON.stringify(record)}\n`, 'utf8');
+  await mkdir(dirname(filePath), { recursive: true, mode: 0o700 });
+  await appendFile(filePath, `${JSON.stringify(record)}\n`, { encoding: 'utf8', mode: 0o600 });
+};
+
+const getSafeErrorCode = (error) => {
+  if (error && typeof error === 'object' && 'code' in error && typeof error.code === 'string') {
+    return error.code;
+  }
+
+  return 'unknown';
 };
 
 const logRequest = ({ requestId = '-', statusCode, message }) => {
@@ -99,8 +107,9 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
       payload = await readJsonBody(request, activeConfig.bodyLimitBytes);
     } catch (error) {
       const statusCode = error.statusCode === 413 ? 413 : 400;
+      const message = statusCode === 413 ? 'request_body_too_large' : 'invalid_request';
       sendJson(response, statusCode, { ok: false, error: statusCode === 413 ? 'request_too_large' : 'invalid_request' });
-      logRequest({ statusCode, message: error.message });
+      logRequest({ statusCode, message });
       return;
     }
 
@@ -119,7 +128,7 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
       return;
     }
 
-    const clientKey = getClientKey(request);
+    const clientKey = getClientKey(request, { trustProxy: activeConfig.trustProxy });
     const rateLimitResult = activeRateLimiter.consume(clientKey);
 
     if (!rateLimitResult.allowed) {
@@ -159,7 +168,8 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
       console.error(JSON.stringify({
         request_id: requestId,
         status: 500,
-        message: error.message,
+        message: 'processing_failed',
+        error_code: getSafeErrorCode(error),
       }));
       sendJson(response, 500, { ok: false, error: 'service_unavailable' });
       return;
@@ -200,7 +210,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   } catch (error) {
     console.error(JSON.stringify({
       message: 'contact_api_start_failed',
-      error: error.message,
+      error_code: getSafeErrorCode(error),
     }));
     process.exit(1);
   }

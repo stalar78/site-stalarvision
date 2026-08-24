@@ -12,6 +12,9 @@ API слушает только локальный интерфейс:
 127.0.0.1:8010
 ```
 
+Backend нельзя выставлять напрямую наружу. В Stage B1 используется локальный bind и `TRUST_PROXY=false`.
+При подключении к Nginx в Stage B2 значение `TRUST_PROXY` будет изменено осознанно, вместе с настройкой доверенного reverse proxy.
+
 Планируемый endpoint после настройки Nginx:
 
 ```text
@@ -26,6 +29,7 @@ GET /health
 ```text
 CONTACT_API_HOST=127.0.0.1
 CONTACT_API_PORT=8010
+TRUST_PROXY=false
 
 SMTP_HOST=smtp.beget.com
 SMTP_PORT=465
@@ -72,6 +76,7 @@ CONSENT_PERSONAL_DATA_VERSION=2026-08-23
 cd server/contact-api
 npm install
 CONTACT_API_HOST=127.0.0.1 CONTACT_API_PORT=8010 \
+TRUST_PROXY=false \
 SMTP_HOST=smtp.beget.com SMTP_PORT=465 SMTP_SECURE=true \
 SMTP_USER=info@stalarvision.ru SMTP_PASSWORD=replace-with-secret \
 CONTACT_FROM=info@stalarvision.ru CONTACT_TO=info@stalarvision.ru \

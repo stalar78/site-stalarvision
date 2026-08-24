@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { loadConfig } from '../src/config.js';
 import { createContactApiServer } from '../src/server.js';
-import { createRateLimiter } from '../src/rateLimit.js';
+import { createRateLimiter, getClientKey } from '../src/rateLimit.js';
 
 const baseConfig = (consentLogPath) => ({
   host: '127.0.0.1',
@@ -27,6 +28,7 @@ const baseConfig = (consentLogPath) => ({
     limit: 5,
     windowMs: 15 * 60 * 1000,
   },
+  trustProxy: false,
 });
 
 const validPayload = {
@@ -67,6 +69,56 @@ const postJson = (baseUrl, body, headers = {}) =>
     },
     body,
   });
+
+const requiredEnv = {
+  SMTP_HOST: 'smtp.example.test',
+  SMTP_PORT: '465',
+  SMTP_SECURE: 'true',
+  SMTP_USER: 'user@example.test',
+  SMTP_PASSWORD: 'secret',
+  CONTACT_FROM: 'info@example.test',
+  CONTACT_TO: 'info@example.test',
+  CONSENT_LOG_PATH: './data/consent-log.jsonl',
+};
+
+describe('config', () => {
+  it('rejects non-loopback bind address', () => {
+    assert.throws(
+      () => loadConfig({ ...requiredEnv, CONTACT_API_HOST: '0.0.0.0' }),
+      /Invalid CONTACT_API_HOST/,
+    );
+  });
+
+  it('defaults trust proxy to false', () => {
+    const config = loadConfig(requiredEnv);
+    assert.equal(config.host, '127.0.0.1');
+    assert.equal(config.trustProxy, false);
+  });
+
+  it('parses trust proxy when explicitly enabled', () => {
+    const config = loadConfig({ ...requiredEnv, TRUST_PROXY: 'true' });
+    assert.equal(config.trustProxy, true);
+  });
+});
+
+describe('client key', () => {
+  const request = {
+    headers: {
+      'x-forwarded-for': '203.0.113.10, 198.51.100.5',
+    },
+    socket: {
+      remoteAddress: '127.0.0.1',
+    },
+  };
+
+  it('ignores X-Forwarded-For when trustProxy is false', () => {
+    assert.equal(getClientKey(request, { trustProxy: false }), '127.0.0.1');
+  });
+
+  it('uses first X-Forwarded-For address when trustProxy is true', () => {
+    assert.equal(getClientKey(request, { trustProxy: true }), '203.0.113.10');
+  });
+});
 
 describe('contact api', () => {
   let tempDir;
