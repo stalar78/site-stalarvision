@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { servicesSection } from '@/data/services';
 
 export function Services() {
+  const visibleServices = servicesSection.items.filter((service) => !('enabled' in service) || service.enabled !== false);
+
   return (
     <section id="services" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -28,7 +30,7 @@ export function Services() {
         </div>
 
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {servicesSection.items.map((service, index) => (
+          {visibleServices.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
