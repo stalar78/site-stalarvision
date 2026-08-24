@@ -164,7 +164,7 @@ export const contactSection = {
   },
   form: {
     note:
-      'Можно заранее заполнить обращение, но онлайн-отправка формы пока готовится. Для связи сейчас доступны Telegram, MAX, email и телефон.',
+      'Заполните короткую форму и отправьте обращение — оно поступит мне напрямую для ответа и предварительного обсуждения задачи.',
     nameLabel: 'Как вас зовут?',
     namePlaceholder: 'Ваше имя',
     contactLabel: 'Контакт (Telegram/Email)',
@@ -190,10 +190,21 @@ export const contactSection = {
     consentHref: '/consent-personal-data/',
     privacyLinkLabel: 'Политика обработки персональных данных',
     privacyHref: profile.seo.privacyPath,
-    submitLabel: 'Проверить обращение',
-    unavailableMessage:
-      'Онлайн-отправка формы готовится. Пока можно связаться напрямую по Telegram или email.',
-    errorMessage: 'Проверьте обязательные поля и согласие на обработку персональных данных.',
+    submitLabel: 'Отправить обращение',
+    submittingLabel: 'Отправляю…',
+    successMessage:
+      'Обращение отправлено. Я получил его и свяжусь с вами по указанному контакту.',
+    validationMessage: 'Проверьте обязательные поля и согласие на обработку персональных данных.',
+    requestErrorMessage:
+      'Не удалось отправить обращение. Проверьте заполненные поля и попробуйте снова.',
+    rateLimitMessage:
+      'Слишком много попыток отправки. Подождите немного и попробуйте снова.',
+    oversizedMessage:
+      'Сообщение получилось слишком большим. Сократите описание и попробуйте снова.',
+    serverErrorMessage:
+      'Не удалось отправить обращение. Попробуйте ещё раз позже или свяжитесь со мной напрямую.',
+    networkErrorMessage:
+      'Не удалось отправить обращение. Попробуйте ещё раз позже или свяжитесь со мной напрямую.',
     validationErrors: {
       name: 'Укажите имя, чтобы я понимал, как к вам обращаться.',
       contact: 'Добавьте контакт для ответа: Telegram или email.',
@@ -213,7 +224,7 @@ export const contactSection = {
       },
     },
     legalNote:
-      `Онлайн-отправка формы на этом этапе не выполняется. Можно сразу написать мне в ${profile.contacts.telegram.value}, в ${profile.contacts.max.label}, на ${profile.contacts.email.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
+      `Отправляя форму, пользователь подтверждает согласие на обработку персональных данных для ответа на обращение и предварительного обсуждения задачи. Также можно связаться напрямую через ${profile.contacts.telegram.value}, ${profile.contacts.max.label}, ${profile.contacts.email.value} или по номеру ${profile.contacts.phone.value}.`,
   },
 };
 
