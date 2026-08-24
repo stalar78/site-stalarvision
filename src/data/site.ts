@@ -102,23 +102,61 @@ export const heroSection = {
     { icon: CheckCircle2, text: 'Доработка существующего проекта' },
     { icon: Search, text: 'Технический разбор / аудит' },
   ] satisfies IconTextItem[],
-  codeWindowLabel: 'project-brief.ts',
-  codeSnippet: `const collaboration = {
-  owner: "${profile.owner.name}",
-  brand: "${profile.brand.fullName}",
-  format: "direct work",
-  entryPoints: ["new project", "existing solution", "audit / tech review"],
-  focus: ${JSON.stringify(profile.mainDirections)},
-  firstStage: {
-    start: "short discovery",
-    output: ["priorities", "scope", "next actions"],
+  terminal: {
+    label: 'stalarvision-terminal',
+    status: 'ready',
+    prompt: 'stanislav@stalarvision:~$',
+    initialCommand: 'help',
+    helpTitle: 'Available commands:',
+    commands: [
+      {
+        id: 'new-project',
+        command: 'new-project',
+        scenario: 'новый проект',
+        start: 'короткий разбор задачи',
+        output: ['приоритеты', 'рабочий scope', 'структура первого релиза', 'следующий шаг'],
+      },
+      {
+        id: 'improve-site',
+        command: 'improve-site',
+        scenario: 'существующий проект',
+        start: 'разбор текущего состояния',
+        output: ['что мешает сейчас', 'что исправлять первым', 'что можно оставить', 'ближайший этап'],
+      },
+      {
+        id: 'web-app',
+        command: 'web-app',
+        scenario: 'веб-приложение / личный кабинет',
+        start: 'разбор процессов и ролей',
+        output: ['ключевой workflow', 'роли пользователей', 'структура интерфейса', 'первый рабочий релиз'],
+      },
+      {
+        id: 'audit',
+        command: 'audit',
+        scenario: 'технический разбор',
+        start: 'анализ текущего решения',
+        output: ['приоритеты', 'риски перед изменениями', 'объём первого этапа', 'следующий разумный шаг'],
+      },
+      {
+        id: 'automation',
+        command: 'automation',
+        scenario: 'автоматизация процесса',
+        start: 'разбор текущего workflow',
+        output: ['ручные операции', 'точки автоматизации', 'интеграции', 'первый полезный этап'],
+      },
+      {
+        id: 'contact',
+        command: 'contact',
+        scenario: 'канал связи готов',
+        start: 'коротко обсудить задачу',
+        output: ['короткое описание задачи', 'ссылка на текущий проект — если есть', 'ограничения — если важны'],
+        cta: {
+          label: 'Перейти к форме',
+          href: '/#contact',
+        },
+      },
+    ],
   },
-  priorities: ["clarity", "scope", "practical value"],
-
-  nextStep(task) {
-    return defineScope(task).buildFirstStage();
-  }
-};`,
   panelSummary: {
     items: [
       { label: 'Старт', value: 'Короткий разбор' },
