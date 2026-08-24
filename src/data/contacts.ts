@@ -164,10 +164,7 @@ export const contactSection = {
   },
   form: {
     note:
-      'Можно отправить заявку через форму или написать напрямую в Telegram, MAX, email или по телефону. Форму удобно использовать и для нового проекта, и для доработки, и для запроса на аудит / техразбор.',
-    accessKey: '7ced4029-36f8-447a-bf49-6055fd82d36e',
-    endpoint: 'https://api.web3forms.com/submit',
-    subject: `Заявка с сайта ${profile.brand.fullName}`,
+      'Можно заранее заполнить обращение, но онлайн-отправка формы пока готовится. Для связи сейчас доступны Telegram, MAX, email и телефон.',
     nameLabel: 'Как вас зовут?',
     namePlaceholder: 'Ваше имя',
     contactLabel: 'Контакт (Telegram/Email)',
@@ -187,25 +184,28 @@ export const contactSection = {
     projectLabel: 'О проекте',
     projectPlaceholder:
       'Коротко: что уже есть, что нужно сделать на первом этапе и какой результат сейчас приоритетен.',
-    submitLabel: 'Отправить заявку',
-    loadingLabel: 'Отправка...',
-    successMessage:
-      'Заявка отправлена. Я посмотрю описание задачи или текущего состояния проекта и вернусь с ответом в ближайшее время.',
-    errorMessage: 'Не получилось отправить форму. Попробуйте ещё раз или напишите мне напрямую в Telegram или на email.',
-    cooldownMessage:
-      'Сообщение уже отправлялось совсем недавно. Подождите немного и попробуйте ещё раз или напишите мне напрямую.',
+    consentLabel:
+      'Я даю согласие на обработку персональных данных для ответа на обращение и предварительного обсуждения задачи.',
+    consentLinkLabel: 'Согласие на обработку персональных данных',
+    consentHref: '/consent-personal-data/',
+    privacyLinkLabel: 'Политика обработки персональных данных',
+    privacyHref: profile.seo.privacyPath,
+    submitLabel: 'Проверить обращение',
+    unavailableMessage:
+      'Онлайн-отправка формы готовится. Пока можно связаться напрямую по Telegram или email.',
+    errorMessage: 'Проверьте обязательные поля и согласие на обработку персональных данных.',
     validationErrors: {
       name: 'Укажите имя, чтобы я понимал, как к вам обращаться.',
       contact: 'Добавьте контакт для ответа: Telegram или email.',
       project: 'Коротко опишите задачу, чтобы я понял следующий шаг.',
+      projectType: 'Выберите тип проекта.',
+      consent: 'Подтвердите согласие на обработку персональных данных.',
       nameTooLong: 'Имя лучше оставить коротким — до 80 символов.',
       contactTooLong: 'Контакт лучше указать короче — до 120 символов.',
       projectTooLong: 'Описание стоит сократить до 2000 символов, чтобы не потерять суть.',
     },
     security: {
       honeypotFieldName: 'company_website',
-      timeoutMs: 10000,
-      cooldownMs: 15000,
       maxLength: {
         name: 80,
         contact: 120,
@@ -213,7 +213,7 @@ export const contactSection = {
       },
     },
     legalNote:
-      `Форма передаёт обращение через Web3Forms. Если удобнее, можно сразу написать мне в ${profile.contacts.telegram.value}, в ${profile.contacts.max.label}, на ${profile.contacts.email.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
+      `Онлайн-отправка формы на этом этапе не выполняется. Можно сразу написать мне в ${profile.contacts.telegram.value}, в ${profile.contacts.max.label}, на ${profile.contacts.email.value} или позвонить по номеру ${profile.contacts.phone.value}.`,
   },
 };
 
