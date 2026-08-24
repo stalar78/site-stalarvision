@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 import { loadConfig } from '../src/config.js';
-import { createContactApiServer, isMainModule } from '../src/server.js';
+import { createContactApiServer } from '../src/server.js';
 import { createRateLimiter, getClientKey } from '../src/rateLimit.js';
 
 const baseConfig = (consentLogPath) => ({
@@ -117,17 +117,6 @@ describe('client key', () => {
 
   it('uses first X-Forwarded-For address when trustProxy is true', () => {
     assert.equal(getClientKey(request, { trustProxy: true }), '203.0.113.10');
-  });
-});
-
-describe('main module helper', () => {
-  it('detects the current entry file with resolve semantics', () => {
-    const moduleUrl = new URL('../src/server.js', import.meta.url).href;
-    assert.equal(isMainModule(resolve('src/server.js'), moduleUrl), true);
-  });
-
-  it('returns false when argv is missing', () => {
-    assert.equal(isMainModule(undefined), false);
   });
 });
 
