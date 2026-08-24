@@ -72,6 +72,8 @@ CONSENT_PERSONAL_DATA_VERSION=2026-08-23
 
 ## Локальный запуск
 
+Production entrypoint: `src/index.js`. Файл `src/server.js` содержит реализацию сервера и экспортируемые функции без самостоятельного автозапуска при import.
+
 ```bash
 cd server/contact-api
 npm install
@@ -121,7 +123,7 @@ curl -i http://127.0.0.1:8010/api/contact \
 ## PM2
 
 Файл `ecosystem.config.cjs` содержит только безопасные параметры процесса. Секреты SMTP нужно передавать через окружение сервера или PM2 без записи в репозиторий.
-PM2 запускает API в `fork` mode с `instances: 1`, чтобы локальный HTTP server корректно слушал `127.0.0.1:8010`.
+PM2 запускает `src/index.js` в `fork` mode с `instances: 1`, чтобы локальный HTTP server корректно слушал `127.0.0.1:8010`.
 
 Пример:
 

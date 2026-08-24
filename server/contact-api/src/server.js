@@ -1,9 +1,7 @@
 import { appendFile, mkdir } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { dirname } from 'node:path';
-import { resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { fileURLToPath } from 'node:url';
 import { createMailer } from './mailer.js';
 import { loadConfig } from './config.js';
 import { createRateLimiter, getClientKey } from './rateLimit.js';
@@ -59,7 +57,7 @@ const appendConsentRecord = async (filePath, record) => {
   await appendFile(filePath, `${JSON.stringify(record)}\n`, { encoding: 'utf8', mode: 0o600 });
 };
 
-const getSafeErrorCode = (error) => {
+export const getSafeErrorCode = (error) => {
   if (error && typeof error === 'object' && 'code' in error && typeof error.code === 'string') {
     return error.code;
   }
@@ -204,24 +202,4 @@ export function startServer(config = loadConfig()) {
   process.on('SIGINT', () => shutdown('SIGINT'));
 
   return server;
-}
-
-export function isMainModule(argv1 = process.argv[1], moduleUrl = import.meta.url) {
-  if (!argv1) {
-    return false;
-  }
-
-  return fileURLToPath(moduleUrl) === resolve(argv1);
-}
-
-if (isMainModule()) {
-  try {
-    startServer();
-  } catch (error) {
-    console.error(JSON.stringify({
-      message: 'contact_api_start_failed',
-      error_code: getSafeErrorCode(error),
-    }));
-    process.exit(1);
-  }
 }
