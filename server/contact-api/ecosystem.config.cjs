@@ -4,6 +4,7 @@ module.exports = {
       name: 'stalarvision-contact-api',
       script: 'src/server.js',
       instances: 1,
+      exec_mode: 'fork',
       autorestart: true,
       restart_delay: 3000,
       max_memory_restart: '128M',
