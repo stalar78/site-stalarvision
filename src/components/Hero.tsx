@@ -17,7 +17,7 @@ type TerminalWindowProps = {
   onCommandSelect: (commandId: string) => void;
 };
 
-function TerminalPrompt({ children }: { children: ReactNode }) {
+function TerminalPrompt({ children }: { children?: ReactNode }) {
   return (
     <span>
       <span className="text-cyan-300">{heroSection.terminal.prompt}</span>{' '}
@@ -42,13 +42,10 @@ function TerminalWindow({
   const visibleCommands = terminal.commands.slice(0, visibleCommandCount);
   const output = selectedCommand?.output ?? [];
   const outputLines = shouldReduceMotion ? output : output.slice(0, visibleOutputCount);
-  const bottomCommand = selectedCommand
-    ? selectedCommandChars >= selectedCommand.command.length
-      ? ''
-      : selectedText
-    : helpChars >= terminal.initialCommand.length
-      ? ''
-      : helpCommand;
+  const helpComplete = helpChars >= terminal.initialCommand.length;
+  const selectedCommandComplete =
+    selectedCommand !== undefined && selectedCommandChars >= selectedCommand.command.length;
+  const showActivePrompt = helpComplete && (!selectedCommand || selectedCommandComplete);
   const contentPadding = compact ? 'p-3' : 'p-5 xl:p-6';
 
   return (
@@ -81,7 +78,9 @@ function TerminalWindow({
         <div className="relative min-h-[245px] overflow-hidden sm:min-h-[265px] lg:min-h-[335px]">
           <div className="mb-3">
             <TerminalPrompt>{helpCommand}</TerminalPrompt>
-            <span aria-hidden="true" className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300" />
+            {!shouldReduceMotion && !helpComplete ? (
+              <span aria-hidden="true" className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300" />
+            ) : null}
           </div>
 
           {helpChars >= terminal.initialCommand.length ? (
@@ -117,8 +116,11 @@ function TerminalWindow({
             <div className="mt-4 border-t border-slate-800/70 pt-3">
               <div className="mb-2">
                 <TerminalPrompt>{selectedText}</TerminalPrompt>
+                {!shouldReduceMotion && !selectedCommandComplete ? (
+                  <span aria-hidden="true" className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300" />
+                ) : null}
               </div>
-              {selectedCommandChars >= selectedCommand.command.length ? (
+              {selectedCommandComplete ? (
                 <>
                   <div className="space-y-1 text-slate-300">
                     <div>
@@ -156,10 +158,12 @@ function TerminalWindow({
             </div>
           ) : null}
 
-          <div className="mt-4">
-            <TerminalPrompt>{bottomCommand}</TerminalPrompt>
-            <span aria-hidden="true" className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300" />
-          </div>
+          {showActivePrompt ? (
+            <div className="mt-4">
+              <TerminalPrompt />
+              <span aria-hidden="true" className="ml-1 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-cyan-300" />
+            </div>
+          ) : null}
         </div>
       </div>
 
