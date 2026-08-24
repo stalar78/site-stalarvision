@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 import { contactExternalProfiles, contactMethods, contactSection } from '@/data/contacts';
-import { profile } from '@/data/profile';
+import { CONSENT_PERSONAL_DATA_VERSION } from '@/data/legal';
 
 type FormValues = {
   name: string;
@@ -14,6 +14,12 @@ type FormValues = {
 };
 
 type FormErrors = Partial<Record<'name' | 'contact' | 'projectType' | 'project' | 'consent', string>>;
+
+type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
+
+type ContactSubmissionResponse = {
+  ok?: boolean;
+};
 
 type ContactProps = {
   defaultProjectType?: string;
@@ -28,10 +34,40 @@ const getInitialFormValues = (defaultProjectType?: string): FormValues => ({
   honeypot: '',
 });
 
+const getSubmissionMessage = (status: number) => {
+  switch (status) {
+    case 400:
+      return contactSection.form.requestErrorMessage;
+    case 413:
+      return contactSection.form.oversizedMessage;
+    case 429:
+      return contactSection.form.rateLimitMessage;
+    case 500:
+      return contactSection.form.serverErrorMessage;
+    default:
+      return contactSection.form.networkErrorMessage;
+  }
+};
+
+const readSubmissionResponse = async (response: Response): Promise<ContactSubmissionResponse | null> => {
+  const responseText = await response.text();
+
+  if (!responseText.trim()) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(responseText) as ContactSubmissionResponse;
+  } catch {
+    return null;
+  }
+};
+
 export function Contact({ defaultProjectType }: ContactProps) {
   const [formValues, setFormValues] = useState<FormValues>(() => getInitialFormValues(defaultProjectType));
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [formMessage, setFormMessage] = useState('');
+  const [submitState, setSubmitState] = useState<SubmissionState>('idle');
   const fieldIds = {
     name: 'contact-name',
     contact: 'contact-method',
@@ -68,7 +104,8 @@ export function Contact({ defaultProjectType }: ContactProps) {
           return nextErrors;
         });
 
-        if (formMessage) {
+        if (submitState === 'success' || submitState === 'error') {
+          setSubmitState('idle');
           setFormMessage('');
         }
       };
@@ -112,17 +149,54 @@ export function Contact({ defaultProjectType }: ContactProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (formValues.honeypot.trim()) {
-      setFormMessage(contactSection.form.unavailableMessage);
+    if (submitState === 'submitting') {
       return;
     }
 
     if (!validateForm()) {
-      setFormMessage(contactSection.form.errorMessage);
+      setSubmitState('error');
+      setFormMessage(contactSection.form.validationMessage);
       return;
     }
 
-    setFormMessage(contactSection.form.unavailableMessage);
+    setSubmitState('submitting');
+    setFormMessage('');
+
+    void (async () => {
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formValues.name.trim(),
+            contact: formValues.contact.trim(),
+            projectType: formValues.projectType,
+            project: formValues.project.trim(),
+            consent: formValues.consent,
+            consentVersion: CONSENT_PERSONAL_DATA_VERSION,
+            honeypot: formValues.honeypot,
+          }),
+        });
+
+        const responseBody = await readSubmissionResponse(response);
+
+        if (response.status === 201 || responseBody?.ok === true) {
+          setSubmitState('success');
+          setFormMessage(contactSection.form.successMessage);
+          setFormValues(getInitialFormValues(defaultProjectType));
+          setFormErrors({});
+          return;
+        }
+
+        setSubmitState('error');
+        setFormMessage(getSubmissionMessage(response.status));
+      } catch {
+        setSubmitState('error');
+        setFormMessage(contactSection.form.networkErrorMessage);
+      }
+    })();
   };
 
   return (
@@ -252,7 +326,7 @@ export function Contact({ defaultProjectType }: ContactProps) {
             viewport={{ once: true }}
             className="rounded-[2.5rem] border border-slate-800 bg-slate-900/50 p-6 shadow-2xl backdrop-blur-xl sm:p-9"
           >
-            <form className="relative space-y-6" onSubmit={handleSubmit} noValidate>
+            <form className="relative space-y-6" onSubmit={handleSubmit} noValidate aria-busy={submitState === 'submitting'}>
               <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
                 <label htmlFor={formSecurity.honeypotFieldName}>Не заполняйте это поле</label>
                 <input
@@ -271,11 +345,13 @@ export function Contact({ defaultProjectType }: ContactProps) {
               </p>
               {formMessage ? (
                 <div
-                  className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${Object.keys(formErrors).length
-                    ? 'border-rose-500/30 bg-rose-500/10 text-rose-100'
-                    : 'border-amber-500/30 bg-amber-500/10 text-amber-100'
-                    }`}
+                  className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${
+                    submitState === 'success'
+                      ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
+                      : 'border-rose-500/30 bg-rose-500/10 text-rose-100'
+                  }`}
                   role="status"
+                  aria-live="polite"
                 >
                   {formMessage}
                 </div>
@@ -419,9 +495,10 @@ export function Contact({ defaultProjectType }: ContactProps) {
 
               <button
                 type="submit"
-                className="flex w-full items-center justify-center gap-3 rounded-2xl bg-indigo-600 py-4 font-bold text-white transition-all hover:translate-y-[-2px] hover:bg-indigo-700 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 sm:py-5"
+                disabled={submitState === 'submitting'}
+                className="flex w-full items-center justify-center gap-3 rounded-2xl bg-indigo-600 py-4 font-bold text-white transition-all hover:translate-y-[-2px] hover:bg-indigo-700 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 disabled:cursor-not-allowed disabled:bg-indigo-500/70 disabled:hover:translate-y-0 sm:py-5"
               >
-                {contactSection.form.submitLabel}
+                {submitState === 'submitting' ? contactSection.form.submittingLabel : contactSection.form.submitLabel}
                 <Send size={18} />
               </button>
               <p className="text-center text-xs leading-relaxed text-slate-500">
