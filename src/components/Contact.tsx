@@ -1,13 +1,130 @@
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { contactExternalProfiles, contactMethods, contactSection } from '@/data/contacts';
 import { profile } from '@/data/profile';
+
+type FormValues = {
+  name: string;
+  contact: string;
+  projectType: string;
+  project: string;
+  consent: boolean;
+  honeypot: string;
+};
+
+type FormErrors = Partial<Record<'name' | 'contact' | 'projectType' | 'project' | 'consent', string>>;
 
 type ContactProps = {
   defaultProjectType?: string;
 };
 
-export function Contact(_props: ContactProps) {
+const getInitialFormValues = (defaultProjectType?: string): FormValues => ({
+  name: '',
+  contact: '',
+  projectType: defaultProjectType ?? contactSection.form.projectTypeOptions[0] ?? '',
+  project: '',
+  consent: false,
+  honeypot: '',
+});
+
+export function Contact({ defaultProjectType }: ContactProps) {
+  const [formValues, setFormValues] = useState<FormValues>(() => getInitialFormValues(defaultProjectType));
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [formMessage, setFormMessage] = useState('');
+  const fieldIds = {
+    name: 'contact-name',
+    contact: 'contact-method',
+    projectType: 'contact-project-type',
+    project: 'contact-project-message',
+    consent: 'contact-personal-data-consent',
+  } as const;
+  const formSecurity = contactSection.form.security;
+
+  const handleChange =
+    (field: keyof FormValues) =>
+      (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const target = event.target;
+        const rawValue = target instanceof HTMLInputElement && target.type === 'checkbox'
+          ? target.checked
+          : target.value;
+        const nextValue =
+          field === 'name' || field === 'contact' || field === 'project'
+            ? String(rawValue).slice(0, formSecurity.maxLength[field])
+            : rawValue;
+
+        setFormValues((current) => ({
+          ...current,
+          [field]: nextValue,
+        }));
+
+        setFormErrors((current) => {
+          if (!(field in current)) {
+            return current;
+          }
+
+          const nextErrors = { ...current };
+          delete nextErrors[field as keyof FormErrors];
+          return nextErrors;
+        });
+
+        if (formMessage) {
+          setFormMessage('');
+        }
+      };
+
+  const validateForm = () => {
+    const nextErrors: FormErrors = {};
+    const trimmedName = formValues.name.trim();
+    const trimmedContact = formValues.contact.trim();
+    const trimmedProject = formValues.project.trim();
+
+    if (!trimmedName) {
+      nextErrors.name = contactSection.form.validationErrors.name;
+    } else if (trimmedName.length > formSecurity.maxLength.name) {
+      nextErrors.name = contactSection.form.validationErrors.nameTooLong;
+    }
+
+    if (!trimmedContact) {
+      nextErrors.contact = contactSection.form.validationErrors.contact;
+    } else if (trimmedContact.length > formSecurity.maxLength.contact) {
+      nextErrors.contact = contactSection.form.validationErrors.contactTooLong;
+    }
+
+    if (!formValues.projectType) {
+      nextErrors.projectType = contactSection.form.validationErrors.projectType;
+    }
+
+    if (!trimmedProject) {
+      nextErrors.project = contactSection.form.validationErrors.project;
+    } else if (trimmedProject.length > formSecurity.maxLength.project) {
+      nextErrors.project = contactSection.form.validationErrors.projectTooLong;
+    }
+
+    if (!formValues.consent) {
+      nextErrors.consent = contactSection.form.validationErrors.consent;
+    }
+
+    setFormErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (formValues.honeypot.trim()) {
+      setFormMessage(contactSection.form.unavailableMessage);
+      return;
+    }
+
+    if (!validateForm()) {
+      setFormMessage(contactSection.form.errorMessage);
+      return;
+    }
+
+    setFormMessage(contactSection.form.unavailableMessage);
+  };
+
   return (
     <section id="contact" className="relative overflow-hidden bg-slate-950 py-20 sm:py-24">
       <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
@@ -135,38 +252,182 @@ export function Contact(_props: ContactProps) {
             viewport={{ once: true }}
             className="rounded-[2.5rem] border border-slate-800 bg-slate-900/50 p-6 shadow-2xl backdrop-blur-xl sm:p-9"
           >
-            <div className="space-y-6">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-200">
-                  Связь напрямую
-                </div>
-                <h3 className="mt-4 text-2xl font-bold leading-tight text-white sm:text-3xl">
-                  Форма обращения временно недоступна
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
-                  Сейчас обращения принимаются напрямую. Выберите удобный способ связи — отвечу лично.
-                </p>
+            <form className="relative space-y-6" onSubmit={handleSubmit} noValidate>
+              <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor={formSecurity.honeypotFieldName}>Не заполняйте это поле</label>
+                <input
+                  id={formSecurity.honeypotFieldName}
+                  name={formSecurity.honeypotFieldName}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formValues.honeypot}
+                  onChange={handleChange('honeypot')}
+                />
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                <a
-                  href={profile.contacts.telegram.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-indigo-400/30 bg-indigo-600 px-5 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+              <p className="text-sm leading-relaxed text-slate-400">
+                {contactSection.form.note}
+              </p>
+              {formMessage ? (
+                <div
+                  className={`rounded-2xl border px-4 py-3 text-sm leading-relaxed ${Object.keys(formErrors).length
+                    ? 'border-rose-500/30 bg-rose-500/10 text-rose-100'
+                    : 'border-amber-500/30 bg-amber-500/10 text-amber-100'
+                    }`}
+                  role="status"
                 >
-                  <Send size={18} />
-                  Написать в Telegram
-                </a>
-                <a
-                  href={profile.contacts.email.href}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/80 px-5 py-3.5 text-sm font-semibold text-slate-200 transition-all duration-200 hover:border-slate-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
-                >
-                  <Mail size={18} />
-                  Написать на email
-                </a>
+                  {formMessage}
+                </div>
+              ) : null}
+
+              <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div className="space-y-2">
+                  <label htmlFor={fieldIds.name} className="ml-1 text-sm font-medium text-slate-400">
+                    {contactSection.form.nameLabel}
+                  </label>
+                  <input
+                    id={fieldIds.name}
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    maxLength={formSecurity.maxLength.name}
+                    placeholder={contactSection.form.namePlaceholder}
+                    value={formValues.name}
+                    onChange={handleChange('name')}
+                    aria-invalid={Boolean(formErrors.name)}
+                    aria-describedby={formErrors.name ? `${fieldIds.name}-error` : undefined}
+                    className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-white transition-colors focus:border-indigo-500 focus:outline-none sm:px-5 sm:py-4"
+                  />
+                  {formErrors.name ? (
+                    <p id={`${fieldIds.name}-error`} className="ml-1 text-xs leading-relaxed text-rose-300">
+                      {formErrors.name}
+                    </p>
+                  ) : null}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor={fieldIds.contact} className="ml-1 text-sm font-medium text-slate-400">
+                    {contactSection.form.contactLabel}
+                  </label>
+                  <input
+                    id={fieldIds.contact}
+                    type="text"
+                    name="contact"
+                    autoComplete="off"
+                    maxLength={formSecurity.maxLength.contact}
+                    placeholder={contactSection.form.contactPlaceholder}
+                    value={formValues.contact}
+                    onChange={handleChange('contact')}
+                    aria-invalid={Boolean(formErrors.contact)}
+                    aria-describedby={formErrors.contact ? `${fieldIds.contact}-error` : undefined}
+                    className="w-full rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-white transition-colors focus:border-indigo-500 focus:outline-none sm:px-5 sm:py-4"
+                  />
+                  {formErrors.contact ? (
+                    <p id={`${fieldIds.contact}-error`} className="ml-1 text-xs leading-relaxed text-rose-300">
+                      {formErrors.contact}
+                    </p>
+                  ) : null}
+                </div>
               </div>
-            </div>
+
+              <div className="space-y-2">
+                <label htmlFor={fieldIds.projectType} className="ml-1 text-sm font-medium text-slate-400">
+                  {contactSection.form.projectTypeLabel}
+                </label>
+                <select
+                  id={fieldIds.projectType}
+                  name="projectType"
+                  value={formValues.projectType}
+                  onChange={handleChange('projectType')}
+                  aria-invalid={Boolean(formErrors.projectType)}
+                  aria-describedby={formErrors.projectType ? `${fieldIds.projectType}-error` : `${fieldIds.projectType}-help`}
+                  className="w-full appearance-none rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-white transition-colors focus:border-indigo-500 focus:outline-none sm:px-5 sm:py-4"
+                >
+                  {contactSection.form.projectTypeOptions.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+                {formErrors.projectType ? (
+                  <p id={`${fieldIds.projectType}-error`} className="ml-1 text-xs leading-relaxed text-rose-300">
+                    {formErrors.projectType}
+                  </p>
+                ) : (
+                  <p id={`${fieldIds.projectType}-help`} className="ml-1 text-xs leading-relaxed text-slate-500">
+                    {contactSection.form.projectTypeHelp}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor={fieldIds.project} className="ml-1 text-sm font-medium text-slate-400">
+                  {contactSection.form.projectLabel}
+                </label>
+                <textarea
+                  id={fieldIds.project}
+                  rows={4}
+                  name="project"
+                  maxLength={formSecurity.maxLength.project}
+                  placeholder={contactSection.form.projectPlaceholder}
+                  value={formValues.project}
+                  onChange={handleChange('project')}
+                  aria-invalid={Boolean(formErrors.project)}
+                  aria-describedby={formErrors.project ? `${fieldIds.project}-error` : undefined}
+                  className="w-full resize-none rounded-2xl border border-slate-800 bg-slate-950 px-4 py-3.5 text-white transition-colors focus:border-indigo-500 focus:outline-none sm:px-5 sm:py-4"
+                />
+                {formErrors.project ? (
+                  <p id={`${fieldIds.project}-error`} className="ml-1 text-xs leading-relaxed text-rose-300">
+                    {formErrors.project}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
+                  <input
+                    id={fieldIds.consent}
+                    name="personalDataConsent"
+                    type="checkbox"
+                    checked={formValues.consent}
+                    onChange={handleChange('consent')}
+                    aria-invalid={Boolean(formErrors.consent)}
+                    aria-describedby={formErrors.consent ? `${fieldIds.consent}-error` : undefined}
+                    className="mt-1 h-4 w-4 rounded border-slate-700 bg-slate-950 text-indigo-600 focus:ring-2 focus:ring-indigo-300/70"
+                  />
+                  <span>
+                    {contactSection.form.consentLabel}{' '}
+                    <a
+                      href={contactSection.form.consentHref}
+                      className="font-semibold text-indigo-300 transition-colors hover:text-indigo-200"
+                    >
+                      {contactSection.form.consentLinkLabel}
+                    </a>
+                    {' '}и{' '}
+                    <a
+                      href={contactSection.form.privacyHref}
+                      className="font-semibold text-indigo-300 transition-colors hover:text-indigo-200"
+                    >
+                      {contactSection.form.privacyLinkLabel}
+                    </a>
+                  </span>
+                </label>
+                {formErrors.consent ? (
+                  <p id={`${fieldIds.consent}-error`} className="mt-2 text-xs leading-relaxed text-rose-300">
+                    {formErrors.consent}
+                  </p>
+                ) : null}
+              </div>
+
+              <button
+                type="submit"
+                className="flex w-full items-center justify-center gap-3 rounded-2xl bg-indigo-600 py-4 font-bold text-white transition-all hover:translate-y-[-2px] hover:bg-indigo-700 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70 sm:py-5"
+              >
+                {contactSection.form.submitLabel}
+                <Send size={18} />
+              </button>
+              <p className="text-center text-xs leading-relaxed text-slate-500">
+                {contactSection.form.legalNote}
+              </p>
+            </form>
           </motion.div>
         </div>
       </div>

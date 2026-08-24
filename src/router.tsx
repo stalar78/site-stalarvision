@@ -17,6 +17,7 @@ const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPress
 const ProjectPreparationArticle = lazy(() => import('./pages/ProjectPreparationArticle'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
+const ConsentPersonalData = lazy(() => import('./pages/ConsentPersonalData'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 /**
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: 'terms',
         element: <Terms />,
+      },
+      {
+        path: 'consent-personal-data',
+        element: <ConsentPersonalData />,
       },
       {
         path: 'dorabotka-sajta',
