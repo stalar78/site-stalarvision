@@ -11,6 +11,7 @@ const Etrn = lazy(() => import('./pages/Etrn'))
 const CakeAndShapeCase = lazy(() => import('./pages/CakeAndShapeCase'))
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
 const Articles = lazy(() => import('./pages/Articles'))
+const LegalEngineeringFormAuditArticle = lazy(() => import('./pages/LegalEngineeringFormAuditArticle'))
 const SiteNoLeadsArticle = lazy(() => import('./pages/SiteNoLeadsArticle'))
 const WebServiceOrPersonalAccountArticle = lazy(() => import('./pages/WebServiceOrPersonalAccountArticle'))
 const WordPressOrCustomDevelopmentArticle = lazy(() => import('./pages/WordPressOrCustomDevelopmentArticle'))
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path: 'articles',
         element: <Articles />,
+      },
+      {
+        path: 'articles/pochemu-odnoj-galochki-nedostatochno',
+        element: <LegalEngineeringFormAuditArticle />,
       },
       {
         path: 'articles/pochemu-sajt-ne-prinosit-zayavki',

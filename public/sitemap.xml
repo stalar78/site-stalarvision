@@ -56,9 +56,15 @@
   </url>
   <url>
     <loc>https://stalarvision.ru/articles/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stalarvision.ru/articles/pochemu-odnoj-galochki-nedostatochno/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://stalarvision.ru/articles/pochemu-sajt-ne-prinosit-zayavki/</loc>
