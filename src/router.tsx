@@ -7,6 +7,7 @@ const WebsiteImprovement = lazy(() => import('./pages/WebsiteImprovement'))
 const WebsiteAudit = lazy(() => import('./pages/WebsiteAudit'))
 const WebsiteLaunch = lazy(() => import('./pages/WebsiteLaunch'))
 const WebApplicationDevelopment = lazy(() => import('./pages/WebApplicationDevelopment'))
+const LegalEngineering = lazy(() => import('./pages/LegalEngineering'))
 const Etrn = lazy(() => import('./pages/Etrn'))
 const CakeAndShapeCase = lazy(() => import('./pages/CakeAndShapeCase'))
 const EisProcurementAnalyzerCase = lazy(() => import('./pages/EisProcurementAnalyzerCase'))
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: 'razrabotka-veb-prilozhenij',
         element: <WebApplicationDevelopment />,
+      },
+      {
+        path: 'legal-engineering',
+        element: <LegalEngineering />,
       },
       {
         path: 'etrn',

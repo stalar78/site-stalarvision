@@ -51,6 +51,19 @@
     "serviceName": "Разработка веб-приложений и личных кабинетов",
     "serviceType": "Разработка веб-приложений, личных кабинетов и внутренних интерфейсов для бизнеса"
   },
+  "legalEngineering": {
+    "outputDirectory": "legal-engineering",
+    "path": "/legal-engineering/",
+    "canonical": "https://stalarvision.ru/legal-engineering/",
+    "title": "Юридико-технический аудит сайтов и веб-приложений — StalarVision",
+    "description": "Legal Engineering для цифровых продуктов: персональные данные, формы, API, backend, инфраструктура, документы и техническое исправление выявленных проблем.",
+    "robots": "index,follow",
+    "ogType": "website",
+    "ogTitle": "Юридико-технический аудит сайтов и веб-приложений — StalarVision",
+    "ogDescription": "Legal Engineering для цифровых продуктов: персональные данные, формы, API, backend, инфраструктура, документы и техническое исправление выявленных проблем.",
+    "serviceName": "Юридико-технический аудит сайтов и веб-приложений",
+    "serviceType": "Legal Engineering для цифровых продуктов"
+  },
   "etrn": {
     "outputDirectory": "etrn",
     "path": "/etrn/",

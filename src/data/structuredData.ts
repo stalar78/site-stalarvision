@@ -7,6 +7,7 @@ import {
 import { cakeAndShapeCase } from './cakeAndShapeCase';
 import { eisProcurementAnalyzerCase } from './eisProcurementAnalyzerCase';
 import { etrnPage } from './etrn';
+import { legalEngineeringPage } from './legalEngineering';
 import servicePageSeo from './servicePageSeo.json';
 import { webApplicationDevelopmentPage } from './webApplicationDevelopment';
 import { websiteAuditPage } from './websiteAudit';
@@ -28,6 +29,8 @@ const websiteLaunchWebpageId = `${websiteLaunchPage.seo.canonical}#webpage`;
 const websiteLaunchServiceId = `${websiteLaunchPage.seo.canonical}#service`;
 const webApplicationDevelopmentWebpageId = `${webApplicationDevelopmentPage.seo.canonical}#webpage`;
 const webApplicationDevelopmentServiceId = `${webApplicationDevelopmentPage.seo.canonical}#service`;
+const legalEngineeringWebpageId = `${legalEngineeringPage.seo.canonical}#webpage`;
+const legalEngineeringServiceId = `${legalEngineeringPage.seo.canonical}#service`;
 const etrnWebpageId = `${etrnPage.seo.canonical}#webpage`;
 const etrnServiceId = `${etrnPage.seo.canonical}#service`;
 const cakeAndShapeCaseWebpageId = `${cakeAndShapeCase.seo.canonical}#webpage`;
@@ -265,6 +268,47 @@ export const webApplicationDevelopmentStructuredData: JsonLdObject = {
       serviceType: servicePageSeo.webApplicationDevelopment.serviceType,
       description: webApplicationDevelopmentPage.seo.description,
       url: webApplicationDevelopmentPage.seo.canonical,
+      provider: {
+        '@id': organizationId,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Россия',
+      },
+    },
+  ],
+};
+
+export const legalEngineeringStructuredData: JsonLdObject = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationEntity,
+    personEntity,
+    websiteEntity,
+    {
+      '@type': 'WebPage',
+      '@id': legalEngineeringWebpageId,
+      url: legalEngineeringPage.seo.canonical,
+      name: legalEngineeringPage.seo.title,
+      description: legalEngineeringPage.seo.description,
+      isPartOf: {
+        '@id': websiteId,
+      },
+      about: {
+        '@id': legalEngineeringServiceId,
+      },
+      mainEntity: {
+        '@id': legalEngineeringServiceId,
+      },
+      inLanguage: 'ru-RU',
+    },
+    {
+      '@type': 'Service',
+      '@id': legalEngineeringServiceId,
+      name: servicePageSeo.legalEngineering.serviceName,
+      serviceType: servicePageSeo.legalEngineering.serviceType,
+      description: legalEngineeringPage.seo.description,
+      url: legalEngineeringPage.seo.canonical,
       provider: {
         '@id': organizationId,
       },

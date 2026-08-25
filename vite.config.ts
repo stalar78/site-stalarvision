@@ -58,6 +58,7 @@ export default defineConfig(({ mode }) => {
           websiteAudit: path.resolve(__dirname, 'audit-sajta/index.html'),
           websiteLaunch: path.resolve(__dirname, 'razrabotka-sajta/index.html'),
           webApplicationDevelopment: path.resolve(__dirname, 'razrabotka-veb-prilozhenij/index.html'),
+          legalEngineering: path.resolve(__dirname, 'legal-engineering/index.html'),
           etrn: path.resolve(__dirname, 'etrn/index.html'),
           articles: path.resolve(__dirname, 'articles/index.html'),
           legalEngineeringFormAuditArticle: path.resolve(__dirname, 'articles/pochemu-odnoj-galochki-nedostatochno/index.html'),
