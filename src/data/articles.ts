@@ -1,10 +1,12 @@
 import articleMetadata from './articleMetadata.json';
+import { legalEngineeringFormAuditArticle } from './legalEngineeringFormAuditArticle';
 import { siteNoLeadsArticle } from './siteNoLeadsArticle';
 import { webServiceOrPersonalAccountArticle } from './webServiceOrPersonalAccountArticle';
 
 export type ArticleTextSegment = {
   text: string;
   href?: string;
+  strong?: boolean;
 };
 
 export type ArticleSection = {
@@ -99,12 +101,27 @@ export type Article = {
 };
 
 export const articlesIndexPage = articleMetadata.index;
+const wordpressOrCustomMetadata = articleMetadata.articles.find(
+  (article) => article.slug === 'wordpress-ili-individualnaya-razrabotka',
+);
+const projectPreparationMetadata = articleMetadata.articles.find(
+  (article) => article.slug === 'podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya',
+);
+
+if (!wordpressOrCustomMetadata) {
+  throw new Error('Missing article metadata: wordpress-ili-individualnaya-razrabotka');
+}
+
+if (!projectPreparationMetadata) {
+  throw new Error('Missing article metadata: podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya');
+}
 
 export const publishedArticles: Article[] = [
+  legalEngineeringFormAuditArticle,
   siteNoLeadsArticle,
   webServiceOrPersonalAccountArticle,
   {
-    ...articleMetadata.articles[2],
+    ...wordpressOrCustomMetadata,
     sections: [
       {
         id: 'intro',
@@ -373,7 +390,7 @@ export const publishedArticles: Article[] = [
     },
   },
   {
-    ...articleMetadata.articles[3],
+    ...projectPreparationMetadata,
     lead: [
       'Многие откладывают обращение к разработчику, потому что считают свою идею недостаточно оформленной. Кажется, что сначала нужно самостоятельно выбрать технологии, составить полный список функций, продумать каждый экран и написать техническое задание.',
       'На практике для первого содержательного разговора важнее другое: какую проблему должен решить продукт, кто будет им пользоваться, какие действия должны быть возможны и какие ограничения уже известны. Эти сведения не заменяют проектирование, но создают основу, с которой можно начать обсуждение и определить подходящий первый этап.',
@@ -904,7 +921,7 @@ export const publishedArticles: Article[] = [
         'Чем понятнее исходный контекст, тем легче обсуждать не максимально сложное решение, а то, которое действительно соответствует задаче.',
       ],
     },
-    relatedServiceLinks: articleMetadata.articles[3].relatedServiceLinks,
+    relatedServiceLinks: projectPreparationMetadata.relatedServiceLinks,
     cta: {
       eyebrow: 'Обсуждение задачи',
       title: 'Необязательно приходить с готовым техническим заданием',
@@ -920,5 +937,16 @@ export const publishedArticles: Article[] = [
 
 export { webServiceOrPersonalAccountArticle };
 export { siteNoLeadsArticle };
-export const wordpressOrCustomArticle = publishedArticles[2];
-export const projectPreparationArticle = publishedArticles[3];
+export { legalEngineeringFormAuditArticle };
+const getPublishedArticleBySlug = (slug: string) => {
+  const article = publishedArticles.find((item) => item.slug === slug);
+
+  if (!article) {
+    throw new Error(`Missing published article: ${slug}`);
+  }
+
+  return article;
+};
+
+export const wordpressOrCustomArticle = getPublishedArticleBySlug('wordpress-ili-individualnaya-razrabotka');
+export const projectPreparationArticle = getPublishedArticleBySlug('podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya');

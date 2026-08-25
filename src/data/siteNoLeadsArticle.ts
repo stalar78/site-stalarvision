@@ -1,7 +1,13 @@
 import articleMetadata from './articleMetadata.json';
 import type { Article, ArticleTextSegment } from './articles';
 
-const metadata = articleMetadata.articles[0];
+const metadata = articleMetadata.articles.find(
+  (article) => article.slug === 'pochemu-sajt-ne-prinosit-zayavki',
+);
+
+if (!metadata) {
+  throw new Error('Missing article metadata: pochemu-sajt-ne-prinosit-zayavki');
+}
 
 const linkedParagraph = (
   text: string,
