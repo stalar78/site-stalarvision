@@ -1,8 +1,10 @@
 import {
   Code2,
   Database,
+  FileSearch,
   LayoutDashboard,
   LayoutTemplate,
+  Network,
   SearchCheck,
   ServerCog,
   Webhook,
@@ -59,18 +61,32 @@ export const capabilitiesCarouselSection = {
       icon: Database,
     },
     {
-      title: 'Аудит и развитие',
-      description:
-        'Поиск технических и UX-проблем, приоритизация изменений и постепенная доработка существующего продукта.',
-      stack: 'Audit · UX · Performance',
-      icon: SearchCheck,
-    },
-    {
       title: 'Инфраструктура и deployment',
       description:
         'Сборка, контейнеризация, серверное окружение, reverse proxy и эксплуатация приложения.',
       stack: 'Docker · Linux · Nginx',
       icon: ServerCog,
+    },
+    {
+      title: 'Юридико-технический аудит',
+      description:
+        'Сопоставление документов, интерфейса, data flow, API и инфраструктуры, чтобы увидеть расхождения между юридической моделью и фактической системой.',
+      stack: 'Privacy · Data Flow · 152-ФЗ',
+      icon: FileSearch,
+    },
+    {
+      title: 'Legal by Design',
+      description:
+        'Проектирование цифрового продукта с учётом юридически значимых требований к данным, согласиям, ролям, интеграциям и хранению ещё до финальной реализации.',
+      stack: 'Architecture · Consent · Lifecycle',
+      icon: Network,
+    },
+    {
+      title: 'Аудит и развитие',
+      description:
+        'Поиск технических и UX-проблем, приоритизация изменений и постепенная доработка существующего продукта.',
+      stack: 'Audit · UX · Performance',
+      icon: SearchCheck,
     },
     {
       title: 'Сайты и интерфейсы',
