@@ -173,19 +173,25 @@ export function ArticlePage({ article, structuredData }: ArticlePageProps) {
                           <div className="mt-6 space-y-6 text-[1.04rem] leading-[1.82] text-slate-300 sm:text-[1.1rem]">
                             {section.paragraphs?.map((paragraph, paragraphIndex) => (
                               <p key={`${section.id}-${paragraphIndex}`}>
-                                {paragraph.map((segment, segmentIndex) =>
-                                  segment.href ? (
+                                {paragraph.map((segment, segmentIndex) => {
+                                  const content = segment.strong ? (
+                                    <strong className="font-semibold text-slate-100">{segment.text}</strong>
+                                  ) : (
+                                    segment.text
+                                  );
+
+                                  return segment.href ? (
                                     <a
                                       key={`${section.id}-${paragraphIndex}-${segmentIndex}`}
                                       href={segment.href}
                                       className="font-semibold text-cyan-200 underline decoration-cyan-300/35 underline-offset-4 transition-colors hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
                                     >
-                                      {segment.text}
+                                      {content}
                                     </a>
                                   ) : (
-                                    <span key={`${section.id}-${paragraphIndex}-${segmentIndex}`}>{segment.text}</span>
-                                  ),
-                                )}
+                                    <span key={`${section.id}-${paragraphIndex}-${segmentIndex}`}>{content}</span>
+                                  );
+                                })}
                               </p>
                             ))}
                             {section.items ? (

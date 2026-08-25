@@ -398,18 +398,32 @@ export const articlesIndexStructuredData: JsonLdObject = buildArticlesIndexStruc
   articleMetadata.articles,
 );
 
+const getArticleMetadataBySlug = (slug: string) => {
+  const metadata = articleMetadata.articles.find((article) => article.slug === slug);
+
+  if (!metadata) {
+    throw new Error(`Missing article metadata: ${slug}`);
+  }
+
+  return metadata;
+};
+
 export const wordpressOrCustomArticleStructuredData: JsonLdObject = buildArticleStructuredData(
-  articleMetadata.articles[2],
+  getArticleMetadataBySlug('wordpress-ili-individualnaya-razrabotka'),
 );
 
 export const projectPreparationArticleStructuredData: JsonLdObject = buildArticleStructuredData(
-  articleMetadata.articles[3],
+  getArticleMetadataBySlug('podgotovka-k-razrabotke-sajta-ili-veb-prilozheniya'),
 );
 
 export const webServiceOrPersonalAccountArticleStructuredData: JsonLdObject = buildArticleStructuredData(
-  articleMetadata.articles[1],
+  getArticleMetadataBySlug('kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet'),
 );
 
 export const siteNoLeadsArticleStructuredData: JsonLdObject = buildArticleStructuredData(
-  articleMetadata.articles[0],
+  getArticleMetadataBySlug('pochemu-sajt-ne-prinosit-zayavki'),
+);
+
+export const legalEngineeringFormAuditArticleStructuredData: JsonLdObject = buildArticleStructuredData(
+  getArticleMetadataBySlug('pochemu-odnoj-galochki-nedostatochno'),
 );

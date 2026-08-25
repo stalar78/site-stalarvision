@@ -2,7 +2,13 @@ import articleMetadata from './articleMetadata.json';
 import content from './webServiceOrPersonalAccountArticleContent.json';
 import type { Article, ArticleTextSegment } from './articles';
 
-const metadata = articleMetadata.articles[1];
+const metadata = articleMetadata.articles.find(
+  (article) => article.slug === 'kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet',
+);
+
+if (!metadata) {
+  throw new Error('Missing article metadata: kogda-biznesu-nuzhen-veb-servis-ili-lichnyj-kabinet');
+}
 
 const linkedParagraph = (
   text: string,
