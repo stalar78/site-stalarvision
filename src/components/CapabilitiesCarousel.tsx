@@ -42,6 +42,16 @@ const mobileSlots: SlotProfile[] = [
   { x: -122, y: 30, scale: 0.86, rotateY: 14, rotateZ: 1, opacity: 0.48, zIndex: 60 },
 ];
 
+const hiddenSlot: SlotProfile = {
+  x: 0,
+  y: 0,
+  scale: 0.45,
+  rotateY: 0,
+  rotateZ: 0,
+  opacity: 0,
+  zIndex: 0,
+};
+
 function normalizeIndex(index: number, count: number) {
   return ((index % count) + count) % count;
 }
@@ -58,6 +68,18 @@ function getCircularOffset(index: number, activeIndex: number, count: number) {
   }
 
   return offset;
+}
+
+function getSlotForOffset(offset: number, mode: CardMode, slots: SlotProfile[]) {
+  if (mode === 'hidden') {
+    return hiddenSlot;
+  }
+
+  if (offset >= 0) {
+    return slots[offset] ?? hiddenSlot;
+  }
+
+  return slots[slots.length + offset] ?? hiddenSlot;
 }
 
 function useMediaQuery(query: string) {
@@ -387,11 +409,11 @@ export function CapabilitiesCarousel() {
               {capabilitiesCarouselSection.items.map((item, index) => {
                 const offset = getCircularOffset(index, activeIndex, cardCount);
                 const absOffset = Math.abs(offset);
-                const slot = slots[normalizeIndex(offset, cardCount)];
                 const Icon = item.icon;
                 const mode = getCardMode(isDesktop, offset);
+                const slot = getSlotForOffset(offset, mode, slots);
                 const isActive = mode === 'full';
-                const isInteractive = isDesktop || absOffset <= 2;
+                const isInteractive = mode !== 'hidden' && (isDesktop || absOffset <= 2);
                 const transition = reducedMotion
                   ? { duration: 0.18, ease: 'easeOut' }
                   : { type: 'spring', stiffness: 170, damping: 24, mass: 0.85 };
