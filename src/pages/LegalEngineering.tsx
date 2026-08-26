@@ -315,6 +315,74 @@ export default function LegalEngineering() {
           </div>
         </section>
 
+        <section id="client-proof" className="bg-slate-950 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-9 max-w-3xl sm:mb-12">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-200">
+                {legalEngineeringPage.clientProof.eyebrow}
+              </div>
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                {legalEngineeringPage.clientProof.title}
+              </h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)] lg:items-start">
+              <div className="rounded-[2rem] border border-white/8 bg-slate-900/45 p-6 sm:p-8 lg:p-10">
+                <div className="mb-4 text-sm font-semibold text-cyan-200">
+                  {legalEngineeringPage.clientProof.company}
+                </div>
+                <blockquote className="max-w-3xl text-lg leading-relaxed text-white sm:text-xl">
+                  {legalEngineeringPage.clientProof.quote}
+                </blockquote>
+                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-400 sm:text-base">
+                  {legalEngineeringPage.clientProof.note}
+                </p>
+                <div className="mt-6 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/6 bg-slate-950/55 p-4">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Дата</div>
+                    <div className="mt-1 font-semibold text-white">{legalEngineeringPage.clientProof.date.display}</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/6 bg-slate-950/55 p-4">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-500">Автор</div>
+                    <div className="mt-1 font-semibold text-white">{legalEngineeringPage.clientProof.author}</div>
+                    <div className="mt-1 text-slate-400">{legalEngineeringPage.clientProof.role}</div>
+                  </div>
+                </div>
+                <a
+                  href={legalEngineeringPage.clientProof.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={legalEngineeringPage.clientProof.openAriaLabel}
+                  className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-indigo-300/25 bg-indigo-500/10 px-5 py-3 text-sm font-semibold text-indigo-100 transition-colors hover:border-indigo-200/45 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+                >
+                  {legalEngineeringPage.clientProof.openLabel}
+                  <ArrowRight size={18} />
+                </a>
+              </div>
+
+              <div className="overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-900/35 p-4 sm:p-5 lg:p-6">
+                <a
+                  href={legalEngineeringPage.clientProof.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={legalEngineeringPage.clientProof.openAriaLabel}
+                  className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+                >
+                  <img
+                    src={legalEngineeringPage.clientProof.image}
+                    alt={legalEngineeringPage.clientProof.imageAlt}
+                    className="h-auto w-full rounded-[1.5rem] border border-white/8 object-contain shadow-2xl shadow-slate-950/40 transition-transform duration-300 group-hover:scale-[1.01]"
+                    loading="lazy"
+                  />
+                </a>
+                <p className="mt-4 text-xs leading-relaxed text-slate-500 sm:text-sm">
+                  Благодарственное письмо · {legalEngineeringPage.clientProof.date.display}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id={legalEngineeringPage.relatedServices.id} className="bg-slate-950 py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-9 max-w-3xl sm:mb-12">
