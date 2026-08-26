@@ -61,6 +61,27 @@ type FinalCta = {
   buttonHref: string;
 };
 
+type ClientProof = {
+  eyebrow: string;
+  compactEyebrow: string;
+  title: string;
+  company: string;
+  date: {
+    display: string;
+    compact: string;
+  };
+  author: string;
+  role: string;
+  quote: string;
+  note: string;
+  image: string;
+  imageAlt: string;
+  openLabel: string;
+  openAriaLabel: string;
+  compactOpenLabel: string;
+  pageLinkLabel: string;
+};
+
 export type LegalEngineeringPageData = {
   seo: SeoData;
   hero: HeroData;
@@ -91,6 +112,7 @@ export type LegalEngineeringPageData = {
   caseStudy: LinkCard & {
     id: string;
   };
+  clientProof: ClientProof;
   relatedServices: ContentSection<LinkCard>;
   itContext: ContentSection<TextCard>;
   partnerFormat: {
@@ -267,6 +289,28 @@ export const legalEngineeringPage: LegalEngineeringPageData = {
       'В статье разобран практический сценарий: проверка формы быстро приводит к вопросам о frontend, API, backend, базе данных, SMTP, резервных копиях и внешних сервисах.',
     href: '/articles/pochemu-odnoj-galochki-nedostatochno/',
     linkLabel: 'Открыть статью-кейс',
+  },
+  clientProof: {
+    eyebrow: 'ПОДТВЕРЖДЕНО КЛИЕНТОМ',
+    compactEyebrow: 'LEGAL ENGINEERING · РЕКОМЕНДАЦИЯ КЛИЕНТА',
+    title: 'Клиент о подходе Legal Engineering',
+    company: 'ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
+    date: {
+      display: '26 августа 2026',
+      compact: '26.08.2026',
+    },
+    author: 'Джураев Дмитрий Артурович',
+    role: 'Генеральный директор',
+    quote:
+      '«Особенно ценным для нас оказался сам подход Legal Engineering, при котором юридические требования рассматриваются во взаимосвязи с интерфейсом, технической реализацией, архитектурой сайта и бизнес-процессами.»',
+    note:
+      'В благодарственном письме клиент отдельно отметил профессиональный подход, внимательность к фактическим обстоятельствам и стремление разграничивать подтверждённые факты, потенциальные риски и вопросы, требующие дополнительной проверки.',
+    image: '/legal-engineering/metallobaza-recommendation.jpeg',
+    imageAlt: 'Благодарственное письмо ООО «Металлобаза Волхонка» по результатам Legal Engineering',
+    openLabel: 'Открыть благодарственное письмо',
+    openAriaLabel: 'Открыть оригинал благодарственного письма ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
+    compactOpenLabel: 'Открыть письмо',
+    pageLinkLabel: 'Подробнее о Legal Engineering',
   },
   relatedServices: {
     id: 'related-services',
