@@ -39,6 +39,12 @@
       scroll-margin-top: 7rem;
     }
   }
+
+  :root {
+    --cursor-glow-x: 50vw;
+    --cursor-glow-y: 50vh;
+    --cursor-glow-opacity: 0;
+  }
 }
 
 @keyframes float {
@@ -55,5 +61,29 @@
     backdrop-filter: blur(16px);
     background: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .ambient-cursor-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    opacity: var(--cursor-glow-opacity);
+    background:
+      radial-gradient(
+        circle 230px at var(--cursor-glow-x) var(--cursor-glow-y),
+        rgba(34, 211, 238, 0.14) 0%,
+        rgba(99, 102, 241, 0.1) 34%,
+        rgba(168, 85, 247, 0.055) 56%,
+        transparent 74%
+      );
+    transition: opacity 220ms ease;
+    will-change: opacity, background-position;
+  }
+
+  @media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+    .ambient-cursor-glow {
+      display: none;
+    }
   }
 }

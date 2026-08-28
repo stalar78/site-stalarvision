@@ -9,6 +9,7 @@ import {
   trackPageView,
   trackYandexMetrikaPageView,
 } from '@/lib/utils';
+import { AmbientCursorGlow } from '@/components/AmbientCursorGlow';
 
 const AnalyticsConsentBanner = () => {
   const [consent, setConsent] = useState<AnalyticsConsent>(() => getAnalyticsConsent());
@@ -117,6 +118,7 @@ export default function App() {
   return (
     <>
       {/* <Header /> */}
+      <AmbientCursorGlow />
       <Suspense fallback={<div className="min-h-screen bg-slate-950" aria-hidden="true" />}>
         <Outlet />
       </Suspense>
