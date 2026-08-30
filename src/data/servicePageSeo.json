@@ -55,14 +55,14 @@
     "outputDirectory": "legal-engineering",
     "path": "/legal-engineering/",
     "canonical": "https://stalarvision.ru/legal-engineering/",
-    "title": "Юридико-технический аудит сайтов и веб-приложений — StalarVision",
-    "description": "Legal Engineering для цифровых продуктов: персональные данные, формы, API, backend, инфраструктура, документы и техническое исправление выявленных проблем.",
+    "title": "Legal Engineering, IT-право и разработка цифровых продуктов — StalarVision",
+    "description": "Legal Engineering и IT-право для цифровых продуктов: разработка, аудит, Legal by Design, IT-договоры, претензии, споры, API, backend и инфраструктура.",
     "robots": "index,follow",
     "ogType": "website",
-    "ogTitle": "Юридико-технический аудит сайтов и веб-приложений — StalarVision",
-    "ogDescription": "Legal Engineering для цифровых продуктов: персональные данные, формы, API, backend, инфраструктура, документы и техническое исправление выявленных проблем.",
-    "serviceName": "Юридико-технический аудит сайтов и веб-приложений",
-    "serviceType": "Legal Engineering для цифровых продуктов"
+    "ogTitle": "Legal Engineering, IT-право и разработка цифровых продуктов — StalarVision",
+    "ogDescription": "Legal Engineering и IT-право для цифровых продуктов: разработка, аудит, Legal by Design, IT-договоры, претензии, споры, API, backend и инфраструктура.",
+    "serviceName": "Legal Engineering, IT-право и разработка цифровых продуктов",
+    "serviceType": "Legal Engineering, IT-право и разработка цифровых продуктов"
   },
   "etrn": {
     "outputDirectory": "etrn",

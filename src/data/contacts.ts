@@ -34,6 +34,7 @@ export const WEBSITE_AUDIT_PROJECT_TYPE = 'Аудит / технический �
 export const WEBSITE_LAUNCH_PROJECT_TYPE = 'Новый сайт / первый релиз';
 export const WEB_APPLICATION_DEVELOPMENT_PROJECT_TYPE = 'Веб-приложение / личный кабинет';
 export const LEGAL_ENGINEERING_PROJECT_TYPE = 'Юридико-технический аудит / Legal Engineering';
+export const IT_LAW_PROJECT_TYPE = 'IT-право / договоры / споры';
 
 export const navbarSocialLinks = [
   {
@@ -178,6 +179,7 @@ export const contactSection = {
       WEB_APPLICATION_DEVELOPMENT_PROJECT_TYPE,
       WEBSITE_AUDIT_PROJECT_TYPE,
       LEGAL_ENGINEERING_PROJECT_TYPE,
+      IT_LAW_PROJECT_TYPE,
       'Автоматизация бизнеса',
       'Другое',
     ],

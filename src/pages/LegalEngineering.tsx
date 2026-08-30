@@ -160,6 +160,91 @@ export default function LegalEngineering() {
           </div>
         </section>
 
+        <section id={legalEngineeringPage.professionalBasis.id} className="bg-slate-950 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+              <div>
+                <div className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Профессиональная основа</div>
+                <h2 className="text-3xl font-bold text-white sm:text-4xl">{legalEngineeringPage.professionalBasis.title}</h2>
+              </div>
+              <div className="rounded-3xl border border-slate-800 bg-slate-900/45 p-5 sm:p-7">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {legalEngineeringPage.professionalBasis.items.map((item) => (
+                    <div key={item} className="rounded-2xl border border-white/6 bg-slate-950/55 p-4 text-sm font-semibold leading-relaxed text-slate-200">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-5 border-t border-white/8 pt-5 text-sm leading-relaxed text-slate-400 sm:text-base">
+                  {legalEngineeringPage.professionalBasis.note}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id={legalEngineeringPage.contours.id} className="relative overflow-hidden bg-slate-950 py-16 sm:py-20">
+          <div className="absolute right-[-10rem] top-12 h-96 w-96 rounded-full bg-cyan-500/8 blur-[120px]" />
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-9 max-w-3xl sm:mb-12">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">{legalEngineeringPage.contours.title}</h2>
+              <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">{legalEngineeringPage.contours.description}</p>
+            </div>
+            <div className="grid gap-5 lg:grid-cols-2">
+              {legalEngineeringPage.contours.items.map((contour, index) => (
+                <article key={contour.title} className={`flex flex-col rounded-[2rem] border p-6 sm:p-8 ${index === 0 ? 'border-cyan-300/25 bg-cyan-300/8' : 'border-indigo-300/20 bg-indigo-500/8'}`}>
+                  <div className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">{contour.eyebrow}</div>
+                  <h3 className="text-2xl font-bold text-white sm:text-3xl">{contour.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">{contour.description}</p>
+                  <ul className="mt-6 grow space-y-3">
+                    {contour.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-200">
+                        <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-cyan-300" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a href={contour.href} className="mt-7 inline-flex w-fit items-center gap-2 rounded-2xl border border-white/15 bg-slate-950/45 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-cyan-200/45 hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70">
+                    {contour.cta}
+                    <ArrowRight size={18} />
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id={legalEngineeringPage.itContext.id} className="bg-slate-950 py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-9 max-w-3xl sm:mb-12">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
+                {legalEngineeringPage.itContext.title}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+                {legalEngineeringPage.itContext.description}
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {legalEngineeringPage.itContext.items.map((item) => (
+                <article key={item.title} className="rounded-3xl border border-slate-800 bg-slate-900/45 p-5 sm:p-6">
+                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id={legalEngineeringPage.linkage.id} className="bg-slate-950 py-8 sm:py-12">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-3xl border border-cyan-300/20 bg-cyan-300/8 p-6 sm:p-8">
+              <div className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-cyan-200">Связь права и реализации</div>
+              <h2 className="text-2xl font-bold text-white sm:text-3xl">{legalEngineeringPage.linkage.title}</h2>
+              <p className="mt-4 text-sm leading-relaxed text-cyan-50/80 sm:text-base">{legalEngineeringPage.linkage.description}</p>
+            </div>
+          </div>
+        </section>
+
         <section id={legalEngineeringPage.architectures.id} className="relative overflow-hidden bg-slate-950 py-16 sm:py-20">
           <div className="absolute left-[-10rem] top-20 h-96 w-96 rounded-full bg-indigo-500/10 blur-[120px]" />
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -437,27 +522,6 @@ export default function LegalEngineering() {
                       <LinkIcon size={16} />
                     </a>
                   ) : null}
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id={legalEngineeringPage.itContext.id} className="bg-slate-950 py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-9 max-w-3xl sm:mb-12">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                {legalEngineeringPage.itContext.title}
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
-                {legalEngineeringPage.itContext.description}
-              </p>
-            </div>
-            <div className="grid gap-5 lg:grid-cols-3">
-              {legalEngineeringPage.itContext.items.map((item) => (
-                <article key={item.title} className="rounded-3xl border border-slate-800 bg-slate-900/45 p-5 sm:p-6">
-                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">{item.description}</p>
                 </article>
               ))}
             </div>
