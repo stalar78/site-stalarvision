@@ -12,7 +12,7 @@ import {
   Users2,
   Zap,
 } from 'lucide-react';
-import { legalEngineeringPage } from '@/data/legalEngineering';
+import { getClientProofMetadata, legalEngineeringPage } from '@/data/legalEngineering';
 import { profile } from '@/data/profile';
 
 type NavLink = {
@@ -548,11 +548,11 @@ export const trustSection = {
       note: 'Удобно для доработки, развития и технического разбора.',
     },
   ],
-  clientRecommendation: {
-    ...legalEngineeringPage.clientProof,
-    metadata: `Благодарственное письмо · ${legalEngineeringPage.clientProof.date.compact}`,
-    legalEngineeringHref: '/legal-engineering/',
-  },
+  clientRecommendations: legalEngineeringPage.clientProofSection.items.map((clientProof) => ({
+    ...clientProof,
+    metadata: getClientProofMetadata(clientProof),
+    legalEngineeringHref: legalEngineeringPage.seo.path,
+  })),
   summary:
     'Если удобнее начать с короткого сообщения, на сайте уже есть рабочая форма, Telegram, email и телефон. Можно выбрать привычный канал связи и быстро перейти к предметному разговору о задаче.',
 };

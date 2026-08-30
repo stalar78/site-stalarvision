@@ -61,17 +61,17 @@ type FinalCta = {
   buttonHref: string;
 };
 
-type ClientProof = {
+export type ClientProof = {
+  id: string;
+  company: string;
   eyebrow: string;
   compactEyebrow: string;
-  title: string;
-  company: string;
-  date: {
+  date?: {
     display: string;
     compact: string;
   };
-  author: string;
-  role: string;
+  author?: string;
+  role?: string;
   quote: string;
   note: string;
   image: string;
@@ -81,6 +81,16 @@ type ClientProof = {
   compactOpenLabel: string;
   pageLinkLabel: string;
 };
+
+type ClientProofSection = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  items: ClientProof[];
+};
+
+export const getClientProofMetadata = (clientProof: ClientProof) =>
+  clientProof.date ? `Благодарственное письмо · ${clientProof.date.compact}` : 'Благодарственное письмо';
 
 export type LegalEngineeringPageData = {
   seo: SeoData;
@@ -112,7 +122,7 @@ export type LegalEngineeringPageData = {
   caseStudy: LinkCard & {
     id: string;
   };
-  clientProof: ClientProof;
+  clientProofSection: ClientProofSection;
   relatedServices: ContentSection<LinkCard>;
   itContext: ContentSection<TextCard>;
   partnerFormat: {
@@ -290,27 +300,56 @@ export const legalEngineeringPage: LegalEngineeringPageData = {
     href: '/articles/pochemu-odnoj-galochki-nedostatochno/',
     linkLabel: 'Открыть статью-кейс',
   },
-  clientProof: {
-    eyebrow: 'ПОДТВЕРЖДЕНО КЛИЕНТОМ',
-    compactEyebrow: 'LEGAL ENGINEERING · РЕКОМЕНДАЦИЯ КЛИЕНТА',
-    title: 'Клиент о подходе Legal Engineering',
-    company: 'ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
-    date: {
-      display: '26 августа 2026',
-      compact: '26.08.2026',
-    },
-    author: 'Джураев Дмитрий Артурович',
-    role: 'Генеральный директор',
-    quote:
-      '«Особенно ценным для нас оказался сам подход Legal Engineering, при котором юридические требования рассматриваются во взаимосвязи с интерфейсом, технической реализацией, архитектурой сайта и бизнес-процессами.»',
-    note:
-      'В благодарственном письме клиент отдельно отметил профессиональный подход, внимательность к фактическим обстоятельствам и стремление разграничивать подтверждённые факты, потенциальные риски и вопросы, требующие дополнительной проверки.',
-    image: '/legal-engineering/metallobaza-recommendation.jpeg',
-    imageAlt: 'Благодарственное письмо ООО «Металлобаза Волхонка» по результатам Legal Engineering',
-    openLabel: 'Открыть благодарственное письмо',
-    openAriaLabel: 'Открыть оригинал благодарственного письма ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
-    compactOpenLabel: 'Открыть письмо',
-    pageLinkLabel: 'Подробнее о Legal Engineering',
+  clientProofSection: {
+    id: 'client-proof',
+    eyebrow: 'ПОДТВЕРЖДЕНО КЛИЕНТАМИ',
+    title: 'Клиенты о подходе Legal Engineering',
+    items: [
+      {
+        id: 'peoples-choice',
+        company: 'People’s Choice',
+        eyebrow: 'ПОДТВЕРЖДЕНО КЛИЕНТОМ',
+        compactEyebrow: 'LEGAL ENGINEERING · РЕКОМЕНДАЦИЯ КЛИЕНТА',
+        date: {
+          display: '30 августа 2026',
+          compact: '30.08.2026',
+        },
+        author: 'Николаева Дарья Сергеевна',
+        role: 'Генеральный директор',
+        quote:
+          '«Отдельно хотим отметить практический подход к работе: внимание уделялось не только формальному содержанию документов, но и тому, как юридические требования фактически реализованы в интерфейсах, формах и технической архитектуре сайта.»',
+        note:
+          'По результатам проверки клиент получил структурированный отчёт с выявленными вопросами, их приоритетностью и рекомендациями по дальнейшей доработке.',
+        image: '/legal-engineering/peoples-choice-recommendation.jpg',
+        imageAlt: 'Благодарственное письмо студии People’s Choice по результатам Legal Engineering-аудита сайта',
+        openLabel: 'Открыть благодарственное письмо',
+        openAriaLabel: 'Открыть оригинал благодарственного письма People’s Choice',
+        compactOpenLabel: 'Открыть письмо',
+        pageLinkLabel: 'Подробнее о Legal Engineering',
+      },
+      {
+        id: 'metallobaza-volhonka',
+        company: 'ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
+        eyebrow: 'ПОДТВЕРЖДЕНО КЛИЕНТОМ',
+        compactEyebrow: 'LEGAL ENGINEERING · РЕКОМЕНДАЦИЯ КЛИЕНТА',
+        date: {
+          display: '26 августа 2026',
+          compact: '26.08.2026',
+        },
+        author: 'Джураев Дмитрий Артурович',
+        role: 'Генеральный директор',
+        quote:
+          '«Особенно ценным для нас оказался сам подход Legal Engineering, при котором юридические требования рассматриваются во взаимосвязи с интерфейсом, технической реализацией, архитектурой сайта и бизнес-процессами.»',
+        note:
+          'В благодарственном письме клиент отдельно отметил профессиональный подход, внимательность к фактическим обстоятельствам и стремление разграничивать подтверждённые факты, потенциальные риски и вопросы, требующие дополнительной проверки.',
+        image: '/legal-engineering/metallobaza-recommendation.jpeg',
+        imageAlt: 'Благодарственное письмо ООО «Металлобаза Волхонка» по результатам Legal Engineering',
+        openLabel: 'Открыть благодарственное письмо',
+        openAriaLabel: 'Открыть оригинал благодарственного письма ООО «МЕТАЛЛОБАЗА ВОЛХОНКА»',
+        compactOpenLabel: 'Открыть письмо',
+        pageLinkLabel: 'Подробнее о Legal Engineering',
+      },
+    ],
   },
   relatedServices: {
     id: 'related-services',
