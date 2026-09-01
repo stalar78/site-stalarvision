@@ -113,7 +113,7 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
       return;
     }
 
-    const validation = validateContactPayload(payload, activeConfig.consentVersion);
+    const validation = validateContactPayload(payload, activeConfig.consentPersonalDataVersions);
 
     if (validation.spam) {
       sendJson(response, 200, { ok: true });
@@ -129,7 +129,7 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
     }
 
     const clientKey = getClientKey(request, { trustProxy: activeConfig.trustProxy });
-    const rateLimitResult = activeRateLimiter.consume(clientKey);
+    const rateLimitResult = activeRateLimiter.consume(`${validation.data.source}:${clientKey}`);
 
     if (!rateLimitResult.allowed) {
       sendJson(
@@ -147,19 +147,21 @@ export function createContactApiServer({ config, mailer, rateLimiter, idFactory 
     const consentAt = receivedAt;
     const message = {
       requestId,
+      source: validation.data.source,
       receivedAt,
       consentAt,
       consentVersion: validation.data.consentVersion,
       name: validation.data.name,
       contact: validation.data.contact,
-      projectType: validation.data.projectType,
-      project: validation.data.project,
+      category: validation.data.category,
+      message: validation.data.message,
     };
 
     try {
       await activeMailer.sendContactEmail(message);
       await appendConsentRecord(activeConfig.consentLogPath, {
         request_id: requestId,
+        source: validation.data.source,
         consent_version: validation.data.consentVersion,
         consent_at: consentAt,
         received_at: receivedAt,

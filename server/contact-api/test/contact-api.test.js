@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { loadConfig } from '../src/config.js';
 import { createContactApiServer } from '../src/server.js';
 import { createRateLimiter, getClientKey } from '../src/rateLimit.js';
+import { buildContactEmail } from '../src/mailer.js';
 
 const baseConfig = (consentLogPath) => ({
   host: '127.0.0.1',
@@ -22,7 +23,10 @@ const baseConfig = (consentLogPath) => ({
     to: 'info@example.test',
   },
   consentLogPath,
-  consentVersion: '2026-08-23',
+  consentPersonalDataVersions: {
+    stalarvision: '2026-08-23',
+    stalarlegal: '2026-08-31',
+  },
   bodyLimitBytes: 16 * 1024,
   rateLimit: {
     limit: 5,
@@ -32,12 +36,24 @@ const baseConfig = (consentLogPath) => ({
 });
 
 const validPayload = {
+  source: 'stalarvision',
   name: 'Станислав',
   contact: 'client@example.test',
   projectType: 'Новый сайт / первый релиз',
   project: 'Нужно обсудить первый этап проекта.',
   consent: true,
   consentVersion: '2026-08-23',
+  honeypot: '',
+};
+
+const validLegalPayload = {
+  source: 'stalarlegal',
+  name: 'Иван',
+  contact: 'legal-client@example.test',
+  matterType: 'IT-спор',
+  message: 'Нужно разобрать спор по цифровому продукту.',
+  consent: true,
+  consentVersion: '2026-08-31',
   honeypot: '',
 };
 
@@ -84,7 +100,7 @@ const requiredEnv = {
 describe('config', () => {
   it('rejects non-loopback bind address', () => {
     assert.throws(
-      () => loadConfig({ ...requiredEnv, CONTACT_API_HOST: '0.0.0.0' }),
+      () => loadConfig({ ...requiredEnv, CONTACT_API_HOST: '192.0.2.10' }),
       /Invalid CONTACT_API_HOST/,
     );
   });
@@ -184,6 +200,19 @@ describe('contact api', () => {
     assert.deepEqual(await response.json(), { ok: false, error: 'invalid_consent' });
   });
 
+  it('rejects missing source', async () => {
+    const { source, ...payloadWithoutSource } = validPayload;
+    const response = await postJson(baseUrl, JSON.stringify(payloadWithoutSource));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects unknown source', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validPayload, source: 'unknown' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
   it('returns neutral success for honeypot without sending mail', async () => {
     const response = await postJson(baseUrl, JSON.stringify({ ...validPayload, honeypot: 'filled' }));
     assert.equal(response.status, 200);
@@ -211,10 +240,128 @@ describe('contact api', () => {
     const consentLog = await readFile(config.consentLogPath, 'utf8');
     assert.deepEqual(JSON.parse(consentLog.trim()), {
       request_id: '00000000-0000-4000-8000-000000000001',
+      source: 'stalarvision',
       consent_version: '2026-08-23',
       consent_at: '2026-08-24T10:00:00.000Z',
       received_at: '2026-08-24T10:00:00.000Z',
     });
+  });
+
+  it('sends normalized StalarVision payload', async () => {
+    const response = await postJson(baseUrl, JSON.stringify(validPayload));
+    assert.equal(response.status, 201);
+    assert.deepEqual(sentMessages[0], {
+      requestId: '00000000-0000-4000-8000-000000000001',
+      source: 'stalarvision',
+      receivedAt: '2026-08-24T10:00:00.000Z',
+      consentAt: '2026-08-24T10:00:00.000Z',
+      consentVersion: '2026-08-23',
+      name: 'Станислав',
+      contact: 'client@example.test',
+      category: 'Новый сайт / первый релиз',
+      message: 'Нужно обсудить первый этап проекта.',
+    });
+    assert.equal('projectType' in sentMessages[0], false);
+    assert.equal('project' in sentMessages[0], false);
+    assert.equal('matterType' in sentMessages[0], false);
+  });
+
+  it('accepts StalarLegal payload', async () => {
+    const response = await postJson(baseUrl, JSON.stringify(validLegalPayload));
+    assert.equal(response.status, 201);
+    assert.deepEqual(await response.json(), {
+      ok: true,
+      requestId: '00000000-0000-4000-8000-000000000001',
+    });
+    assert.deepEqual(sentMessages[0], {
+      requestId: '00000000-0000-4000-8000-000000000001',
+      source: 'stalarlegal',
+      receivedAt: '2026-08-24T10:00:00.000Z',
+      consentAt: '2026-08-24T10:00:00.000Z',
+      consentVersion: '2026-08-31',
+      name: 'Иван',
+      contact: 'legal-client@example.test',
+      category: 'IT-спор',
+      message: 'Нужно разобрать спор по цифровому продукту.',
+    });
+  });
+
+  it('rejects wrong StalarVision consent version', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validPayload, consentVersion: '2026-08-31' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_consent' });
+  });
+
+  it('rejects wrong StalarLegal consent version', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validLegalPayload, consentVersion: '2026-08-23' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_consent' });
+  });
+
+  it('rejects StalarVision payload without projectType', async () => {
+    const { projectType, ...payloadWithoutProjectType } = validPayload;
+    const response = await postJson(baseUrl, JSON.stringify(payloadWithoutProjectType));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarVision payload without project', async () => {
+    const { project, ...payloadWithoutProject } = validPayload;
+    const response = await postJson(baseUrl, JSON.stringify(payloadWithoutProject));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarLegal-only schema as StalarVision payload', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validLegalPayload, source: 'stalarvision' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarLegal payload with unknown matterType', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validLegalPayload, matterType: 'Новый сайт' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarLegal payload without matterType', async () => {
+    const { matterType, ...payloadWithoutMatterType } = validLegalPayload;
+    const response = await postJson(baseUrl, JSON.stringify(payloadWithoutMatterType));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarLegal payload without message', async () => {
+    const { message, ...payloadWithoutMessage } = validLegalPayload;
+    const response = await postJson(baseUrl, JSON.stringify(payloadWithoutMessage));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarLegal message over 3000 characters', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validLegalPayload, message: 'x'.repeat(3001) }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('rejects StalarVision-only schema as StalarLegal payload', async () => {
+    const response = await postJson(baseUrl, JSON.stringify({ ...validPayload, source: 'stalarlegal' }));
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, error: 'invalid_request' });
+  });
+
+  it('does not store user payload in consent log', async () => {
+    const response = await postJson(baseUrl, JSON.stringify(validLegalPayload));
+    assert.equal(response.status, 201);
+
+    const consentLog = await readFile(config.consentLogPath, 'utf8');
+    const record = JSON.parse(consentLog.trim());
+    assert.equal(record.source, 'stalarlegal');
+    assert.equal('name' in record, false);
+    assert.equal('contact' in record, false);
+    assert.equal('category' in record, false);
+    assert.equal('message' in record, false);
+    assert.equal('honeypot' in record, false);
   });
 
   it('does not write consent log when mail sending fails', async () => {
@@ -249,5 +396,67 @@ describe('contact api', () => {
     assert.equal(response.status, 429);
     assert.equal(response.headers.get('retry-after'), '900');
     assert.deepEqual(await response.json(), { ok: false, error: 'rate_limited' });
+  });
+
+  it('uses independent rate-limit buckets per source', async () => {
+    for (let index = 0; index < 5; index += 1) {
+      const response = await postJson(baseUrl, JSON.stringify(validPayload));
+      assert.equal(response.status, 201);
+    }
+
+    const legalResponse = await postJson(baseUrl, JSON.stringify(validLegalPayload));
+    assert.equal(legalResponse.status, 201);
+  });
+});
+
+describe('contact email builder', () => {
+  const config = baseConfig('./data/consent-log.jsonl');
+  const baseMessage = {
+    requestId: 'request-1',
+    source: 'stalarvision',
+    receivedAt: '2026-08-24T10:00:00.000Z',
+    consentAt: '2026-08-24T10:00:00.000Z',
+    consentVersion: '2026-08-23',
+    name: 'Станислав',
+    contact: 'client@example.test',
+    category: 'Новый сайт / первый релиз',
+    message: 'Описание проекта.',
+  };
+
+  it('builds StalarVision email subject and labels', () => {
+    const email = buildContactEmail({ config, message: baseMessage });
+    assert.equal(email.subject, 'Новое обращение с stalarvision.ru — request-1');
+    assert.match(email.text, /Источник: StalarVision/);
+    assert.match(email.text, /Тип проекта: Новый сайт \/ первый релиз/);
+    assert.match(email.text, /Описание:\nОписание проекта\./);
+  });
+
+  it('builds StalarLegal email subject and labels', () => {
+    const email = buildContactEmail({
+      config,
+      message: {
+        ...baseMessage,
+        source: 'stalarlegal',
+        consentVersion: '2026-08-31',
+        category: 'IT-договор',
+        message: 'Описание ситуации.',
+      },
+    });
+    assert.equal(email.subject, 'Новое обращение StalarLegal — request-1');
+    assert.match(email.text, /Источник: StalarLegal/);
+    assert.match(email.text, /Характер обращения: IT-договор/);
+    assert.match(email.text, /Описание ситуации:\nОписание ситуации\./);
+  });
+
+  it('uses safe email contact as replyTo', () => {
+    const email = buildContactEmail({ config, message: baseMessage });
+    assert.equal(email.replyTo, 'client@example.test');
+  });
+
+  it('does not use Telegram or phone contact as replyTo', () => {
+    const telegramEmail = buildContactEmail({ config, message: { ...baseMessage, contact: '@stalar' } });
+    const phoneEmail = buildContactEmail({ config, message: { ...baseMessage, contact: '+7 999 000-00-00' } });
+    assert.equal('replyTo' in telegramEmail, false);
+    assert.equal('replyTo' in phoneEmail, false);
   });
 });

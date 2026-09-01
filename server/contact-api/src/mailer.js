@@ -28,24 +28,34 @@ export function createMailer(config) {
 }
 
 export function buildContactEmail({ config, message }) {
+  const isStalarLegal = message.source === 'stalarlegal';
+  const subject =
+    isStalarLegal
+      ? `Новое обращение StalarLegal — ${message.requestId}`
+      : `Новое обращение с stalarvision.ru — ${message.requestId}`;
+  const sourceLabel = isStalarLegal ? 'StalarLegal' : 'StalarVision';
+  const categoryLabel = isStalarLegal ? 'Характер обращения' : 'Тип проекта';
+  const messageLabel = isStalarLegal ? 'Описание ситуации' : 'Описание';
+
   const text = [
     `request_id: ${message.requestId}`,
     `received_at: ${message.receivedAt}`,
     `consent_at: ${message.consentAt}`,
     `consent_version: ${message.consentVersion}`,
     '',
+    `Источник: ${sourceLabel}`,
     `Имя: ${message.name}`,
     `Контакт: ${message.contact}`,
-    `Тип проекта: ${message.projectType}`,
+    `${categoryLabel}: ${message.category}`,
     '',
-    'Описание:',
-    message.project,
+    `${messageLabel}:`,
+    message.message,
   ].join('\n');
 
   const mail = {
     from: config.contact.from,
     to: config.contact.to,
-    subject: `Новое обращение с stalarvision.ru — ${message.requestId}`,
+    subject,
     text,
   };
 

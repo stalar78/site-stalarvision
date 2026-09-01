@@ -1,8 +1,17 @@
-# StalarVision Contact API
+# Shared Contact API
 
-Минимальный собственный backend для будущей контактной формы StalarVision.
+Минимальный backend для контактных форм StalarVision и StalarLegal.
 
-Stage B1 подготавливает локальный API, но frontend и Nginx ещё не подключены. Проверка выполняется через `curl` или тесты. Секреты нельзя коммитить в репозиторий.
+API остаётся одним локальным сервисом. Он принимает только явный `source` из allowlist:
+
+```text
+stalarvision
+stalarlegal
+```
+
+`source` используется как routing metadata для выбора схемы, версии согласия, email-представления и rate-limit bucket. Это не security boundary.
+
+Секреты нельзя коммитить в репозиторий.
 
 ## Адрес
 
@@ -12,10 +21,9 @@ API слушает только локальный интерфейс:
 127.0.0.1:8010
 ```
 
-Backend нельзя выставлять напрямую наружу. В Stage B1 используется локальный bind и `TRUST_PROXY=false`.
-При подключении к Nginx в Stage B2 значение `TRUST_PROXY` будет изменено осознанно, вместе с настройкой доверенного reverse proxy.
+Backend нельзя выставлять напрямую наружу. Публичный доступ должен идти только через осознанно настроенный reverse proxy. Этот этап не добавляет CORS, публичный bind или новую deployment topology.
 
-Планируемый endpoint после настройки Nginx:
+Endpoints:
 
 ```text
 POST /api/contact
@@ -34,41 +42,142 @@ TRUST_PROXY=false
 SMTP_HOST=smtp.beget.com
 SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_USER=info@stalarvision.ru
+SMTP_USER=info@example.test
 SMTP_PASSWORD=replace-with-secret
 
-CONTACT_FROM=info@stalarvision.ru
-CONTACT_TO=info@stalarvision.ru
+CONTACT_FROM=info@example.test
+CONTACT_TO=info@example.test
 
 CONSENT_LOG_PATH=./data/consent-log.jsonl
 ```
 
 `SMTP_PASSWORD` должен приходить только из environment variables. Не записывайте реальные пароли в git, README, ecosystem config или frontend.
 
-## Consent Version
+`CONTACT_FROM` и `CONTACT_TO` остаются общими для сервиса. Отдельные SMTP-системы для сайтов не добавлены.
 
-Backend использует собственную server-side константу:
+## Consent Versions
 
-```text
-CONSENT_PERSONAL_DATA_VERSION=2026-08-23
+Backend использует server-side mapping:
+
+```js
+{
+  stalarvision: '2026-08-23',
+  stalarlegal: '2026-08-31',
+}
 ```
 
-При изменении текста согласия нужно синхронно обновить frontend-константу в `src/data/legal.ts` и backend-константу в `server/contact-api/src/config.js`.
+Frontend обязан передавать свою версию согласия, но backend не полагается на frontend-константы при проверке.
+
+## Payload: StalarVision
+
+```json
+{
+  "source": "stalarvision",
+  "name": "Иван",
+  "contact": "ivan@example.com",
+  "projectType": "Новый сайт / первый релиз",
+  "project": "Нужно обсудить первый этап проекта.",
+  "consent": true,
+  "consentVersion": "2026-08-23",
+  "honeypot": ""
+}
+```
+
+Limits:
+
+```text
+name <= 80
+contact <= 120
+projectType <= 120
+project <= 2000
+```
+
+## Payload: StalarLegal
+
+```json
+{
+  "source": "stalarlegal",
+  "name": "Иван",
+  "contact": "ivan@example.com",
+  "matterType": "IT-договор",
+  "message": "Нужно разобрать договор по цифровому продукту.",
+  "consent": true,
+  "consentVersion": "2026-08-31",
+  "honeypot": ""
+}
+```
+
+Allowed `matterType` values:
+
+```text
+IT-договор
+Претензионная работа
+IT-спор
+Представительство
+Контрольные и надзорные органы
+Legal Engineering
+Другое
+```
+
+Limits:
+
+```text
+name <= 80
+contact <= 120
+message <= 3000
+```
+
+## Response Contract
+
+Successful real request:
+
+```json
+{"ok":true,"requestId":"..."}
+```
+
+Honeypot request returns neutral success without mail or consent log:
+
+```json
+{"ok":true}
+```
+
+Invalid request returns `400`. Invalid consent returns:
+
+```json
+{"ok":false,"error":"invalid_consent"}
+```
+
+Oversized body returns `413`, rate limit returns `429`, processing failure returns `500`. Responses do not echo user payload, stack traces or SMTP details.
 
 ## Consent Log
 
-После успешной отправки email API добавляет одну JSON Lines запись в `CONSENT_LOG_PATH`:
+After successful email delivery API appends one JSON Lines record to `CONSENT_LOG_PATH`:
 
 ```json
 {
   "request_id": "...",
+  "source": "stalarvision",
   "consent_version": "2026-08-23",
   "consent_at": "...",
   "received_at": "..."
 }
 ```
 
-В consent log не записываются имя, контакт, текст обращения, honeypot, User-Agent, Referer или IP.
+Old historical records may not contain `source`.
+
+The consent log must not contain name, contact, category, message, honeypot, IP, User-Agent or Referer.
+
+## Rate Limit
+
+Valid requests are limited to 5 requests per 15 minutes. The bucket is derived from:
+
+```text
+source + client key
+```
+
+This keeps StalarVision and StalarLegal from consuming each other's quota for the same client key. The derived key is not logged.
+
+`TRUST_PROXY` semantics remain unchanged.
 
 ## Локальный запуск
 
@@ -80,8 +189,8 @@ npm install
 CONTACT_API_HOST=127.0.0.1 CONTACT_API_PORT=8010 \
 TRUST_PROXY=false \
 SMTP_HOST=smtp.beget.com SMTP_PORT=465 SMTP_SECURE=true \
-SMTP_USER=info@stalarvision.ru SMTP_PASSWORD=replace-with-secret \
-CONTACT_FROM=info@stalarvision.ru CONTACT_TO=info@stalarvision.ru \
+SMTP_USER=info@example.test SMTP_PASSWORD=replace-with-secret \
+CONTACT_FROM=info@example.test CONTACT_TO=info@example.test \
 CONSENT_LOG_PATH=./data/consent-log.jsonl \
 npm start
 ```
@@ -92,40 +201,17 @@ npm start
 curl -i http://127.0.0.1:8010/health
 ```
 
-Ожидаемый ответ:
+Expected:
 
 ```json
 {"status":"ok"}
 ```
 
-## Contact Request
-
-```bash
-curl -i http://127.0.0.1:8010/api/contact \
-  -H 'Content-Type: application/json' \
-  --data '{
-    "name": "Иван",
-    "contact": "ivan@example.com",
-    "projectType": "Новый сайт / первый релиз",
-    "project": "Нужно обсудить первый этап проекта.",
-    "consent": true,
-    "consentVersion": "2026-08-23",
-    "honeypot": ""
-  }'
-```
-
-Успешный ответ:
-
-```json
-{"ok":true,"requestId":"..."}
-```
-
 ## PM2
 
 Файл `ecosystem.config.cjs` содержит только безопасные параметры процесса. Секреты SMTP нужно передавать через окружение сервера или PM2 без записи в репозиторий.
-PM2 запускает `src/index.js` в `fork` mode с `instances: 1`, чтобы локальный HTTP server корректно слушал `127.0.0.1:8010`.
 
-Пример:
+PM2 запускает `src/index.js` в `fork` mode с `instances: 1`, чтобы локальный HTTP server корректно слушал `127.0.0.1:8010`.
 
 ```bash
 cd server/contact-api
