@@ -1,9 +1,27 @@
+export const CONTACT_SOURCES = {
+  stalarvision: 'stalarvision',
+  stalarlegal: 'stalarlegal',
+};
+
+export const STALARLEGAL_MATTER_TYPES = [
+  'IT-договор',
+  'Претензионная работа',
+  'IT-спор',
+  'Представительство',
+  'Контрольные и надзорные органы',
+  'Legal Engineering',
+  'Другое',
+];
+
 const MAX_LENGTHS = {
   name: 80,
   contact: 120,
-  projectType: 120,
-  project: 2000,
+  stalarvisionCategory: 120,
+  stalarvisionMessage: 2000,
+  stalarlegalMessage: 3000,
 };
+
+const STALARLEGAL_MATTER_TYPE_SET = new Set(STALARLEGAL_MATTER_TYPES);
 
 const isString = (value) => typeof value === 'string';
 const charLength = (value) => [...value].length;
@@ -15,43 +33,88 @@ const isWithinLength = (value, min, max) => {
   return length >= min && length <= max;
 };
 
-export function validateContactPayload(payload, expectedConsentVersion) {
-  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
-    return { ok: false, error: 'invalid_request' };
-  }
-
-  const honeypot = isString(payload.honeypot) ? payload.honeypot.trim() : '';
-
-  if (honeypot) {
-    return { ok: true, spam: true };
-  }
-
+const validateCommonFields = (payload) => {
   const name = normalizeText(payload.name);
   const contact = normalizeText(payload.contact);
-  const projectType = normalizeText(payload.projectType);
-  const project = normalizeText(payload.project);
 
   if (
     !isWithinLength(name, 1, MAX_LENGTHS.name) ||
     !isWithinLength(contact, 1, MAX_LENGTHS.contact) ||
-    !isWithinLength(projectType, 1, MAX_LENGTHS.projectType) ||
-    !isWithinLength(project, 1, MAX_LENGTHS.project) ||
     payload.consent !== true
   ) {
+    return null;
+  }
+
+  return { name, contact };
+};
+
+const validateStalarVisionFields = (payload) => {
+  const category = normalizeText(payload.projectType);
+  const message = normalizeText(payload.project);
+
+  if (
+    !isWithinLength(category, 1, MAX_LENGTHS.stalarvisionCategory) ||
+    !isWithinLength(message, 1, MAX_LENGTHS.stalarvisionMessage)
+  ) {
+    return null;
+  }
+
+  return { category, message };
+};
+
+const validateStalarLegalFields = (payload) => {
+  const category = normalizeText(payload.matterType);
+  const message = normalizeText(payload.message);
+
+  if (
+    !STALARLEGAL_MATTER_TYPE_SET.has(category) ||
+    !isWithinLength(message, 1, MAX_LENGTHS.stalarlegalMessage)
+  ) {
+    return null;
+  }
+
+  return { category, message };
+};
+
+export function validateContactPayload(payload, expectedConsentVersions) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return { ok: false, error: 'invalid_request' };
   }
 
-  if (payload.consentVersion !== expectedConsentVersion) {
+  const source = normalizeText(payload.source);
+
+  if (!Object.hasOwn(CONTACT_SOURCES, source)) {
+    return { ok: false, error: 'invalid_request' };
+  }
+
+  const honeypot = normalizeText(payload.honeypot);
+
+  if (honeypot) {
+    return { ok: true, spam: true, source };
+  }
+
+  const commonFields = validateCommonFields(payload);
+  const sourceFields =
+    source === CONTACT_SOURCES.stalarvision
+      ? validateStalarVisionFields(payload)
+      : validateStalarLegalFields(payload);
+
+  if (!commonFields || !sourceFields) {
+    return { ok: false, error: 'invalid_request' };
+  }
+
+  if (payload.consentVersion !== expectedConsentVersions[source]) {
     return { ok: false, error: 'invalid_consent' };
   }
 
   return {
     ok: true,
     data: {
-      name,
-      contact,
-      projectType,
-      project,
+      source,
+      name: commonFields.name,
+      contact: commonFields.contact,
+      category: sourceFields.category,
+      message: sourceFields.message,
       consentVersion: payload.consentVersion,
     },
   };

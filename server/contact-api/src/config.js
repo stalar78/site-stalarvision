@@ -1,4 +1,7 @@
-export const CONSENT_PERSONAL_DATA_VERSION = '2026-08-23';
+export const CONSENT_PERSONAL_DATA_VERSIONS = {
+  stalarvision: '2026-08-23',
+  stalarlegal: '2026-08-31',
+};
 
 const REQUIRED_ENV_KEYS = [
   'SMTP_HOST',
@@ -64,7 +67,7 @@ export function loadConfig(env = process.env) {
       to: env.CONTACT_TO,
     },
     consentLogPath: env.CONSENT_LOG_PATH,
-    consentVersion: CONSENT_PERSONAL_DATA_VERSION,
+    consentPersonalDataVersions: CONSENT_PERSONAL_DATA_VERSIONS,
     bodyLimitBytes: 16 * 1024,
     rateLimit: {
       limit: 5,

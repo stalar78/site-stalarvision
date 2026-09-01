@@ -25,6 +25,8 @@ type ContactProps = {
   defaultProjectType?: string;
 };
 
+const CONTACT_FORM_SOURCE = 'stalarvision';
+
 const getInitialFormValues = (defaultProjectType?: string): FormValues => ({
   name: '',
   contact: '',
@@ -170,6 +172,7 @@ export function Contact({ defaultProjectType }: ContactProps) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            source: CONTACT_FORM_SOURCE,
             name: formValues.name.trim(),
             contact: formValues.contact.trim(),
             projectType: formValues.projectType,
