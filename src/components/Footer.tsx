@@ -19,8 +19,18 @@ export const Footer = () => {
                 className="h-auto w-full max-w-[12rem] object-contain drop-shadow-[0_4px_12px_rgba(15,23,42,0.38)] sm:max-w-[14rem]"
               />
             </div>
-            <p className="mb-5 max-w-sm text-sm leading-relaxed text-slate-400 sm:text-[1.01rem]">
+            <p className="mb-4 max-w-sm text-sm leading-relaxed text-slate-400 sm:text-[1.01rem]">
               {footerData.description}
+            </p>
+            <p className="mb-5 max-w-md text-sm leading-relaxed text-slate-500">
+              Юридическое направление —{' '}
+              <a
+                href="https://stalarlegal.ru/"
+                className="font-medium text-slate-300 transition-colors hover:text-indigo-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/70"
+              >
+                StalarLegal: IT-договоры, цифровые споры и Legal Engineering
+              </a>
+              .
             </p>
             <div className="mb-5 space-y-1 text-sm text-slate-500">
               <p>{footerData.legalName}</p>
