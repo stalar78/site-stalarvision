@@ -49,7 +49,7 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08 + 0.12 }}
-              className="overflow-hidden rounded-3xl border border-cyan-300/18 bg-[radial-gradient(circle_at_14%_0%,rgba(34,211,238,0.1),transparent_34%),linear-gradient(135deg,rgba(15,23,42,0.82),rgba(2,6,23,0.92))] p-5 sm:p-6"
+              className={`overflow-hidden rounded-3xl border border-cyan-300/18 bg-[radial-gradient(circle_at_14%_0%,rgba(34,211,238,0.1),transparent_34%),linear-gradient(135deg,rgba(15,23,42,0.82),rgba(2,6,23,0.92))] p-5 sm:p-6 ${index === 0 ? 'lg:col-span-2' : ''}`}
             >
               <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_7rem] lg:items-start">
                 <div>
