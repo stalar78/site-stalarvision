@@ -58,6 +58,7 @@ const organizationEntity: JsonLdObject = {
     profile.contacts.max.href,
     profile.contacts.vk.href,
     profile.contacts.workspace.href,
+    profile.contacts.pravoved.href,
   ],
   founder: {
     '@id': personId,
@@ -78,6 +79,7 @@ const personEntity: JsonLdObject = {
     profile.contacts.telegram.href,
     profile.contacts.vk.href,
     profile.contacts.workspace.href,
+    profile.contacts.pravoved.href,
   ],
 };
 
