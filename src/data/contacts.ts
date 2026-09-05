@@ -5,6 +5,7 @@ import {
   MessageCircle,
   MessageSquare,
   Phone,
+  Scale,
   Send,
   type LucideIcon,
 } from 'lucide-react';
@@ -119,6 +120,12 @@ export const footerSocialLinks = [
     label: profile.contacts.workspace.label,
     href: profile.contacts.workspace.href,
     icon: WorkspaceIcon,
+    status: 'approved-link',
+  },
+  {
+    label: profile.contacts.pravoved.label,
+    href: profile.contacts.pravoved.href,
+    icon: Scale,
     status: 'approved-link',
   },
 ] satisfies IconLink[];
@@ -276,6 +283,13 @@ export const contactExternalProfiles = [
     value: profile.contacts.workspace.value,
     href: profile.contacts.workspace.href,
     icon: WorkspaceIcon,
+    status: 'approved-link',
+  },
+  {
+    label: profile.contacts.pravoved.label,
+    value: profile.contacts.pravoved.value,
+    href: profile.contacts.pravoved.href,
+    icon: Scale,
     status: 'approved-link',
   },
 ] satisfies ContactMethod[];

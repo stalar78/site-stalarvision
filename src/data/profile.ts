@@ -93,6 +93,11 @@ export const profile = {
       value: 'Workspace',
       href: 'https://workspace.ru/contractors/stalar-vision/',
     },
+    pravoved: {
+      label: 'Pravoved.ru',
+      value: 'Профиль юриста на Pravoved.ru',
+      href: 'https://pravoved.ru/lawyer/4530411/',
+    },
   },
   availability: {
     label: 'Открыт к новым проектам',
