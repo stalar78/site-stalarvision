@@ -31,4 +31,6 @@ dist-ssr
 !.env.example
 server/contact-api/data/
 
+# Local credentials and SSH notes (never commit)
 SSH.docx
+pass.txt
